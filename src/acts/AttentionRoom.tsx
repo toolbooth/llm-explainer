@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { displayPiece, type Engine, type TokenPiece } from "../lib/engine";
-import { loadNano, mockNano, type NanoHandle } from "../lib/nanoEngine";
+import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { diagnoseHeads } from "../nano/diagnose";
 import type { ForwardResult } from "../nano/model";
 
@@ -17,10 +17,9 @@ export default function AttentionRoom(props: { engine: Engine }) {
   const [nanoReady, setNanoReady] = useState(false);
   const nanoRef = useRef<NanoHandle | null>(null);
 
-  // the nano model is tiny (7.5MB) — load automatically
+  // the nano model is tiny (7.5MB) — load automatically, shared across acts
   useEffect(() => {
-    const mock = new URLSearchParams(location.search).has("mockModel");
-    (mock ? Promise.resolve(mockNano()) : loadNano(setLoadPct)).then((h) => {
+    getNano(setLoadPct).then((h) => {
       nanoRef.current = h;
       setNanoReady(true);
     });

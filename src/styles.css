@@ -109,3 +109,50 @@ body {
 .diag { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.1rem; font-size: 0.85rem; }
 .diag-btn { background: rgba(124, 140, 248, 0.12); border: 1px solid var(--border); color: var(--muted); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.8rem; cursor: pointer; }
 .diag-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* ── Act 2: word map ── */
+
+.wordmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.9rem; margin-top: 1.1rem; }
+.wm-card { background: #0c0f18; border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; }
+.wm-token { font-family: ui-monospace, monospace; font-weight: 800; color: var(--warm); margin-bottom: 0.6rem; }
+.wm-row { display: grid; grid-template-columns: minmax(52px, auto) 1fr 34px; align-items: center; gap: 0.45rem; margin-bottom: 0.28rem; }
+.wm-label { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--text); white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.wm-track { background: #12162280; border-radius: 4px; height: 9px; overflow: hidden; }
+.wm-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #a5b0ff); border-radius: 4px; }
+.wm-sim { font-size: 0.68rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+
+/* ── Act 5: the loop ── */
+
+.loop-out { background: #0c0f18; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; margin-top: 1rem; min-height: 5.5rem; line-height: 2.1; font-size: 1rem; }
+.loop-prompt { color: var(--dim); }
+.loop-tok { position: relative; border-radius: 5px; padding: 0.1rem 0.15rem; cursor: default; white-space: pre-wrap; }
+.loop-tok.conf-high { background: rgba(124, 140, 248, 0.28); }
+.loop-tok.conf-mid { background: rgba(139, 121, 232, 0.22); }
+.loop-tok.conf-low { background: rgba(240, 168, 96, 0.28); }
+.loop-tok.demo { font-size: 0.8rem; margin-right: 0.5rem; padding: 0.15rem 0.45rem; }
+.cursor-blink { animation: blink 0.9s steps(1) infinite; color: var(--accent); }
+@keyframes blink { 50% { opacity: 0; } }
+
+.loop-pop { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #171c2b; border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.7rem; z-index: 30; width: 230px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); line-height: 1.4; }
+.pop-row { display: grid; grid-template-columns: 64px 1fr 30px; gap: 0.4rem; align-items: center; margin-bottom: 3px; }
+.pop-row.picked .pop-label { color: var(--warm); font-weight: 800; }
+.pop-label { font-family: ui-monospace, monospace; font-size: 0.72rem; color: var(--muted); white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.pop-track { background: #0c0f18; border-radius: 3px; height: 7px; overflow: hidden; display: block; }
+.pop-fill { display: block; height: 100%; background: var(--accent); }
+.pop-row.picked .pop-fill { background: var(--warm); }
+.pop-p { font-size: 0.66rem; color: var(--dim); text-align: right; font-variant-numeric: tabular-nums; }
+
+.loop-controls { display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
+.loop-temp { margin-top: 0; flex: 1; min-width: 220px; }
+.legend { margin-top: 1rem; font-size: 0.85rem; color: var(--muted); font-family: -apple-system, system-ui, sans-serif; }
+
+/* ── Act 6: scale ── */
+
+.prose h2 { color: #fff; font-size: 1.5rem; margin: 2.6rem 0 1rem; }
+.scale { display: flex; flex-direction: column; gap: 0.7rem; margin: 1.4rem 0 0.6rem; font-family: -apple-system, system-ui, sans-serif; }
+.scale-row { display: grid; grid-template-columns: 170px 1fr; gap: 0.3rem 0.8rem; align-items: center; }
+.scale-label { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+.scale-track { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; height: 18px; overflow: hidden; }
+.scale-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--warm)); border-radius: 6px; min-width: 6px; }
+.scale-params { grid-column: 2; font-size: 0.76rem; color: var(--dim); }
+.scale-note { font-size: 0.85rem; }

@@ -92,7 +92,7 @@ function mockEngine(): Engine {
       return text
         .split(/(\s+)/)
         .filter((s) => s.trim())
-        .map((w, i) => ({ text: (i > 0 ? "Ġ" : "") + w, id: 1000 + (w.length * 37 + i) }));
+        .map((w, i) => ({ text: (i > 0 ? "Ġ" : "") + w, id: (w.length * 37 + i * 13) % 180 }));
     },
     async lastLogits(text) {
       const logits = new Float32Array(words.length);

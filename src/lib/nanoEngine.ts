@@ -5,6 +5,8 @@ import { parseSafetensors } from "../nano/safetensors";
 export interface NanoHandle {
   forward(ids: number[]): ReturnType<NanoGPT["forward"]>;
   meta: NanoMeta;
+  /** Raw token-embedding table [vocab, hidden] — Act 2's map of meaning. */
+  wte(): Float32Array;
 }
 
 async function fetchWithProgress(url: string, onPct: (pct: number) => void): Promise<ArrayBuffer> {
@@ -31,20 +33,43 @@ async function fetchWithProgress(url: string, onPct: (pct: number) => void): Pro
   return buf.buffer;
 }
 
-export async function loadNano(onPct: (pct: number) => void): Promise<NanoHandle> {
+async function loadNano(onPct: (pct: number) => void): Promise<NanoHandle> {
   const [meta, weights] = await Promise.all([
     fetch("/weights/meta.json").then((r) => r.json() as Promise<NanoMeta>),
     fetchWithProgress("/weights/tinystories-1m.safetensors", onPct),
   ]);
-  const model = new NanoGPT(parseSafetensors(weights), meta);
-  return { forward: (ids) => model.forward(ids), meta };
+  const tensors = parseSafetensors(weights);
+  const model = new NanoGPT(tensors, meta);
+  return {
+    forward: (ids) => model.forward(ids),
+    meta,
+    wte: () => tensors.get("transformer.wte.weight")!.data,
+  };
+}
+
+/**
+ * Shared singleton: Acts 2, 3 and 5 dissect the same loaded brain. The first
+ * caller triggers the download; later callers resolve instantly. Progress
+ * callbacks from every caller are fanned the same updates.
+ */
+let nanoPromise: Promise<NanoHandle> | null = null;
+const progressListeners = new Set<(pct: number) => void>();
+
+export function getNano(onPct?: (pct: number) => void): Promise<NanoHandle> {
+  if (onPct) progressListeners.add(onPct);
+  nanoPromise ??= new URLSearchParams(location.search).has("mockModel")
+    ? Promise.resolve(mockNano())
+    : loadNano((pct) => progressListeners.forEach((fn) => fn(pct)));
+  return nanoPromise;
 }
 
 /** Deterministic mock for CI: lower-triangular decaying attention. */
 export function mockNano(): NanoHandle {
   const meta: NanoMeta = { hidden: 64, layers: 8, heads: 16, vocab: 50257, maxPos: 2048, lnEps: 1e-5 };
+  const fakeWte = new Float32Array(200 * 64).map((_, i) => Math.sin(i * 0.7) * ((i % 64) + 1));
   return {
     meta,
+    wte: () => fakeWte,
     forward(ids) {
       const seq = ids.length;
       const attentions: Float32Array[][] = [];
