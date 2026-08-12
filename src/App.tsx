@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { createEngine } from "./lib/engine";
 import Chopper from "./acts/Chopper";
+import AttentionRoom from "./acts/AttentionRoom";
 import Gamble from "./acts/Gamble";
 
 export default function App() {
@@ -41,9 +42,20 @@ export default function App() {
           you'd stare at three jigsaw pieces and get asked how much the puzzle weighs.
         </p>
         <p className="placeholder-note">
-          [Acts 2 &amp; 3 — words as numbers, and the attention room — are being built. This is a
-          preview of the full essay.]
+          [Act 2 — words as numbers — is being built. This is a preview of the full essay.]
         </p>
+        <p>
+          Once your words are chunks, the model has to work out how they relate. It does this with
+          a mechanism called <em>attention</em>: as it reads each token, it decides how much to
+          look back at every token before it. Below is a <strong>complete language model</strong> —
+          all 7.5 megabytes of it, smaller than a selfie — dissected live. You are looking at its
+          actual attention weights, not an illustration.
+        </p>
+      </section>
+
+      <AttentionRoom engine={engine} />
+
+      <section className="prose">
         <p>
           Skip to the end of the pipeline: after all that reading and weighing, how does the model
           decide what to <em>say</em>? Here is the honest answer — it rolls dice.
