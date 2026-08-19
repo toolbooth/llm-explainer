@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you reference this interactive essay or its hand-rolled in-browser GPT-Neo implementation, please cite it as below."
+title: "Inside the Machine: An Interactive Guide to How LLMs Actually Think"
+type: software
+authors:
+  - family-names: Shen
+    given-names: Shangyan
+    email: shenshangyan2001@gmail.com
+repository-code: "https://github.com/toolbooth/llm-explainer"
+abstract: >-
+  A long-form interactive essay in which the reader types their own sentence
+  and watches a real language model, running entirely in the browser, tokenize
+  it, embed it, attend over it, and sample the next token. Includes a pure
+  TypeScript implementation of the GPT-Neo forward pass (TinyStories-1M,
+  verified token-exact against the reference implementation), a live attention
+  explorer with automatic feature-head discovery, and a bilingual (EN/中文)
+  narrative aimed at non-engineers.
+keywords:
+  - large language models
+  - interactive explanation
+  - visualization
+  - machine learning education
+  - transformers
+  - explorable explanations
+# TODO before public launch:
+#   - add `doi` from Zenodo after linking the repo and cutting a release
+#   - add `url` once the essay's domain is live
+#   - add `preferred-citation` pointing at the companion paper when it exists
+#   - add `license` after OSS approval clears
