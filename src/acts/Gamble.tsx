@@ -12,6 +12,7 @@ export default function Gamble(props: { engine: Engine }) {
   const [logits, setLogits] = useState<Float32Array | null>(null);
   const [bars, setBars] = useState<Bar[]>([]);
   const [loadPct, setLoadPct] = useState<number | null>(null);
+  const [loadError, setLoadError] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [lastPick, setLastPick] = useState<string | null>(null);
 
@@ -41,10 +42,16 @@ export default function Gamble(props: { engine: Engine }) {
   );
 
   const loadModel = useCallback(async () => {
+    setLoadError(false);
     setLoadPct(0);
-    await props.engine.loadModel(setLoadPct);
-    setLoadPct(null);
-    await think(text);
+    try {
+      await props.engine.loadModel(setLoadPct);
+      await think(text);
+    } catch {
+      setLoadError(true);
+    } finally {
+      setLoadPct(null);
+    }
   }, [props.engine, text, think]);
 
   const onTemp = useCallback(
@@ -78,9 +85,15 @@ export default function Gamble(props: { engine: Engine }) {
           <p className="dim">
             This act runs a real language model in your tab. One download, cached forever.
           </p>
+          {loadError && (
+            <p className="load-error">
+              The download didn't make it — bad connection, or the model CDN is blocked from where
+              you are. Nothing is broken on your end.
+            </p>
+          )}
           {loadPct === null ? (
             <button className="btn" onClick={loadModel}>
-              Wake the model (~80MB, once)
+              {loadError ? "Try again" : "Wake the model (~226MB, once — then cached forever)"}
             </button>
           ) : (
             <div className="progress">
