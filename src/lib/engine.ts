@@ -68,6 +68,11 @@ function realEngine(): Engine {
       if (model) return;
       const { AutoModelForCausalLM } = await import("@huggingface/transformers");
       model = await AutoModelForCausalLM.from_pretrained(MODEL, {
+        // NOTE: q8 on this legacy Xenova repo resolves to model_quantized.onnx
+        // = 225.8MB (fp32 lm_head), not the ~80MB the wake-button copy claims.
+        // The old 81MB decoder_model_merged_quantized.onnx fails session
+        // creation on onnxruntime-web 1.21 (DequantizeLinear). Open decision:
+        // accept 226MB + honest copy, or swap to a modern small model repo.
         dtype: "q8",
         progress_callback: (p: { status?: string; progress?: number }) => {
           if (p.status === "progress" && typeof p.progress === "number") {
