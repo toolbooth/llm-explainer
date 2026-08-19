@@ -153,7 +153,7 @@ export const en: EssayStrings = {
     loadError:
       "The download didn't make it — bad connection, or the model CDN is blocked from where you are. Nothing is broken on your end.",
     tryAgain: "Try again",
-    wakeModel: "Wake the model (~226MB, once — then cached forever)",
+    wakeModel: "Wake the model (~136MB, once — then cached forever)",
     think: "Think",
     tempCareful: "🧊 careful",
     tempChaotic: "🔥 chaotic",

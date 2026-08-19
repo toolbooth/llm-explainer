@@ -35,7 +35,7 @@ describe("essay content tables", () => {
     expect(zh.hero.subtitle).toContain(
       "一个真实的语言模型,活在这个标签页里,被一幕一幕地解剖"
     );
-    expect(zh.act4.wakeModel).toBe("唤醒模型(约 226MB,只此一次,之后永久缓存)");
+    expect(zh.act4.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
     // canonical act titles: 第N幕·<title>
     expect([zh.act1.num, zh.act2.num, zh.act3.num, zh.act4.num, zh.act5.num]).toEqual([
       "第一幕",

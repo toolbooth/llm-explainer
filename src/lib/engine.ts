@@ -18,7 +18,7 @@ export interface Engine {
   modelReady(): boolean;
 }
 
-const MODEL = "Xenova/distilgpt2";
+const MODEL = "onnx-community/SmolLM2-135M-Instruct-ONNX";
 
 /** Ġ/Ċ are byte-BPE markers for space/newline — make them human-visible. */
 export function displayPiece(piece: string): string {
@@ -68,11 +68,9 @@ function realEngine(): Engine {
       if (model) return;
       const { AutoModelForCausalLM } = await import("@huggingface/transformers");
       model = await AutoModelForCausalLM.from_pretrained(MODEL, {
-        // NOTE: q8 on this legacy Xenova repo resolves to model_quantized.onnx
-        // = 225.8MB (fp32 lm_head), not the ~80MB the wake-button copy claims.
-        // The old 81MB decoder_model_merged_quantized.onnx fails session
-        // creation on onnxruntime-web 1.21 (DequantizeLinear). Open decision:
-        // accept 226MB + honest copy, or swap to a modern small model repo.
+        // SmolLM2-135M-Instruct q8: 135.7MB fully-quantized modern export,
+        // verified at default session options; replaced 225.8MB distilgpt2
+        // whose greedy continuations degenerated (2026-08-20 eval).
         dtype: "q8",
         progress_callback: (p: { status?: string; progress?: number }) => {
           if (p.status === "progress" && typeof p.progress === "number") {

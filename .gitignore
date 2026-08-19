@@ -6,3 +6,4 @@ weights-src/pytorch_model.bin
 weights-src/*.json
 weights-src/*.txt
 !weights-src/reference.json
+.claude/

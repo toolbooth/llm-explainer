@@ -102,7 +102,7 @@ export const zh: EssayStrings = {
     gateIntro: "这一幕要在你的标签页里跑一个真正的语言模型。只下载一次,永久缓存。",
     loadError: "下载没能完成——可能是网络不稳,也可能是模型的 CDN 在你所在的网络被挡住了。你这边什么都没坏。",
     tryAgain: "再试一次",
-    wakeModel: "唤醒模型(约 226MB,只此一次,之后永久缓存)",
+    wakeModel: "唤醒模型(约 136MB,只此一次,之后永久缓存)",
     think: "想一想",
     tempCareful: "🧊 谨慎",
     tempChaotic: "🔥 狂野",
