@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { createEngine } from "./lib/engine";
-import { useStrings } from "./content/i18n";
+import { LangToggle, useI18n } from "./content/i18n";
 import Chopper from "./acts/Chopper";
 import WordMap from "./acts/WordMap";
 import AttentionRoom from "./acts/AttentionRoom";
@@ -12,11 +12,14 @@ const SCALE_PCT = [2, 18, 100];
 
 export default function App() {
   const engine = useMemo(() => createEngine(), []);
-  const t = useStrings();
+  const { t } = useI18n();
 
   return (
     <article className="essay">
       <header className="hero">
+        <div className="lang-row">
+          <LangToggle />
+        </div>
         <p className="kicker">{t.hero.kicker}</p>
         <h1>{t.hero.title}</h1>
         <p className="subtitle">{t.hero.subtitle}</p>
