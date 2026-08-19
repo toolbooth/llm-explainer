@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { displayPiece, type Engine } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { nearestNeighbors } from "../nano/neighbors";
+import { useStrings } from "../content/i18n";
 
 interface TokenCard {
   piece: string;
@@ -10,6 +11,7 @@ interface TokenCard {
 }
 
 export default function WordMap(props: { engine: Engine }) {
+  const t = useStrings();
   const [text, setText] = useState("dragon princess forest");
   const [cards, setCards] = useState<TokenCard[]>([]);
   const [ready, setReady] = useState(false);
@@ -63,12 +65,12 @@ export default function WordMap(props: { engine: Engine }) {
   return (
     <div className="widget" id="act-2">
       <div className="widget-head">
-        <span className="act-num">Act 2</span>
-        <span className="widget-title">The Map of Meaning — every word has neighbors</span>
+        <span className="act-num">{t.act2.num}</span>
+        <span className="widget-title">{t.act2.title}</span>
       </div>
 
       {!ready ? (
-        <p className="dim">Loading the dissection model (7.5MB, shared with Act 3)… {loadPct}%</p>
+        <p className="dim">{t.act2.loading(loadPct)}</p>
       ) : (
         <>
           <input
@@ -76,7 +78,7 @@ export default function WordMap(props: { engine: Engine }) {
             value={text}
             onChange={(e) => setText(e.target.value)}
             maxLength={60}
-            placeholder="Type a few words…"
+            placeholder={t.act2.placeholder}
           />
           <div className="wordmap">
             {cards.map((c, i) => (
@@ -99,13 +101,7 @@ export default function WordMap(props: { engine: Engine }) {
         </>
       )}
 
-      <p className="widget-note">
-        These are the nearest neighbors in <em>this</em> model's embedding space — a map of meaning
-        learned entirely from bedtime stories. That's the deepest lesson in this act: “meaning,” to
-        a language model, is just <em>who you live next to</em> — and the neighborhood is decided
-        by the training data. A model raised on children's stories files <em>dragon</em> beside
-        whatever dragons did in those stories. Nothing more mystical than that.
-      </p>
+      <p className="widget-note">{t.act2.note()}</p>
     </div>
   );
 }

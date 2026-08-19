@@ -1,12 +1,14 @@
 import { useCallback, useState } from "react";
 import type { Engine } from "../lib/engine";
 import { sampleFrom, softmaxTopK, type TokenProb } from "../lib/prob";
+import { useStrings } from "../content/i18n";
 
 interface Bar extends TokenProb {
   label: string;
 }
 
 export default function Gamble(props: { engine: Engine }) {
+  const t = useStrings();
   const [text, setText] = useState("The cat sat on the");
   const [temperature, setTemperature] = useState(1.0);
   const [logits, setLogits] = useState<Float32Array | null>(null);
@@ -76,24 +78,17 @@ export default function Gamble(props: { engine: Engine }) {
   return (
     <div className="widget" id="act-4">
       <div className="widget-head">
-        <span className="act-num">Act 4</span>
-        <span className="widget-title">The Gamble — every word is a dice roll</span>
+        <span className="act-num">{t.act4.num}</span>
+        <span className="widget-title">{t.act4.title}</span>
       </div>
 
       {!ready ? (
         <div className="model-gate">
-          <p className="dim">
-            This act runs a real language model in your tab. One download, cached forever.
-          </p>
-          {loadError && (
-            <p className="load-error">
-              The download didn't make it — bad connection, or the model CDN is blocked from where
-              you are. Nothing is broken on your end.
-            </p>
-          )}
+          <p className="dim">{t.act4.gateIntro}</p>
+          {loadError && <p className="load-error">{t.act4.loadError}</p>}
           {loadPct === null ? (
             <button className="btn" onClick={loadModel}>
-              {loadError ? "Try again" : "Wake the model (~226MB, once — then cached forever)"}
+              {loadError ? t.act4.tryAgain : t.act4.wakeModel}
             </button>
           ) : (
             <div className="progress">
@@ -112,7 +107,7 @@ export default function Gamble(props: { engine: Engine }) {
               maxLength={200}
             />
             <button className="btn ghost" disabled={thinking} onClick={() => think(text)}>
-              {thinking ? "…" : "Think"}
+              {thinking ? "…" : t.act4.think}
             </button>
           </div>
 
@@ -131,7 +126,7 @@ export default function Gamble(props: { engine: Engine }) {
               </div>
 
               <div className="temp-row">
-                <span className="temp-label">🧊 careful</span>
+                <span className="temp-label">{t.act4.tempCareful}</span>
                 <input
                   type="range"
                   min={0.1}
@@ -140,18 +135,17 @@ export default function Gamble(props: { engine: Engine }) {
                   value={temperature}
                   onChange={(e) => onTemp(Number(e.target.value))}
                 />
-                <span className="temp-label">🔥 chaotic</span>
+                <span className="temp-label">{t.act4.tempChaotic}</span>
                 <span className="temp-value">T = {temperature.toFixed(2)}</span>
               </div>
 
               <div className="roll-row">
                 <button className="btn" disabled={thinking} onClick={roll}>
-                  🎲 Roll the dice
+                  {t.act4.roll}
                 </button>
                 {lastPick && (
                   <span className="dim">
-                    it picked <strong>{JSON.stringify(lastPick).slice(1, -1)}</strong> — and now
-                    gambles again on what follows
+                    {t.act4.picked(JSON.stringify(lastPick).slice(1, -1))}
                   </span>
                 )}
               </div>
@@ -159,10 +153,7 @@ export default function Gamble(props: { engine: Engine }) {
           )}
         </>
       )}
-      <p className="widget-note">
-        Drag the temperature slider — the bars reshape <em>instantly</em>, because temperature
-        isn't the model thinking harder. It's just how boldly it bets on the same hunches.
-      </p>
+      <p className="widget-note">{t.act4.note()}</p>
     </div>
   );
 }

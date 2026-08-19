@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { displayPiece, type Engine, type TokenPiece } from "../lib/engine";
+import { useStrings } from "../content/i18n";
 
 const PALETTE = ["c1", "c2", "c3", "c4", "c5"];
 
 export default function Chopper(props: { engine: Engine }) {
+  const t = useStrings();
   const [text, setText] = useState("strawberry smoothie, please");
   const [pieces, setPieces] = useState<TokenPiece[] | null>(null);
   const [status, setStatus] = useState<"loading" | "ready">("loading");
@@ -33,19 +35,19 @@ export default function Chopper(props: { engine: Engine }) {
   return (
     <div className="widget" id="act-1">
       <div className="widget-head">
-        <span className="act-num">Act 1</span>
-        <span className="widget-title">The Chopper — try your own words</span>
+        <span className="act-num">{t.act1.num}</span>
+        <span className="widget-title">{t.act1.title}</span>
       </div>
       <input
         className="text-input"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Type anything…"
+        placeholder={t.act1.placeholder}
         maxLength={120}
       />
       <div className="tokens">
         {status === "loading" && !pieces ? (
-          <p className="dim">Loading the tokenizer (~2MB, once)…</p>
+          <p className="dim">{t.act1.loading}</p>
         ) : (
           pieces?.map((p, i) => (
             <span className={`tok ${PALETTE[i % PALETTE.length]}`} key={i}>
@@ -57,24 +59,9 @@ export default function Chopper(props: { engine: Engine }) {
       </div>
       {pieces && (
         <p className="widget-note">
-          {pieces.length} token{pieces.length === 1 ? "" : "s"}.
-          {showsStrawberry && !strawberryWhole && (
-            <>
-              {" "}
-              Notice: <em>strawberry</em> got chopped — the model never sees the word, only the
-              chunks. Your text has {rCount} “r”s, but the model can't count letters it never
-              sees. That's why LLMs famously fail that question.
-            </>
-          )}
-          {strawberryWhole && (
-            <>
-              {" "}
-              Fun fact: here <em>“ strawberry”</em> (with its leading space) is common enough to
-              earn a single token of its own. Now delete everything before it so it starts the
-              text — same word, and watch it shatter into <code>st · raw · berry</code>.
-              Tokenization even depends on <em>where</em> a word sits.
-            </>
-          )}
+          {t.act1.tokenCount(pieces.length)}
+          {showsStrawberry && !strawberryWhole && t.act1.choppedNote(rCount)}
+          {strawberryWhole && t.act1.wholeTokenNote()}
         </p>
       )}
     </div>

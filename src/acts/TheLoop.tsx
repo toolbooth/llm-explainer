@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type Engine } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { sampleFrom, softmaxTopK } from "../lib/prob";
+import { useStrings } from "../content/i18n";
 
 interface Step {
   text: string;
@@ -12,6 +13,7 @@ interface Step {
 const MAX_TOKENS = 30;
 
 export default function TheLoop(props: { engine: Engine }) {
+  const t = useStrings();
   const [prompt, setPrompt] = useState("Once upon a time");
   const [steps, setSteps] = useState<Step[]>([]);
   const [running, setRunning] = useState(false);
@@ -82,12 +84,12 @@ export default function TheLoop(props: { engine: Engine }) {
   return (
     <div className="widget" id="act-5">
       <div className="widget-head">
-        <span className="act-num">Act 5</span>
-        <span className="widget-title">The Loop — watch it write, one gamble at a time</span>
+        <span className="act-num">{t.act5.num}</span>
+        <span className="widget-title">{t.act5.title}</span>
       </div>
 
       {!ready ? (
-        <p className="dim">Loading the dissection model (7.5MB, shared)… {loadPct}%</p>
+        <p className="dim">{t.act5.loading(loadPct)}</p>
       ) : (
         <>
           <div className="gamble-row">
@@ -130,13 +132,13 @@ export default function TheLoop(props: { engine: Engine }) {
 
           <div className="loop-controls">
             <button className="btn" onClick={write}>
-              {running ? "⏸ Stop" : steps.length > 0 ? "▶ Continue" : "▶ Write"}
+              {running ? t.act5.stop : steps.length > 0 ? t.act5.cont : t.act5.write}
             </button>
             <button className="btn ghost" disabled={running} onClick={oneStep}>
-              Step
+              {t.act5.step}
             </button>
             <button className="btn ghost" disabled={running} onClick={reset}>
-              Reset
+              {t.act5.reset}
             </button>
             <div className="temp-row loop-temp">
               <span className="temp-label">🧊</span>
@@ -154,20 +156,15 @@ export default function TheLoop(props: { engine: Engine }) {
           </div>
 
           <p className="legend">
-            <span className="loop-tok conf-high demo">confident bet</span>
-            <span className="loop-tok conf-mid demo">split decision</span>
-            <span className="loop-tok conf-low demo">long shot</span>
-            <span className="dim"> — hover any word to see the dice roll it won.</span>
+            <span className="loop-tok conf-high demo">{t.act5.legendHigh}</span>
+            <span className="loop-tok conf-mid demo">{t.act5.legendMid}</span>
+            <span className="loop-tok conf-low demo">{t.act5.legendLow}</span>
+            <span className="dim">{t.act5.legendHint}</span>
           </p>
         </>
       )}
 
-      <p className="widget-note">
-        This is the same 7.5MB brain you dissected in Acts 2–3, now doing the only thing it knows:
-        forward pass, probability list, dice roll, repeat. There is no plan, no sentence sketched
-        in advance — each word is chosen before the next is even imaginable. Everything an LLM has
-        ever written was written this way.
-      </p>
+      <p className="widget-note">{t.act5.note()}</p>
     </div>
   );
 }

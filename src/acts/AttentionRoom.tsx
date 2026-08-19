@@ -3,10 +3,12 @@ import { displayPiece, type Engine, type TokenPiece } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { diagnoseHeads } from "../nano/diagnose";
 import type { ForwardResult } from "../nano/model";
+import { useStrings } from "../content/i18n";
 
 const DEFAULT_TEXT = "Once upon a time there was a little girl";
 
 export default function AttentionRoom(props: { engine: Engine }) {
+  const t = useStrings();
   const [text, setText] = useState(DEFAULT_TEXT);
   const [pieces, setPieces] = useState<TokenPiece[]>([]);
   const [result, setResult] = useState<ForwardResult | null>(null);
@@ -56,12 +58,12 @@ export default function AttentionRoom(props: { engine: Engine }) {
   return (
     <div className="widget" id="act-3">
       <div className="widget-head">
-        <span className="act-num">Act 3</span>
-        <span className="widget-title">The Attention Room — who looks at whom</span>
+        <span className="act-num">{t.act3.num}</span>
+        <span className="widget-title">{t.act3.title}</span>
       </div>
 
       {!nanoReady ? (
-        <p className="dim">Loading the dissection model (7.5MB, self-hosted)… {loadPct}%</p>
+        <p className="dim">{t.act3.loading(loadPct)}</p>
       ) : (
         <>
           <input
@@ -99,8 +101,8 @@ export default function AttentionRoom(props: { engine: Engine }) {
               </div>
               <p className="dim lens-hint">
                 {queryIdx === null
-                  ? "Click a token to see where it looks."
-                  : `Reading “${displayPiece(pieces[queryIdx].text).trim()}” — highlighted words show where this head sends its attention.`}
+                  ? t.act3.lensHintIdle
+                  : t.act3.lensHintReading(displayPiece(pieces[queryIdx].text).trim())}
               </p>
 
               <div className="matrix-wrap">
@@ -131,7 +133,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
 
               <div className="head-controls">
                 <label>
-                  Layer
+                  {t.act3.layerLabel}
                   <input
                     type="range"
                     min={0}
@@ -156,7 +158,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
 
               {diag && (
                 <div className="diag">
-                  <span className="dim">Auto-discovered in your sentence:</span>
+                  <span className="dim">{t.act3.diagIntro}</span>
                   <button
                     className="diag-btn"
                     onClick={() => {
@@ -164,8 +166,11 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.prevToken.head);
                     }}
                   >
-                    👀 previous-word head · L{diag.prevToken.layer}H{diag.prevToken.head} (
-                    {(diag.prevToken.score * 100).toFixed(0)}%)
+                    {t.act3.diagPrev(
+                      diag.prevToken.layer,
+                      diag.prevToken.head,
+                      (diag.prevToken.score * 100).toFixed(0)
+                    )}
                   </button>
                   <button
                     className="diag-btn"
@@ -174,8 +179,11 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.firstToken.head);
                     }}
                   >
-                    ⚓ anchor head · L{diag.firstToken.layer}H{diag.firstToken.head} (
-                    {(diag.firstToken.score * 100).toFixed(0)}%)
+                    {t.act3.diagAnchor(
+                      diag.firstToken.layer,
+                      diag.firstToken.head,
+                      (diag.firstToken.score * 100).toFixed(0)
+                    )}
                   </button>
                   <button
                     className="diag-btn"
@@ -184,7 +192,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.diffuse.head);
                     }}
                   >
-                    🌫 most scattered · L{diag.diffuse.layer}H{diag.diffuse.head}
+                    {t.act3.diagDiffuse(diag.diffuse.layer, diag.diffuse.head)}
                   </button>
                 </div>
               )}
@@ -193,11 +201,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
         </>
       )}
 
-      <p className="widget-note">
-        Every square is real: row = the word being read, column = the word it looks back at. These
-        numbers came out of the 7.5MB model dissected live in your tab — scrub the layer slider
-        and watch the same sentence get read sixteen different ways, eight times over.
-      </p>
+      <p className="widget-note">{t.act3.note()}</p>
     </div>
   );
 }
@@ -211,6 +215,7 @@ function MatrixRow(props: {
   cellColor: (v: number) => string;
   onSelect: () => void;
 }) {
+  const t = useStrings();
   const { q, seq, attn } = props;
   const cells = [];
   for (let k = 0; k < seq; k++) {
@@ -220,7 +225,7 @@ function MatrixRow(props: {
         key={k}
         className={`mx-cell${k > q ? " future" : ""}`}
         style={k <= q ? { background: props.cellColor(v) } : undefined}
-        title={k <= q ? `${(v * 100).toFixed(1)}%` : "the future is masked"}
+        title={k <= q ? `${(v * 100).toFixed(1)}%` : t.act3.futureMasked}
       />
     );
   }
