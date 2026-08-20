@@ -2,7 +2,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type Engine } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { sampleFrom, softmaxTopK } from "../lib/prob";
-import { useStrings } from "../content/i18n";
+import type { EssayStrings } from "../content/types";
+
+/**
+ * The widget's chrome strings — the same shape as essay #1's `act5` table.
+ * The flagship passes `useStrings().act5`; a later essay passes its own
+ * section table. (This closes the "widget chrome lives in essay #1's tables"
+ * seam noted in src/series/README.md.)
+ */
+export type LoopStrings = EssayStrings["act5"];
 
 interface Step {
   text: string;
@@ -12,9 +20,15 @@ interface Step {
 
 const MAX_TOKENS = 30;
 
-export default function TheLoop(props: { engine: Engine }) {
-  const t = useStrings();
-  const [prompt, setPrompt] = useState("Once upon a time");
+export default function TheLoop(props: {
+  engine: Engine;
+  strings: LoopStrings;
+  /** DOM id for deep links — "act-5" in the flagship, a section id elsewhere. */
+  htmlId: string;
+  initialPrompt?: string;
+}) {
+  const t = props.strings;
+  const [prompt, setPrompt] = useState(props.initialPrompt ?? "Once upon a time");
   const [steps, setSteps] = useState<Step[]>([]);
   const [running, setRunning] = useState(false);
   const [temperature, setTemperature] = useState(0.8);
@@ -82,14 +96,14 @@ export default function TheLoop(props: { engine: Engine }) {
   const confidence = (p: number) => (p >= 0.5 ? "conf-high" : p >= 0.2 ? "conf-mid" : "conf-low");
 
   return (
-    <div className="widget" id="act-5">
+    <div className="widget" id={props.htmlId}>
       <div className="widget-head">
-        <span className="act-num">{t.act5.num}</span>
-        <span className="widget-title">{t.act5.title}</span>
+        <span className="act-num">{t.num}</span>
+        <span className="widget-title">{t.title}</span>
       </div>
 
       {!ready ? (
-        <p className="dim">{t.act5.loading(loadPct)}</p>
+        <p className="dim">{t.loading(loadPct)}</p>
       ) : (
         <>
           <div className="gamble-row">
@@ -132,13 +146,13 @@ export default function TheLoop(props: { engine: Engine }) {
 
           <div className="loop-controls">
             <button className="btn" onClick={write}>
-              {running ? t.act5.stop : steps.length > 0 ? t.act5.cont : t.act5.write}
+              {running ? t.stop : steps.length > 0 ? t.cont : t.write}
             </button>
             <button className="btn ghost" disabled={running} onClick={oneStep}>
-              {t.act5.step}
+              {t.step}
             </button>
             <button className="btn ghost" disabled={running} onClick={reset}>
-              {t.act5.reset}
+              {t.reset}
             </button>
             <div className="temp-row loop-temp">
               <span className="temp-label">🧊</span>
@@ -156,15 +170,15 @@ export default function TheLoop(props: { engine: Engine }) {
           </div>
 
           <p className="legend">
-            <span className="loop-tok conf-high demo">{t.act5.legendHigh}</span>
-            <span className="loop-tok conf-mid demo">{t.act5.legendMid}</span>
-            <span className="loop-tok conf-low demo">{t.act5.legendLow}</span>
-            <span className="dim">{t.act5.legendHint}</span>
+            <span className="loop-tok conf-high demo">{t.legendHigh}</span>
+            <span className="loop-tok conf-mid demo">{t.legendMid}</span>
+            <span className="loop-tok conf-low demo">{t.legendLow}</span>
+            <span className="dim">{t.legendHint}</span>
           </p>
         </>
       )}
 
-      <p className="widget-note">{t.act5.note()}</p>
+      <p className="widget-note">{t.note()}</p>
     </div>
   );
 }

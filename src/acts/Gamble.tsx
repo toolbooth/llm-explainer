@@ -1,15 +1,31 @@
 import { useCallback, useState } from "react";
 import type { Engine } from "../lib/engine";
 import { sampleFrom, softmaxTopK, type TokenProb } from "../lib/prob";
-import { useStrings } from "../content/i18n";
+import type { EssayStrings } from "../content/types";
+
+/**
+ * The widget's chrome strings — the same shape as essay #1's `act4` table.
+ * The flagship passes `useStrings().act4`; a later essay passes its own
+ * section table. (This closes the "widget chrome lives in essay #1's tables"
+ * seam noted in src/series/README.md.)
+ */
+export type GambleStrings = EssayStrings["act4"];
 
 interface Bar extends TokenProb {
   label: string;
 }
 
-export default function Gamble(props: { engine: Engine }) {
-  const t = useStrings();
-  const [text, setText] = useState("The cat sat on the");
+export default function Gamble(props: {
+  engine: Engine;
+  strings: GambleStrings;
+  /** DOM id for deep links — "act-4" in the flagship, a section id elsewhere. */
+  htmlId: string;
+  initialText?: string;
+  /** Optional preset prompts, rendered as one-click chips above the input. */
+  presets?: string[];
+}) {
+  const t = props.strings;
+  const [text, setText] = useState(props.initialText ?? "The cat sat on the");
   const [temperature, setTemperature] = useState(1.0);
   const [logits, setLogits] = useState<Float32Array | null>(null);
   const [bars, setBars] = useState<Bar[]>([]);
@@ -76,19 +92,19 @@ export default function Gamble(props: { engine: Engine }) {
   }, [logits, temperature, text, props.engine, think]);
 
   return (
-    <div className="widget" id="act-4">
+    <div className="widget" id={props.htmlId}>
       <div className="widget-head">
-        <span className="act-num">{t.act4.num}</span>
-        <span className="widget-title">{t.act4.title}</span>
+        <span className="act-num">{t.num}</span>
+        <span className="widget-title">{t.title}</span>
       </div>
 
       {!ready ? (
         <div className="model-gate">
-          <p className="dim">{t.act4.gateIntro}</p>
-          {loadError && <p className="load-error">{t.act4.loadError}</p>}
+          <p className="dim">{t.gateIntro}</p>
+          {loadError && <p className="load-error">{t.loadError}</p>}
           {loadPct === null ? (
             <button className="btn" onClick={loadModel}>
-              {loadError ? t.act4.tryAgain : t.act4.wakeModel}
+              {loadError ? t.tryAgain : t.wakeModel}
             </button>
           ) : (
             <div className="progress">
@@ -99,6 +115,23 @@ export default function Gamble(props: { engine: Engine }) {
         </div>
       ) : (
         <>
+          {props.presets && props.presets.length > 0 && (
+            <div className="preset-row">
+              {props.presets.map((p) => (
+                <button
+                  key={p}
+                  className={`preset-btn${text === p ? " active" : ""}`}
+                  disabled={thinking}
+                  onClick={() => {
+                    setText(p);
+                    think(p);
+                  }}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="gamble-row">
             <input
               className="text-input"
@@ -107,7 +140,7 @@ export default function Gamble(props: { engine: Engine }) {
               maxLength={200}
             />
             <button className="btn ghost" disabled={thinking} onClick={() => think(text)}>
-              {thinking ? "…" : t.act4.think}
+              {thinking ? "…" : t.think}
             </button>
           </div>
 
@@ -126,7 +159,7 @@ export default function Gamble(props: { engine: Engine }) {
               </div>
 
               <div className="temp-row">
-                <span className="temp-label">{t.act4.tempCareful}</span>
+                <span className="temp-label">{t.tempCareful}</span>
                 <input
                   type="range"
                   min={0.1}
@@ -135,17 +168,17 @@ export default function Gamble(props: { engine: Engine }) {
                   value={temperature}
                   onChange={(e) => onTemp(Number(e.target.value))}
                 />
-                <span className="temp-label">{t.act4.tempChaotic}</span>
+                <span className="temp-label">{t.tempChaotic}</span>
                 <span className="temp-value">T = {temperature.toFixed(2)}</span>
               </div>
 
               <div className="roll-row">
                 <button className="btn" disabled={thinking} onClick={roll}>
-                  {t.act4.roll}
+                  {t.roll}
                 </button>
                 {lastPick && (
                   <span className="dim">
-                    {t.act4.picked(JSON.stringify(lastPick).slice(1, -1))}
+                    {t.picked(JSON.stringify(lastPick).slice(1, -1))}
                   </span>
                 )}
               </div>
@@ -153,7 +186,7 @@ export default function Gamble(props: { engine: Engine }) {
           )}
         </>
       )}
-      <p className="widget-note">{t.act4.note()}</p>
+      <p className="widget-note">{t.note()}</p>
     </div>
   );
 }

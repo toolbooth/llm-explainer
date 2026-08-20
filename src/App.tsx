@@ -50,13 +50,13 @@ export default function App() {
         <p>{t.beforeGamble()}</p>
       </section>
 
-      <Gamble engine={engine} />
+      <Gamble engine={engine} strings={t.act4} htmlId="act-4" />
 
       <section className="prose">
         <p>{t.beforeLoop()}</p>
       </section>
 
-      <TheLoop engine={engine} />
+      <TheLoop engine={engine} strings={t.act5} htmlId="act-5" />
 
       <section className="prose">
         <h2>{t.act6.heading}</h2>
