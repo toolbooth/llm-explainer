@@ -1,17 +1,32 @@
 /**
  * Hash routing with zero dependencies, in the spirit of the i18n store: a
- * useSyncExternalStore over `hashchange`. Exactly two routes today —
+ * useSyncExternalStore over `hashchange`. Three route shapes —
  *
- *   #/essays…        → the series index
- *   everything else  → essay #1, untouched at the root URL
+ *   #/essays/<slug>[/<anchor>] → that essay's page, if the slug is registered
+ *   #/essays…                  → the series index (unknown slugs fall back
+ *                                here rather than to a broken page)
+ *   everything else            → essay #1, untouched at the root URL
  *
- * When essay #2 ships, this file learns to resolve `#/essays/<slug>` against
- * the registry's published entries; until then unknown slugs fall back to
- * the index rather than a broken page.
+ * Reachability is by slug EXISTENCE, not by published status: a draft essay
+ * is reviewable live at its direct URL before publication. Drafts stay
+ * invisible everywhere else because the listings (SeriesIndex, MoreInSeries)
+ * render publishedEssays() only — the two rules meet in test/route.test.ts.
  */
 import { useSyncExternalStore } from "react";
+import { ESSAYS } from "./registry";
 
-export type Route = "essay" | "index";
+export type Route = "flagship" | "index" | `essay:${string}`;
+
+/** Pure hash → route resolution, exported for tests. */
+export function resolveHash(hash: string): Route {
+  const m = /^#\/essays\/([^/?#]+)/.exec(hash);
+  if (m) {
+    const slug = decodeURIComponent(m[1]);
+    if (ESSAYS.some((e) => e.slug === slug)) return `essay:${slug}`;
+    return "index";
+  }
+  return /^#\/essays(\/|$)/.test(hash) ? "index" : "flagship";
+}
 
 function subscribe(fn: () => void): () => void {
   window.addEventListener("hashchange", fn);
@@ -19,7 +34,7 @@ function subscribe(fn: () => void): () => void {
 }
 
 function getSnapshot(): Route {
-  return /^#\/essays(\/|$)/.test(location.hash) ? "index" : "essay";
+  return resolveHash(location.hash);
 }
 
 export function useRoute(): Route {
