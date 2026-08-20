@@ -39,7 +39,7 @@ export default function Gamble(props: {
   const refreshBars = useCallback(
     async (lg: Float32Array, temp: number) => {
       const dist = softmaxTopK(lg, 10, temp);
-      const labels = await Promise.all(dist.map((d) => props.engine.decode([d.id])));
+      const labels = await Promise.all(dist.map((d) => props.engine.decodeModel([d.id])));
       setBars(dist.map((d, i) => ({ ...d, label: labels[i] })));
     },
     [props.engine]
@@ -84,7 +84,7 @@ export default function Gamble(props: {
     if (!logits) return;
     const dist = softmaxTopK(logits, 10, temperature);
     const pick = sampleFrom(dist, Math.random());
-    const picked = await props.engine.decode([pick.id]);
+    const picked = await props.engine.decodeModel([pick.id]);
     setLastPick(picked);
     const next = text + picked;
     setText(next);

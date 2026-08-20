@@ -54,7 +54,7 @@ export default function ReRoll(props: {
             const { logits } = await props.engine.lastLogits(cur);
             const dist = softmaxTopK(logits, TOP_K, TEMPERATURE);
             const pick = sampleFrom(dist, Math.random());
-            const piece = await props.engine.decode([pick.id]);
+            const piece = await props.engine.decodeModel([pick.id]);
             if (!piece || piece.includes("\n")) break;
             acc[s].push(piece);
             cur += piece;

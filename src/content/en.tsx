@@ -70,7 +70,7 @@ export const en: EssayStrings = {
     <>
       Skip to the end of the pipeline: after all that reading and weighing, how does the model
       decide what to <em>say</em>? Here is the honest answer — it rolls dice. (This act wakes a
-      bigger model, GPT-2's little sibling, so the bets are more interesting.)
+      much bigger model — 135 million parameters — so the bets are more interesting.)
     </>
   ),
 

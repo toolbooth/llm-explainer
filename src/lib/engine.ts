@@ -1,7 +1,9 @@
 /**
- * Lazy wrappers around transformers.js. The tokenizer is tiny (~2MB) and
- * loads eagerly per act; the model (~50–90MB) loads only on explicit user
- * action. `?mockModel=1` swaps in a deterministic fake for tests/CI.
+ * Lazy wrappers around transformers.js. Two vocabularies live in this essay:
+ * the shared GPT-2 BPE tokenizer (~2MB, loads eagerly per act) speaks for the
+ * nano model in Acts 1–3/5, and the big Act-4 model (~136MB, loads only on
+ * explicit user action) brings its own. `?mockModel=1` swaps in a
+ * deterministic fake for tests/CI.
  */
 
 export interface TokenPiece {
@@ -10,15 +12,23 @@ export interface TokenPiece {
 }
 
 export interface Engine {
+  /** GPT-2 BPE — the nano model's native vocab (Acts 1–3, 5). */
   tokenize(text: string): Promise<TokenPiece[]>;
-  /** Returns logits for the LAST position given the full text. */
+  /** Returns the Act-4 model's logits for the LAST position given the full text. */
   lastLogits(text: string): Promise<{ logits: Float32Array; ids: number[] }>;
+  /** GPT-2 vocab — pairs with tokenize() and the nano model's outputs. */
   decode(ids: number[]): Promise<string>;
+  /** The Act-4 model's own vocab — for ids from lastLogits, never from tokenize(). */
+  decodeModel(ids: number[]): Promise<string>;
   loadModel(onProgress: (pct: number) => void): Promise<void>;
   modelReady(): boolean;
 }
 
 const MODEL = "onnx-community/SmolLM2-135M-Instruct-ONNX";
+// The nano model's weights are indexed by GPT-2's vocab (50257 entries), so
+// the tokenizer shared across acts must stay GPT-2 BPE no matter which big
+// model Act 4 wakes. The two id spaces are mutually meaningless.
+const SHARED_TOK = "Xenova/gpt2";
 
 /** Ġ/Ċ are byte-BPE markers for space/newline — make them human-visible. */
 export function displayPiece(piece: string): string {
@@ -27,13 +37,21 @@ export function displayPiece(piece: string): string {
 
 function realEngine(): Engine {
   let tokPromise: Promise<any> | null = null;
+  let modelTokPromise: Promise<any> | null = null;
   let model: any = null;
 
   const getTok = () => {
     tokPromise ??= import("@huggingface/transformers").then(({ AutoTokenizer }) =>
-      AutoTokenizer.from_pretrained(MODEL)
+      AutoTokenizer.from_pretrained(SHARED_TOK)
     );
     return tokPromise;
+  };
+
+  const getModelTok = () => {
+    modelTokPromise ??= import("@huggingface/transformers").then(({ AutoTokenizer }) =>
+      AutoTokenizer.from_pretrained(MODEL)
+    );
+    return modelTokPromise;
   };
 
   return {
@@ -48,7 +66,7 @@ function realEngine(): Engine {
 
     async lastLogits(text) {
       if (!model) throw new Error("model not loaded");
-      const tok = await getTok();
+      const tok = await getModelTok();
       const enc = await tok(text);
       const out = await model({ input_ids: enc.input_ids, attention_mask: enc.attention_mask });
       const [, seqLen, vocab] = out.logits.dims as [number, number, number];
@@ -61,6 +79,11 @@ function realEngine(): Engine {
 
     async decode(ids) {
       const tok = await getTok();
+      return tok.decode(ids);
+    },
+
+    async decodeModel(ids) {
+      const tok = await getModelTok();
       return tok.decode(ids);
     },
 
@@ -106,6 +129,9 @@ function mockEngine(): Engine {
     },
     async decode(ids) {
       return ids.map((i) => " " + (words[i % words.length] ?? "?")).join("");
+    },
+    async decodeModel(ids) {
+      return this.decode(ids);
     },
     async loadModel(onProgress) {
       for (const pct of [20, 60, 100]) {
