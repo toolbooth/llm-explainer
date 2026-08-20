@@ -1,0 +1,37 @@
+% ======================================================================
+% aaai-fallback.sty — stand-in used ONLY when the official AAAI author
+% kit (aaai26.sty) is not present next to main.tex. Approximates the
+% AAAI two-column camera geometry with standard packages so the draft
+% compiles anywhere. NOT valid for submission — drop in the real kit.
+% See README.md in this directory.
+% ======================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{aaai-fallback}[2026/08/19 v0.1 AAAI-look fallback (not the official kit)]
+
+% AAAI camera-ready page geometry (approximate): letterpaper,
+% 0.75in side margins, 0.25in column separation.
+\RequirePackage[letterpaper,
+  top=0.75in, bottom=1.25in, left=0.75in, right=0.75in,
+  columnsep=0.25in]{geometry}
+
+% AAAI sections are unnumbered by default (kit sets secnumdepth to 0).
+\setcounter{secnumdepth}{0}
+
+% No date line in the title block.
+\date{}
+
+% --- \affiliations{...} -----------------------------------------------
+% The AAAI kit defines \affiliations for the author block; standard
+% article does not. Emulate it by appending to \@author. Must be called
+% AFTER \author{...}, exactly as in the AAAI template.
+\newcommand{\affiliations}[1]{%
+  \let\fallback@author\@author
+  \gdef\@author{\fallback@author\\[4pt] #1}%
+}
+
+% Tighter float behavior, roughly matching the kit's expectations.
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+
+\endinput
