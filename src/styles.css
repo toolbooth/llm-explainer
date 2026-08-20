@@ -221,4 +221,14 @@ body {
 
   /* Act 5 alternatives popover: never wider than the viewport */
   .loop-pop { width: min(230px, 78vw); }
+
+  /* Act 3 matrix: row-select buttons inherit the grid row height, which the
+     square cells drive — floor cells at 44px so the labels become 44px tall.
+     The extra width scrolls inside .matrix-wrap as before. */
+  .mx-cell { min-width: 44px; }
+  /* keep the row-select labels visible while the matrix is scrolled */
+  .mx-row { position: sticky; left: 0; z-index: 2; background: var(--panel); }
+
+  /* Footer links: pad the tap area to ~44px without shifting the layout */
+  .essay-foot a { display: inline-block; padding: 0.85rem 0.35rem; margin: -0.7rem -0.2rem; }
 }
