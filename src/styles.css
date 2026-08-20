@@ -186,6 +186,13 @@ body {
 
 .load-error { color: #fca5a5; font-size: 0.9rem; margin-bottom: 0.6rem; }
 
+/* ── Series index / "More in this series" ── */
+
+.series-list { list-style: none; padding: 0; margin-top: 1.6rem; }
+.series-list li { margin: 1rem 0; }
+.series-list a { color: #fff; font-size: 1.15rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+.series-list a:hover { color: var(--accent); border-color: var(--accent); }
+
 /* ── Mobile polish ─────────────────────────────────────────────────────────
    One breakpoint (matches the .widget margin swap above). Goals: 44px+ tap
    targets, no cramped grids, popovers that fit the viewport. */

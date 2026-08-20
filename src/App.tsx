@@ -6,6 +6,7 @@ import WordMap from "./acts/WordMap";
 import AttentionRoom from "./acts/AttentionRoom";
 import Gamble from "./acts/Gamble";
 import TheLoop from "./acts/TheLoop";
+import MoreInSeries from "./series/MoreInSeries";
 
 /** Bar widths for the Act 6 scale rows (labels live in the content modules). */
 const SCALE_PCT = [2, 18, 100];
@@ -82,6 +83,8 @@ export default function App() {
         <p>{t.act7.p3()}</p>
         <p>{t.act7.p4()}</p>
       </section>
+
+      <MoreInSeries currentId="inside-the-machine" />
 
       <footer className="essay-foot">
         <p>{t.footer()}</p>

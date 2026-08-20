@@ -69,6 +69,14 @@ function applyDocumentLang(lang: Lang): void {
   document.querySelector('meta[name="description"]')?.setAttribute("content", t.metaDescription);
 }
 
+/**
+ * Current language alone — for components outside essay #1's string tables
+ * (series index, "More in this series", future essays' own string hooks).
+ */
+export function useLang(): Lang {
+  return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+}
+
 /** The strings table for the current language. Any component may call this. */
 export function useStrings(): EssayStrings {
   const lang = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
