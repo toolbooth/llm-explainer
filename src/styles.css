@@ -247,6 +247,16 @@ body {
 .series-list a { color: #fff; font-size: 1.15rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 .series-list a:hover { color: var(--accent); border-color: var(--accent); }
 
+/* ── "Cite this" (end of essay) ── */
+
+.cite { margin-top: 3.2rem; }
+.cite-pre { margin: 0; padding: 1rem 1.15rem; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.65; color: var(--muted); }
+.cite-pre code { font-family: inherit; white-space: pre; color: inherit; }
+.cite-row { display: flex; align-items: center; gap: 1rem; margin-top: 0.9rem; font-family: var(--font-sans); }
+.cite-copy { flex: none; padding: 0.45rem 1.1rem; font-size: 0.85rem; }
+.cite-copy.done { color: var(--warm); border-color: var(--warm); }
+.prose .cite-note { margin: 0; color: var(--dim); font-size: 0.9rem; line-height: 1.5; }
+
 /* ── Mobile polish ─────────────────────────────────────────────────────────
    One breakpoint (matches the .widget margin swap above). Goals: 44px+ tap
    targets, no cramped grids, popovers that fit the viewport. */
@@ -296,6 +306,9 @@ body {
   .hs-detail { grid-template-columns: 1fr; }
   .hs-score { grid-template-columns: 1fr; gap: 0.15rem; }
   .hs-score-val { text-align: left; }
+
+  /* Cite block: button above the note instead of squeezing on one line */
+  .cite-row { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 
   /* Footer links: pad the tap area to ~44px without shifting the layout */
   .essay-foot a { display: inline-block; padding: 0.85rem 0.35rem; margin: -0.7rem -0.2rem; }

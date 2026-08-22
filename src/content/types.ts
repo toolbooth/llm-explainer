@@ -121,5 +121,18 @@ export interface EssayStrings {
     p4: () => ReactNode;
   };
 
+  /** "Cite this" block at the end of the essay (BibTeX + copy button). */
+  cite: CiteStrings;
+
   footer: () => ReactNode;
+}
+
+/** Locale strings for the "Cite this" block; the BibTeX itself is locale-free. */
+export interface CiteStrings {
+  heading: string;
+  /** Copy-to-clipboard button label, and its label right after a successful copy. */
+  copy: string;
+  copied: string;
+  /** The one-line pointer to the forthcoming arXiv preprint. */
+  note: string;
 }

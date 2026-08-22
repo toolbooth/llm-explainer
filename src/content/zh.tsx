@@ -165,6 +165,13 @@ export const zh: EssayStrings = {
     ),
   },
 
+  cite: {
+    heading: "引用本文",
+    copy: "复制",
+    copied: "已复制",
+    note: "arXiv 预印本即将发布,届时请优先引用预印本。",
+  },
+
   footer: () => (
     <>一篇免费、开放的互动长文 · 无账号、无追踪,你打的字不离开这个标签页 · 英文原版右上角可切换 · 关注 <a href="https://x.com/toolboothdev">@toolboothdev</a></>
   ),

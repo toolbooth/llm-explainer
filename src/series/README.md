@@ -84,3 +84,7 @@ choice across all essays):
   else → essay #1 at the root URL.
 - `SeriesIndex.tsx`, `MoreInSeries.tsx` — render published entries only, so
   drafts never leak into the UI.
+- `CiteThis.tsx` — the "Cite this" block (BibTeX in a scrolling `<pre>` +
+  copy button). Takes the essay's `CiteStrings` table and a BibTeX string;
+  the flagship's comes from `src/content/citation.ts`, which is also the
+  source of truth for index.html's Google Scholar meta tags and CITATION.cff.

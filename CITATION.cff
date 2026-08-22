@@ -7,6 +7,10 @@ authors:
     given-names: Shangyan
     email: shenshangyan2001@gmail.com
 repository-code: "https://github.com/toolbooth/llm-explainer"
+# TODO(launch): set `url` to the essay's canonical domain once it is live
+# (keep it in sync with citation_public_url in index.html and CITE_URL in
+# src/content/citation.ts). Interim: the repository.
+url: "https://github.com/toolbooth/llm-explainer"
 abstract: >-
   A long-form interactive essay in which the reader types their own sentence
   and watches a real language model, running entirely in the browser, tokenize
@@ -24,6 +28,24 @@ keywords:
   - explorable explanations
 # TODO before public launch:
 #   - add `doi` from Zenodo after linking the repo and cutting a release
-#   - add `url` once the essay's domain is live
-#   - add `preferred-citation` pointing at the companion paper when it exists
+#   - replace the interim `url` above with the essay's domain once it is live
+#   - enable `preferred-citation` below once the arXiv ID exists
 #   - add `license` after OSS approval clears
+#
+# Preferred citation — the arXiv preprint (Google Scholar indexes arXiv;
+# Zenodo it does not, see PAPER.md). Uncomment and fill in once the preprint
+# is live; until then tools fall back to the software citation above.
+#
+# preferred-citation:
+#   type: article
+#   title: "Inside the Machine: An Interactive Guide to How LLMs Actually Think"
+#   authors:
+#     - family-names: Shen
+#       given-names: Shangyan
+#   year: 2027                        # TODO: year the preprint is posted
+#   journal: "arXiv preprint"
+#   identifiers:
+#     - type: other
+#       value: "arXiv:XXXX.XXXXX"     # TODO: arXiv ID
+#   url: "https://arxiv.org/abs/XXXX.XXXXX"   # TODO: arXiv abs URL
+#   # doi: "10.48550/arXiv.XXXX.XXXXX"        # TODO: arXiv-minted DOI

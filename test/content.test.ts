@@ -1,5 +1,13 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { STRINGS } from "../src/content/i18n";
+import {
+  CITE_AUTHOR,
+  CITE_TITLE,
+  CITE_URL,
+  CITE_YEAR,
+  FLAGSHIP_BIBTEX,
+} from "../src/content/citation";
 
 /**
  * Walk a strings table and return every leaf path tagged with its runtime
@@ -51,6 +59,13 @@ describe("essay content tables", () => {
     expect(zh.act5.title).toMatch(/^循环/);
     expect(zh.act6.heading).toBe("第六幕·拉远看");
     expect(zh.act7.heading).toBe("第七幕·它为什么说谎");
+    expect(zh.cite.heading).toBe("引用本文");
+    expect(zh.cite.copy).toBe("复制");
+    expect(zh.cite.note).toContain("arXiv 预印本即将发布,届时请优先引用预印本");
+    expect(STRINGS.en.cite.heading).toBe("Cite this");
+    expect(STRINGS.en.cite.note).toBe(
+      "An arXiv preprint is forthcoming; please cite that once available."
+    );
     expect(zh.htmlLang).toBe("zh");
     expect(STRINGS.en.htmlLang).toBe("en");
   });
@@ -64,5 +79,45 @@ describe("essay content tables", () => {
     expect(STRINGS.en.act2.loading(45)).toContain("45%");
     expect(STRINGS.zh.act2.loading(45)).toContain("45%");
     expect(STRINGS.zh.act3.lensHintReading("upon")).toContain("“upon”");
+  });
+});
+
+describe("citation infrastructure", () => {
+  it("BibTeX is a well-formed @misc entry over the shared constants", () => {
+    const lines = FLAGSHIP_BIBTEX.split("\n");
+    expect(lines[0]).toMatch(/^@misc\{[a-z0-9]+,$/);
+    expect(lines[lines.length - 1]).toBe("}");
+    expect(FLAGSHIP_BIBTEX).toContain(`author       = {${CITE_AUTHOR}}`);
+    expect(FLAGSHIP_BIBTEX).toContain(`year         = {${CITE_YEAR}}`);
+    expect(FLAGSHIP_BIBTEX).toContain(`howpublished = {\\url{${CITE_URL}}}`);
+    expect(FLAGSHIP_BIBTEX).toContain("note         = {Interactive essay}");
+    // title carried over intact, with only the acronym brace-protected
+    expect(FLAGSHIP_BIBTEX).toContain(`title        = {${CITE_TITLE.replace("LLMs", "{LLMs}")}}`);
+    // every field line is "  name = {...}," — no stray unbalanced braces
+    for (const line of lines.slice(1, -1)) {
+      const opens = (line.match(/\{/g) ?? []).length;
+      const closes = (line.match(/\}/g) ?? []).length;
+      expect(opens).toBe(closes);
+    }
+  });
+
+  it("index.html's Google Scholar meta tags match the citation constants", () => {
+    const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+    // strip HTML comments so the commented-out arXiv pair doesn't count as live
+    const live = html.replace(/<!--[\s\S]*?-->/g, "");
+    const meta = (name: string): string | undefined =>
+      new RegExp(`<meta\\s+name="${name}"\\s+content="([^"]*)"`).exec(live)?.[1];
+    expect(meta("citation_title")).toBe(CITE_TITLE);
+    expect(meta("citation_author")).toBe(CITE_AUTHOR);
+    expect(meta("citation_publication_date")).toBe(CITE_YEAR);
+    expect(meta("citation_language")).toBe("en");
+    expect(meta("citation_public_url")).toBe(CITE_URL);
+    // the arXiv pair stays commented out until the preprint exists
+    expect(meta("citation_pdf_url")).toBeUndefined();
+    expect(meta("citation_arxiv_id")).toBeUndefined();
+    expect(html).toContain("citation_arxiv_id");
+    // existing chrome untouched
+    expect(meta("description")).toContain("An interactive essay.");
+    expect(meta("theme-color")).toBe("#0f1117");
   });
 });

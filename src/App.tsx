@@ -7,6 +7,8 @@ import AttentionRoom from "./acts/AttentionRoom";
 import Gamble from "./acts/Gamble";
 import TheLoop from "./acts/TheLoop";
 import MoreInSeries from "./series/MoreInSeries";
+import CiteThis from "./series/CiteThis";
+import { FLAGSHIP_BIBTEX } from "./content/citation";
 
 /** Bar widths for the Act 6 scale rows (labels live in the content modules). */
 const SCALE_PCT = [2, 18, 100];
@@ -85,6 +87,8 @@ export default function App() {
       </section>
 
       <MoreInSeries currentId="inside-the-machine" />
+
+      <CiteThis strings={t.cite} bibtex={FLAGSHIP_BIBTEX} />
 
       <footer className="essay-foot">
         <p>{t.footer()}</p>

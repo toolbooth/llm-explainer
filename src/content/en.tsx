@@ -260,6 +260,13 @@ export const en: EssayStrings = {
     ),
   },
 
+  cite: {
+    heading: "Cite this",
+    copy: "Copy",
+    copied: "Copied",
+    note: "An arXiv preprint is forthcoming; please cite that once available.",
+  },
+
   footer: () => (
     <>
       Built as a free, open interactive essay · no accounts, no tracking, your text never
