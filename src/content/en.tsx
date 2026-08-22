@@ -263,7 +263,7 @@ export const en: EssayStrings = {
   footer: () => (
     <>
       Built as a free, open interactive essay · no accounts, no tracking, your text never
-      leaves this tab · 中文版 in the works · follow{" "}
+      leaves this tab · 中文版 via the toggle top-right · follow{" "}
       <a href="https://x.com/toolboothdev">@toolboothdev</a>
     </>
   ),

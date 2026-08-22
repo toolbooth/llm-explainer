@@ -30,12 +30,12 @@ For the bigger on-demand model (Acts 4–5 class widgets): `src/lib/engine.ts`
 `src/acts/*.tsx` — Chopper, WordMap, AttentionRoom, Gamble, TheLoop. Each
 takes an `engine` prop and manages its own model loading/progress UI.
 
-Known seam, deliberately not refactored yet: the widgets read their chrome
-strings (`useStrings().act1…act5`) from **essay #1's** content tables, so
-reusing one in another essay today would render essay #1's act labels.
-Essay #2's implementation step lifts widget chrome into a shared strings
-table (or a strings prop) — do that then, against a real second consumer,
-not speculatively.
+Seam resolved (essay #2, commit e664168): Gamble and TheLoop take a `strings`
+prop (`GambleStrings` / `LoopStrings`, same shape as the act4/act5 tables),
+an `htmlId`, and optional `initialText` / `initialPrompt` / `presets`. A new
+essay passes its own tables; the flagship passes its own. Chopper, WordMap
+and AttentionRoom still read `useStrings()` directly — lift them the same
+way the first time a second essay needs one.
 
 ## 3. The content architecture
 

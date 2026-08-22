@@ -107,7 +107,7 @@ export const zh: Essay2Strings = {
       roll: "🎲 连问五遍",
       rolling: (done, k) => `正在重掷 ${done}/${k}…`,
       tempNote: "温度固定 T = 0.8——同一副骰子,掷五次。",
-      legendStable: "五次都一致",
+      legendStable: "四五次一致",
       legendMixed: "部分一致",
       legendScatter: "四散",
       legendHint: "——颜色 = 五次重掷里,有几次在这个位置押了同一个 token。",
