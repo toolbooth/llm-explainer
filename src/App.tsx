@@ -44,7 +44,7 @@ export default function App() {
         <p>{t.beforeAttention()}</p>
       </section>
 
-      <AttentionRoom engine={engine} />
+      <AttentionRoom engine={engine} strings={t.act3} htmlId="act-3" />
 
       <section className="prose">
         <p>{t.beforeGamble()}</p>

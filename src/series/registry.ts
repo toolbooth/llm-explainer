@@ -32,6 +32,12 @@ export const ESSAYS: readonly EssayMeta[] = [
     title: { en: "Why It Lies", zh: "它为什么说谎" },
     status: "draft",
   },
+  {
+    id: "attention-heads",
+    slug: "attention-heads",
+    title: { en: "The Attention-Head Field Guide", zh: "野生 attention head 图鉴" },
+    status: "draft",
+  },
 ];
 
 /** The reader-visible slice of the registry, in publication order. */

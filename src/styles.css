@@ -208,6 +208,36 @@ body {
 .rr-status { margin-top: 0.7rem; }
 .rr-verdict { margin-top: 0.9rem; color: var(--muted); font-size: 0.95rem; }
 
+/* ── Essay #3: the head scanner ── */
+
+.hs-short { margin-top: 0.8rem; }
+.hs-tokens { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.9rem; }
+.hs-tok { font-family: var(--font-mono); font-size: 0.72rem; color: var(--dim); background: #0c0f18; border: 1px solid var(--border); border-radius: 5px; padding: 0.1rem 0.4rem; }
+.hs-summary { margin-top: 0.9rem; color: var(--muted); font-size: 0.95rem; }
+.hs-summary strong { color: var(--warm); font-variant-numeric: tabular-nums; }
+.hs-group { margin-top: 1.1rem; }
+.hs-group-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; font-size: 0.88rem; }
+.hs-species { font-weight: 700; color: #fff; }
+.hs-count { font-family: var(--font-mono); color: var(--warm); font-size: 0.78rem; }
+.hs-blurb { color: var(--dim); font-size: 0.82rem; }
+.hs-gallery { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.hs-head { display: flex; flex-direction: column; align-items: center; gap: 2px; background: #0c0f18; border: 1px solid var(--border); border-radius: 8px; padding: 0.35rem 0.4rem; cursor: pointer; color: var(--muted); font-family: var(--font-mono); font-size: 0.64rem; min-width: 64px; }
+.hs-head:hover { border-color: var(--accent); color: var(--text); }
+.hs-head.active { border-color: var(--warm); color: var(--warm); }
+.hs-thumb { width: 40px; height: 40px; image-rendering: pixelated; border-radius: 3px; }
+.hs-ev { color: var(--warm); white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+.hs-empty { color: var(--dim); font-size: 0.82rem; margin-top: 0.4rem; font-style: italic; }
+.hs-detail { margin-top: 1.2rem; background: #0c0f18; border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; display: grid; grid-template-columns: 120px 1fr; gap: 1rem; align-items: start; }
+.hs-detail-thumb { width: 120px; height: 120px; image-rendering: pixelated; border-radius: 6px; }
+.hs-detail h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.6rem; font-family: var(--font-mono); font-weight: 700; }
+.hs-score { display: grid; grid-template-columns: 150px 1fr 150px; gap: 0.5rem; align-items: center; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+.hs-score-track { display: block; background: var(--panel); border-radius: 4px; height: 10px; overflow: hidden; }
+.hs-score-fill { display: block; height: 100%; background: var(--accent); }
+.hs-score.win { color: var(--warm); }
+.hs-score.win .hs-score-fill { background: var(--warm); }
+.hs-score-val { font-family: var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hs-threshold { margin-top: 0.8rem; font-size: 0.8rem; }
+
 /* ── Series index / "More in this series" / draft review ── */
 
 .draft-badge { display: inline-block; margin-left: 0.6rem; padding: 0.1rem 0.5rem; border: 1px solid var(--warm); border-radius: 6px; color: var(--warm); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; vertical-align: middle; }
@@ -260,6 +290,12 @@ body {
   .mx-cell { min-width: 44px; }
   /* keep the row-select labels visible while the matrix is scrolled */
   .mx-row { position: sticky; left: 0; z-index: 2; background: var(--panel); }
+
+  /* Essay #3 scanner: 44px chips, detail panel stacks */
+  .hs-head { min-height: 44px; }
+  .hs-detail { grid-template-columns: 1fr; }
+  .hs-score { grid-template-columns: 1fr; gap: 0.15rem; }
+  .hs-score-val { text-align: left; }
 
   /* Footer links: pad the tap area to ~44px without shifting the layout */
   .essay-foot a { display: inline-block; padding: 0.85rem 0.35rem; margin: -0.7rem -0.2rem; }

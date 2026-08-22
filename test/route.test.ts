@@ -21,6 +21,17 @@ describe("draft visibility", () => {
   it("section deep links under a slug still route to the essay", () => {
     expect(resolveHash("#/essays/why-it-lies/sec-3")).toBe("essay:why-it-lies");
   });
+
+  it("the attention-heads draft is reachable by direct slug URL, with section deep links", () => {
+    expect(ESSAYS.find((e) => e.slug === "attention-heads")?.status).toBe("draft");
+    expect(resolveHash("#/essays/attention-heads")).toBe("essay:attention-heads");
+    expect(resolveHash("#/essays/attention-heads/sec-2")).toBe("essay:attention-heads");
+  });
+
+  it("…and stays out of the published listings too", () => {
+    expect(publishedEssays().map((e) => e.id)).not.toContain("attention-heads");
+    expect(publishedEssays().map((e) => e.id)).toEqual(["inside-the-machine"]);
+  });
 });
 
 describe("hash routing", () => {

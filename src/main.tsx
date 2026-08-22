@@ -4,6 +4,7 @@ import App from "./App";
 import SeriesIndex from "./series/SeriesIndex";
 import { useRoute } from "./series/route";
 import WhyItLies from "./essays/why-it-lies/WhyItLies";
+import AttentionHeads from "./essays/attention-heads/AttentionHeads";
 import "./styles.css";
 
 /**
@@ -13,6 +14,7 @@ import "./styles.css";
  */
 const ESSAY_PAGES: Record<string, ComponentType> = {
   "why-it-lies": WhyItLies,
+  "attention-heads": AttentionHeads,
 };
 
 /** `#/essays/<slug>` → that essay; `#/essays…` → series index; else essay #1. */

@@ -37,10 +37,12 @@ takes an `engine` prop and manages its own model loading/progress UI.
 
 Seam resolved (essay #2, commit e664168): Gamble and TheLoop take a `strings`
 prop (`GambleStrings` / `LoopStrings`, same shape as the act4/act5 tables),
-an `htmlId`, and optional `initialText` / `initialPrompt` / `presets`. A new
-essay passes its own tables; the flagship passes its own. Chopper, WordMap
-and AttentionRoom still read `useStrings()` directly — lift them the same
-way the first time a second essay needs one.
+an `htmlId`, and optional `initialText` / `initialPrompt` / `presets`. Essay
+#3 lifted AttentionRoom the same way (`AttentionRoomStrings` = the act3
+table, `htmlId`, optional `initialText` / `initialLayer`). A new essay passes
+its own tables; the flagship passes its own. Chopper and WordMap still read
+`useStrings()` directly — lift them the same way the first time a second
+essay needs one.
 
 ## 3. The content architecture
 

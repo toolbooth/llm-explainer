@@ -2,16 +2,33 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { displayPiece, type Engine, type TokenPiece } from "../lib/engine";
 import { getNano, type ForwardResult, type NanoHandle } from "../lib/nanoEngine";
 import { diagnoseHeads } from "nano-lm";
-import { useStrings } from "../content/i18n";
+import type { EssayStrings } from "../content/types";
+
+/**
+ * The widget's chrome strings — the same shape as essay #1's `act3` table.
+ * The flagship passes `useStrings().act3`; a later essay passes its own
+ * section table. (Lifted for essay #3, which mounts three Rooms on one
+ * page — the seam src/series/README.md §2 scheduled for "the first time a
+ * second essay needs one".)
+ */
+export type AttentionRoomStrings = EssayStrings["act3"];
 
 const DEFAULT_TEXT = "Once upon a time there was a little girl";
 
-export default function AttentionRoom(props: { engine: Engine }) {
-  const t = useStrings();
-  const [text, setText] = useState(DEFAULT_TEXT);
+export default function AttentionRoom(props: {
+  engine: Engine;
+  strings: AttentionRoomStrings;
+  /** DOM id for deep links — "act-3" in the flagship, a section id elsewhere. */
+  htmlId: string;
+  initialText?: string;
+  /** Layer the Room opens on (default 0). */
+  initialLayer?: number;
+}) {
+  const t = props.strings;
+  const [text, setText] = useState(props.initialText ?? DEFAULT_TEXT);
   const [pieces, setPieces] = useState<TokenPiece[]>([]);
   const [result, setResult] = useState<ForwardResult | null>(null);
-  const [layer, setLayer] = useState(0);
+  const [layer, setLayer] = useState(props.initialLayer ?? 0);
   const [head, setHead] = useState(0);
   const [queryIdx, setQueryIdx] = useState<number | null>(null);
   const [loadPct, setLoadPct] = useState(0);
@@ -55,14 +72,14 @@ export default function AttentionRoom(props: { engine: Engine }) {
   const cellColor = (v: number) => `rgba(124, 140, 248, ${Math.min(1, v * 1.15)})`;
 
   return (
-    <div className="widget" id="act-3">
+    <div className="widget" id={props.htmlId}>
       <div className="widget-head">
-        <span className="act-num">{t.act3.num}</span>
-        <span className="widget-title">{t.act3.title}</span>
+        <span className="act-num">{t.num}</span>
+        <span className="widget-title">{t.title}</span>
       </div>
 
       {!nanoReady ? (
-        <p className="dim">{t.act3.loading(loadPct)}</p>
+        <p className="dim">{t.loading(loadPct)}</p>
       ) : (
         <>
           <input
@@ -100,8 +117,8 @@ export default function AttentionRoom(props: { engine: Engine }) {
               </div>
               <p className="dim lens-hint">
                 {queryIdx === null
-                  ? t.act3.lensHintIdle
-                  : t.act3.lensHintReading(displayPiece(pieces[queryIdx].text).trim())}
+                  ? t.lensHintIdle
+                  : t.lensHintReading(displayPiece(pieces[queryIdx].text).trim())}
               </p>
 
               <div className="matrix-wrap">
@@ -124,6 +141,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       attn={attn}
                       selected={queryIdx === q}
                       cellColor={cellColor}
+                      futureMasked={t.futureMasked}
                       onSelect={() => setQueryIdx(queryIdx === q ? null : q)}
                     />
                   ))}
@@ -132,7 +150,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
 
               <div className="head-controls">
                 <label>
-                  {t.act3.layerLabel}
+                  {t.layerLabel}
                   <input
                     type="range"
                     min={0}
@@ -157,7 +175,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
 
               {diag && (
                 <div className="diag">
-                  <span className="dim">{t.act3.diagIntro}</span>
+                  <span className="dim">{t.diagIntro}</span>
                   <button
                     className="diag-btn"
                     onClick={() => {
@@ -165,7 +183,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.prevToken.head);
                     }}
                   >
-                    {t.act3.diagPrev(
+                    {t.diagPrev(
                       diag.prevToken.layer,
                       diag.prevToken.head,
                       (diag.prevToken.score * 100).toFixed(0)
@@ -178,7 +196,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.firstToken.head);
                     }}
                   >
-                    {t.act3.diagAnchor(
+                    {t.diagAnchor(
                       diag.firstToken.layer,
                       diag.firstToken.head,
                       (diag.firstToken.score * 100).toFixed(0)
@@ -191,7 +209,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
                       setHead(diag.diffuse.head);
                     }}
                   >
-                    {t.act3.diagDiffuse(diag.diffuse.layer, diag.diffuse.head)}
+                    {t.diagDiffuse(diag.diffuse.layer, diag.diffuse.head)}
                   </button>
                 </div>
               )}
@@ -200,7 +218,7 @@ export default function AttentionRoom(props: { engine: Engine }) {
         </>
       )}
 
-      <p className="widget-note">{t.act3.note()}</p>
+      <p className="widget-note">{t.note()}</p>
     </div>
   );
 }
@@ -212,9 +230,9 @@ function MatrixRow(props: {
   attn: Float32Array;
   selected: boolean;
   cellColor: (v: number) => string;
+  futureMasked: string;
   onSelect: () => void;
 }) {
-  const t = useStrings();
   const { q, seq, attn } = props;
   const cells = [];
   for (let k = 0; k < seq; k++) {
@@ -224,7 +242,7 @@ function MatrixRow(props: {
         key={k}
         className={`mx-cell${k > q ? " future" : ""}`}
         style={k <= q ? { background: props.cellColor(v) } : undefined}
-        title={k <= q ? `${(v * 100).toFixed(1)}%` : t.act3.futureMasked}
+        title={k <= q ? `${(v * 100).toFixed(1)}%` : props.futureMasked}
       />
     );
   }
