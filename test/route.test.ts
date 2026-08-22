@@ -32,6 +32,17 @@ describe("draft visibility", () => {
     expect(publishedEssays().map((e) => e.id)).not.toContain("attention-heads");
     expect(publishedEssays().map((e) => e.id)).toEqual(["inside-the-machine"]);
   });
+
+  it("the why-it-cant-count draft is reachable by direct slug URL, with section deep links", () => {
+    expect(ESSAYS.find((e) => e.slug === "why-it-cant-count")?.status).toBe("draft");
+    expect(resolveHash("#/essays/why-it-cant-count")).toBe("essay:why-it-cant-count");
+    expect(resolveHash("#/essays/why-it-cant-count/sec-2")).toBe("essay:why-it-cant-count");
+  });
+
+  it("…and stays out of the published listings as well", () => {
+    expect(publishedEssays().map((e) => e.id)).not.toContain("why-it-cant-count");
+    expect(publishedEssays().map((e) => e.id)).toEqual(["inside-the-machine"]);
+  });
 });
 
 describe("hash routing", () => {

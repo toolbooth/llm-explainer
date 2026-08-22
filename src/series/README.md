@@ -39,10 +39,16 @@ Seam resolved (essay #2, commit e664168): Gamble and TheLoop take a `strings`
 prop (`GambleStrings` / `LoopStrings`, same shape as the act4/act5 tables),
 an `htmlId`, and optional `initialText` / `initialPrompt` / `presets`. Essay
 #3 lifted AttentionRoom the same way (`AttentionRoomStrings` = the act3
-table, `htmlId`, optional `initialText` / `initialLayer`). A new essay passes
-its own tables; the flagship passes its own. Chopper and WordMap still read
-`useStrings()` directly — lift them the same way the first time a second
-essay needs one.
+table, `htmlId`, optional `initialText` / `initialLayer`), and essay #4
+lifted Chopper (`ChopperStrings` = the act1 table, `htmlId`, optional
+`initialText`). A new essay passes its own tables; the flagship passes its
+own. WordMap still reads `useStrings()` directly — lift it the same way the
+first time a second essay needs it.
+
+Engine surface added by essay #4: `Engine.tokenizeModel(text)` — the Act-4
+model's own tokenizer (pairs with `decodeModel`/`lastLogits`; loads the
+tokenizer alone, never the model). `tokenize()` stays GPT-2 BPE for the
+Chopper and the nano model.
 
 ## 3. The content architecture
 

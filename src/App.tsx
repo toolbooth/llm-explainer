@@ -31,7 +31,7 @@ export default function App() {
         <p>{t.intro.p2()}</p>
       </section>
 
-      <Chopper engine={engine} />
+      <Chopper engine={engine} strings={t.act1} htmlId="act-1" />
 
       <section className="prose">
         <p>{t.afterChopper.p1()}</p>

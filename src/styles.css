@@ -300,3 +300,54 @@ body {
   /* Footer links: pad the tap area to ~44px without shifting the layout */
   .essay-foot a { display: inline-block; padding: 0.85rem 0.35rem; margin: -0.7rem -0.2rem; }
 }
+
+/* ── Essay #4: the tokenizer X-ray ── */
+
+.xr-inputs { display: flex; gap: 0.8rem; align-items: flex-end; }
+.xr-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.xr-field-word { flex: 1; }
+.xr-field-letter { width: 5.5rem; }
+.xr-field-letter .text-input { text-align: center; font-family: var(--font-mono); }
+.xr-label { font-size: 0.74rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }
+.xr-row { display: grid; grid-template-columns: 64px 1fr auto; gap: 0.7rem; align-items: center; margin-top: 1rem; }
+.xr-row-label { font-size: 0.78rem; color: var(--dim); text-align: right; }
+.xr-cells { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: flex-end; }
+.xr-ch { font-family: var(--font-mono); font-weight: 700; width: 1.7rem; height: 1.9rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: #0c0f18; border: 1px solid var(--border); color: var(--text); }
+.xr-ch.hit { border-color: var(--warm); color: var(--warm); background: rgba(240, 168, 96, 0.16); }
+.xr-piece { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: 0.3rem 0.55rem; border-radius: 8px; background: rgba(124, 140, 248, 0.16); border: 1px solid transparent; color: #b7c1ff; }
+.xr-piece.carries { border-color: rgba(240, 168, 96, 0.5); }
+.xr-piece-letters { font-family: var(--font-mono); font-weight: 700; white-space: pre; letter-spacing: 0.08em; }
+.xr-piece-letters .hit { color: var(--warm); text-decoration: underline; text-underline-offset: 3px; }
+.xr-piece-id { font-size: 0.66rem; opacity: 0.8; font-family: var(--font-mono); }
+.xr-tally { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.xr-insight { margin-top: 0.9rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+.xr-insight code { font-family: var(--font-mono); color: var(--warm); }
+.xr-run-row { margin-top: 1.2rem; }
+.xr-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1.1rem; }
+.xr-panel { background: #0c0f18; border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; min-width: 0; }
+.xr-panel h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.5rem; }
+.xr-prompt-label { font-size: 0.74rem; }
+.xr-prompt { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); background: var(--panel); border-radius: 6px; padding: 0.4rem 0.5rem; white-space: pre-wrap; word-break: break-word; margin: 0.25rem 0 0.8rem; }
+.xr-hist { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; align-items: end; height: 120px; }
+.xr-bin { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 3px; border-radius: 5px; padding: 2px 1px 0; border: 1px solid transparent; }
+.xr-bin.truth { border-color: var(--warm); }
+.xr-bin-pct { font-size: 0.6rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+.xr-bin.top .xr-bin-pct { color: var(--text); font-weight: 700; }
+.xr-bin-track { display: block; width: 100%; flex: 1; display: flex; align-items: flex-end; }
+.xr-bin-fill { display: block; width: 100%; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 1px; transition: height 0.25s ease; }
+.xr-bin.top .xr-bin-fill { background: linear-gradient(180deg, #a5b0ff, var(--accent)); }
+.xr-bin.truth .xr-bin-fill { background: var(--warm); }
+.xr-bin-label { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+.xr-bin.truth .xr-bin-label { color: var(--warm); font-weight: 800; }
+.xr-legend { margin-top: 0.5rem; font-size: 0.76rem; }
+.xr-verdict { margin-top: 0.5rem; font-size: 0.92rem; color: var(--text); }
+.xr-raw { margin-top: 0.4rem; font-size: 0.74rem; line-height: 1.7; word-break: break-word; }
+.xr-raw code { font-family: var(--font-mono); color: var(--muted); background: var(--panel); padding: 0 0.25rem; border-radius: 3px; }
+
+@media (max-width: 740px) {
+  .xr-row { grid-template-columns: 1fr; gap: 0.35rem; }
+  .xr-row-label { text-align: left; }
+  .xr-panels { grid-template-columns: 1fr; }
+  .xr-ch { min-width: 1.7rem; }
+  .xr-field-letter { width: 4.5rem; }
+}

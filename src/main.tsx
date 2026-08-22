@@ -5,6 +5,7 @@ import SeriesIndex from "./series/SeriesIndex";
 import { useRoute } from "./series/route";
 import WhyItLies from "./essays/why-it-lies/WhyItLies";
 import AttentionHeads from "./essays/attention-heads/AttentionHeads";
+import WhyItCantCount from "./essays/why-it-cant-count/WhyItCantCount";
 import "./styles.css";
 
 /**
@@ -15,6 +16,7 @@ import "./styles.css";
 const ESSAY_PAGES: Record<string, ComponentType> = {
   "why-it-lies": WhyItLies,
   "attention-heads": AttentionHeads,
+  "why-it-cant-count": WhyItCantCount,
 };
 
 /** `#/essays/<slug>` → that essay; `#/essays…` → series index; else essay #1. */

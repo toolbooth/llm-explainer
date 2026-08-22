@@ -38,6 +38,12 @@ export const ESSAYS: readonly EssayMeta[] = [
     title: { en: "The Attention-Head Field Guide", zh: "野生 attention head 图鉴" },
     status: "draft",
   },
+  {
+    id: "why-it-cant-count",
+    slug: "why-it-cant-count",
+    title: { en: "Why It Can't Count", zh: "为什么 AI 数不出 strawberry 有几个 r" },
+    status: "draft",
+  },
 ];
 
 /** The reader-visible slice of the registry, in publication order. */

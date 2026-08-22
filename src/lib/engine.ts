@@ -14,6 +14,12 @@ export interface TokenPiece {
 export interface Engine {
   /** GPT-2 BPE — the nano model's native vocab (Acts 1–3, 5). */
   tokenize(text: string): Promise<TokenPiece[]>;
+  /**
+   * The Act-4 model's own tokenizer — the pieces the big model actually
+   * receives (pairs with decodeModel / lastLogits). Loads the tokenizer
+   * alone (~3.4MB), never the model.
+   */
+  tokenizeModel(text: string): Promise<TokenPiece[]>;
   /** Returns the Act-4 model's logits for the LAST position given the full text. */
   lastLogits(text: string): Promise<{ logits: Float32Array; ids: number[] }>;
   /** GPT-2 vocab — pairs with tokenize() and the nano model's outputs. */
@@ -57,6 +63,15 @@ function realEngine(): Engine {
   return {
     async tokenize(text) {
       const tok = await getTok();
+      if (!text) return [];
+      const pieces: string[] = tok.tokenize(text);
+      const enc = await tok(text, { add_special_tokens: false });
+      const ids = Array.from(enc.input_ids.data as BigInt64Array).map(Number);
+      return pieces.map((p, i) => ({ text: p, id: ids[i] ?? -1 }));
+    },
+
+    async tokenizeModel(text) {
+      const tok = await getModelTok();
       if (!text) return [];
       const pieces: string[] = tok.tokenize(text);
       const enc = await tok(text, { add_special_tokens: false });
@@ -119,6 +134,9 @@ function mockEngine(): Engine {
         .split(/(\s+)/)
         .filter((s) => s.trim())
         .map((w, i) => ({ text: (i > 0 ? "Ġ" : "") + w, id: (w.length * 37 + i * 13) % 180 }));
+    },
+    async tokenizeModel(text) {
+      return this.tokenize(text);
     },
     async lastLogits(text) {
       const logits = new Float32Array(words.length);
