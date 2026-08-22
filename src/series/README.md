@@ -8,22 +8,27 @@ below and nothing else.
 
 ## 1. The nano engine (live dissection)
 
-The hand-rolled GPT that makes attention/embeddings/logits inspectable.
+The hand-rolled GPT that makes attention/embeddings/logits inspectable. The
+engine itself is the extracted **`nano-lm`** library (`"nano-lm":
+"file:../nano-lm"`, zero runtime dependencies; this essay is its reference
+consumer). Widgets import the essay-side wrapper first, the library second:
 
 - `src/lib/nanoEngine.ts` — `getNano(onPct?)` shared singleton loader (all
-  widgets on a page dissect the same 7.5MB brain), `NanoHandle`
-  (`forward(ids)`, `meta`, `wte()`), `mockNano()` for tests/CI
-  (`?mockModel=1`).
-- `src/nano/model.ts` — `NanoGPT`, `ForwardResult` (logits + per-layer,
-  per-head attentions).
-- `src/nano/ops.ts`, `src/nano/safetensors.ts` — tensor primitives / weight
-  parsing, should you need a new probe.
-- `src/nano/neighbors.ts` (`nearestNeighbors`), `src/nano/diagnose.ts`
-  (`diagnoseHeads`) — reusable analyses over the handle.
+  widgets on a page dissect the same 7.5MB brain, served from
+  `public/weights/`), `NanoHandle` (`forward(ids)`, `meta`, `wte()`),
+  `mockNano()` for tests/CI (`?mockModel=1`); re-exports `ForwardResult` /
+  `NanoMeta`.
+- `nano-lm` — `NanoGPT`, `ForwardResult` (logits + per-layer, per-head
+  attentions + hidden states), `nearestNeighbors`, `diagnoseHeads`,
+  `parseSafetensors`/`loadModel`, and the tensor primitives
+  (`layerNorm`, `linear`, `geluNew`, `softmaxRow`) should you need a new
+  probe. The library takes GPT-2 BPE token ids; `src/lib/engine.ts`'s
+  `tokenize()` produces them.
 
 For the bigger on-demand model (Acts 4–5 class widgets): `src/lib/engine.ts`
 (`createEngine`, `Engine`, `displayPiece`) and `src/lib/prob.ts`
-(`softmaxTopK`, `sampleFrom`). Both respect `?mockModel=1`.
+(`softmaxTopK`, `sampleFrom`, re-exported from `nano-lm`). Both respect
+`?mockModel=1`.
 
 ## 2. The widgets
 

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
+    "nano-lm": "file:../nano-lm",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

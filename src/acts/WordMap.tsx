@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { displayPiece, type Engine } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
-import { nearestNeighbors } from "../nano/neighbors";
+import { nearestNeighbors } from "nano-lm";
 import { useStrings } from "../content/i18n";
 
 interface TokenCard {

@@ -1,13 +1,18 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { f16ToF32, parseSafetensors } from "../src/nano/safetensors";
-import { NanoGPT, type NanoMeta } from "../src/nano/model";
+import { f16ToF32, NanoGPT, parseSafetensors, type NanoMeta } from "nano-lm";
 
+/**
+ * Integration check: the weights this app serves from public/weights/ must
+ * still reproduce the transformers reference through the extracted nano-lm
+ * engine. The fixture ships with the library (tools/reference.json); the
+ * library's own suite covers the engine in depth.
+ */
 const ROOT = join(__dirname, "..");
 const WEIGHTS = join(ROOT, "public/weights/tinystories-1m.safetensors");
 const META = join(ROOT, "public/weights/meta.json");
-const REF = join(ROOT, "weights-src/reference.json");
+const REF = join(ROOT, "node_modules/nano-lm/tools/reference.json");
 
 function toArrayBuffer(buf: Buffer): ArrayBuffer {
   return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;

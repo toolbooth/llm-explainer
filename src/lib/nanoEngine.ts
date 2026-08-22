@@ -1,49 +1,35 @@
-/** Loader for the hand-rolled 7.5MB nano model (self-hosted weights). */
-import { NanoGPT, type NanoMeta } from "../nano/model";
-import { parseSafetensors } from "../nano/safetensors";
+/**
+ * Loader for the hand-rolled 7.5MB nano model (self-hosted weights).
+ *
+ * The engine itself — forward pass, safetensors reader, neighbour search,
+ * head diagnostics — lives in the extracted `nano-lm` library (this essay is
+ * its reference consumer). This module is the essay's thin layer over it:
+ * one shared singleton per page, progress fan-out, and the `?mockModel=1`
+ * fake for tests/CI.
+ *
+ * Weights stay served from this app's `public/weights/` (the same two files
+ * as `nano-lm/weights/`), so the essay controls caching and CDN placement;
+ * `meta.json` is fetched alongside them exactly as before.
+ */
+import { loadModel, type ForwardResult, type NanoGPT, type NanoMeta } from "nano-lm";
+
+export type { ForwardResult, NanoMeta } from "nano-lm";
 
 export interface NanoHandle {
-  forward(ids: number[]): ReturnType<NanoGPT["forward"]>;
+  forward(ids: number[]): ForwardResult;
   meta: NanoMeta;
   /** Raw token-embedding table [vocab, hidden] — Act 2's map of meaning. */
   wte(): Float32Array;
 }
 
-async function fetchWithProgress(url: string, onPct: (pct: number) => void): Promise<ArrayBuffer> {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`fetch ${url}: ${res.status}`);
-  const total = Number(res.headers.get("content-length") ?? 0);
-  if (!res.body || !total) return res.arrayBuffer();
-  const reader = res.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let received = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    received += value.length;
-    onPct(Math.round((received / total) * 100));
-  }
-  const buf = new Uint8Array(received);
-  let off = 0;
-  for (const c of chunks) {
-    buf.set(c, off);
-    off += c.length;
-  }
-  return buf.buffer;
-}
-
 async function loadNano(onPct: (pct: number) => void): Promise<NanoHandle> {
-  const [meta, weights] = await Promise.all([
-    fetch("/weights/meta.json").then((r) => r.json() as Promise<NanoMeta>),
-    fetchWithProgress("/weights/tinystories-1m.safetensors", onPct),
-  ]);
-  const tensors = parseSafetensors(weights);
-  const model = new NanoGPT(tensors, meta);
+  const model: NanoGPT = await loadModel("/weights/tinystories-1m.safetensors", "/weights/meta.json", {
+    onProgress: onPct,
+  });
   return {
     forward: (ids) => model.forward(ids),
-    meta,
-    wte: () => tensors.get("transformer.wte.weight")!.data,
+    meta: model.meta,
+    wte: () => model.wte,
   };
 }
 
@@ -90,7 +76,7 @@ export function mockNano(): NanoHandle {
         }
         attentions.push(layer);
       }
-      return { logits: new Float32Array(meta.vocab), attentions, seq };
+      return { logits: new Float32Array(meta.vocab), attentions, hiddenStates: [], seq };
     },
   };
 }

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { displayPiece, type Engine, type TokenPiece } from "../lib/engine";
-import { getNano, type NanoHandle } from "../lib/nanoEngine";
-import { diagnoseHeads } from "../nano/diagnose";
-import type { ForwardResult } from "../nano/model";
+import { getNano, type ForwardResult, type NanoHandle } from "../lib/nanoEngine";
+import { diagnoseHeads } from "nano-lm";
 import { useStrings } from "../content/i18n";
 
 const DEFAULT_TEXT = "Once upon a time there was a little girl";

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { nearestNeighbors } from "../src/nano/neighbors";
+import { nearestNeighbors } from "nano-lm";
 
 // 5 tokens, hidden=4. t0≈t1 (same direction), t2 orthogonal, t3 opposite,
 // t4 is "untrained" (tiny norm, same direction as t0 — must be filtered out).

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { diagnoseHeads } from "../src/nano/diagnose";
+import { diagnoseHeads } from "nano-lm";
 
 describe("diagnoseHeads", () => {
   it("finds the previous-token head and the anchor head", () => {
