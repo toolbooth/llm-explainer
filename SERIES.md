@@ -38,9 +38,10 @@ that format into a cadence.*
 |---|---|---|---|
 | 1 | Inside the Machine (seven acts) | ChatGPT 到底在想什么 | shipping Q1 2027 |
 | 2 | Why It Lies | 它为什么说谎 | blueprint — `essays/02-why-it-lies/OUTLINE.md` |
-| 3–5 | backlog below | | candidates |
+| 3 | The Attention-Head Field Guide | 野生 attention head 图鉴 | blueprint — `essays/03-attention-heads/OUTLINE.md` |
+| 4–5 | backlog below | | candidates |
 
-## Candidate backlog (essays #3–5)
+## Candidate backlog (essays #3–5; #3 promoted 2026-08-22)
 
 | # | Candidate | One-line premise | Engine reuse |
 |---|---|---|---|
