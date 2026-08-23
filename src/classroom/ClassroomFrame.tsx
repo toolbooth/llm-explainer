@@ -11,7 +11,9 @@ export const LIGHT_THEME_COLOR = "#ffffff";
 
 /**
  * The frame every classroom page shares: language toggle, the small nav
- * row (index / lesson / guide / printable / print), the hero, and the footer.
+ * row (index / lesson / guide / printable / slides / print), the hero, and
+ * the footer. Front-matter pages pass no moduleId, so they get the index
+ * link and Print only; their own seven-page sub-nav lives in AboutPage.
  * Document chrome (<title>, <meta description>, <html lang>) follows the
  * page, as the essays do. Pages pass their own hero copy; the series kicker
  * is shared.
@@ -28,7 +30,7 @@ export default function ClassroomFrame(props: {
   subtitleClass?: string;
   /** Which module the nav points at (absent on the index). */
   moduleId?: ModuleId;
-  /** Which of the module's three pages this is (drops its own nav link). */
+  /** Which page kind this is (drops its own nav link; "about" pages carry their sub-nav themselves). */
   current?: ClassroomPage["kind"];
   showPrint?: boolean;
   children: ReactNode;

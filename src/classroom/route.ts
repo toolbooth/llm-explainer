@@ -10,6 +10,7 @@
  *   #/classroom/<id>/guide           → the module's teacher guide
  *   #/classroom/<id>/unplugged       → the module's unplugged printable
  *   #/classroom/<id>/slides          → the module's Slides companion (if it has one)
+ *   #/classroom/about/<slug>         → a shared front-matter page (src/classroom/about/)
  *   anything else under #/classroom  → module index (never a broken page)
  *
  * Deep links per step are PRODUCT.md §4.1 rule 7: a teacher pastes the
@@ -17,19 +18,26 @@
  */
 import { useSyncExternalStore } from "react";
 import { moduleById, type ModuleId } from "./registry";
+import { isAboutSlug, type AboutSlug } from "./about/slugs";
 
 export type ClassroomPage =
   | { kind: "index" }
   | { kind: "module"; id: ModuleId; step: number | null }
   | { kind: "guide"; id: ModuleId }
   | { kind: "unplugged"; id: ModuleId }
-  | { kind: "slides"; id: ModuleId };
+  | { kind: "slides"; id: ModuleId }
+  | { kind: "about"; slug: AboutSlug };
 
 /** Pure hash → classroom page resolution, exported for tests. */
 export function resolveClassroomHash(hash: string): ClassroomPage {
   const m = /^#\/classroom(?:\/([^/?#]*))?(?:\/([^/?#]*))?/.exec(hash);
   if (!m || !m[1]) return { kind: "index" };
-  const mod = moduleById(decodeURIComponent(m[1]));
+  const head = decodeURIComponent(m[1]);
+  if (head === "about") {
+    const slug = m[2] ? decodeURIComponent(m[2]) : "";
+    return isAboutSlug(slug) ? { kind: "about", slug } : { kind: "index" };
+  }
+  const mod = moduleById(head);
   if (!mod || mod.status !== "available") return { kind: "index" };
   const sub = m[2] ? decodeURIComponent(m[2]) : "";
   if (sub === "guide") return { kind: "guide", id: mod.id };
@@ -51,6 +59,8 @@ export function classroomHref(page: ClassroomPage): string {
       return `#/classroom/${page.id}/unplugged`;
     case "slides":
       return `#/classroom/${page.id}/slides`;
+    case "about":
+      return `#/classroom/about/${page.slug}`;
   }
 }
 

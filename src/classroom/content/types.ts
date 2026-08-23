@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
+import type { CiteStrings } from "../../content/types";
 import type { HintStrings } from "../HintPanel";
+import type { AboutSlug } from "../about/slugs";
 
 /**
  * The Classroom Edition's shared chrome, per language: the module index,
  * the frame every classroom page shares (nav, at-a-glance, model card line,
- * privacy line, footer), the hint control, and the front-matter placeholders
- * that phase 3 fills in. Module prose lives in each module's own tables
+ * privacy line, footer), the hint control, and the chrome of the shared
+ * front-matter pages (#/classroom/about/*). Module prose lives in each module's own tables
  * (src/classroom/m1/content/), replicating the series' content pattern —
  * each module owns its words; this table owns the furniture.
  */
@@ -63,8 +65,26 @@ export interface ClassroomStrings {
     extension: { label: string; time: string };
   };
 
-  /** Placeholders for the shared guide front matter (phase 3). */
-  frontMatter: { heading: string; note: string; items: { key: string; label: string }[] };
+  /**
+   * The shared guide front matter (PRODUCT.md §5 items 2–8), one page per
+   * slug under #/classroom/about/. `items` is the index's list (label +
+   * one-line blurb); `guideLine` prefixes the link row in every module guide.
+   */
+  frontMatter: {
+    heading: string;
+    intro: string;
+    guideLine: string;
+    items: { slug: AboutSlug; label: string; blurb: string }[];
+  };
+
+  /** Chrome of an about page: the seven-page sub-nav, the source line, the letter kit's "Cite this". */
+  about: {
+    navLabel: string;
+    sourceNote: (source: string) => ReactNode;
+    /** Meta description per page (the body's own h1 is the title). */
+    descriptions: Record<AboutSlug, string>;
+    cite: CiteStrings;
+  };
 
   footer: () => ReactNode;
 }

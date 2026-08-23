@@ -80,16 +80,39 @@ export const zh: ClassroomStrings = {
 
   frontMatter: {
     heading: "共用前言",
-    note: "教师指南的共用部分——模型说明卡、隐私与安全一页纸、技术检查、六个模块的课标对照表、政策引文、无障碍声明、引用方式——在后续阶段补齐。在那之前,每个课页上的一句话版本就是权威文本。",
+    intro: "教师指南的共用部分,每份一页,可打印(每页都有“打印本页”按钮;PDF 版由同一份文本生成)。页上每一句关于页面做什么、存什么的话,都对照已构建的代码写成,并注明日期。",
+    guideLine: "共用前言,在站点上",
     items: [
-      { key: "model-card", label: "模型说明卡,实话实说" },
-      { key: "privacy", label: "隐私与安全一页纸" },
-      { key: "tech-check", label: "技术检查(5 分钟,提前一天做)" },
-      { key: "crosswalk", label: "课标对照表(全部六个模块)" },
-      { key: "policy", label: "政策引文" },
-      { key: "accessibility", label: "无障碍声明" },
-      { key: "cite", label: "如何引用 · 如何告诉我们你用过" },
+      { slug: "model-card", label: "模型说明卡,实话实说", blurb: "TinyStories-1M 是什么、能做什么、不能做什么,训练数据,课堂模式下的采样上限,以及权重许可的现状。" },
+      { slug: "privacy", label: "隐私与安全一页纸", blurb: "写法对准学区审核表,可整段粘贴:无账号、不收集任何数据、浏览器缓存了什么、FERPA / COPPA / SOPIPA 立场,以及五分钟的网络面板审计。" },
+      { slug: "tech-check", label: "技术检查(5 分钟,提前一天做)", blurb: "设备基线、首次访问下载什么、过滤分类、放行申请模板,以及课前清单。" },
+      { slug: "standards", label: "课标对照表(全部六个模块)", blurb: "CSTA 2026、AP CSP、AI4K12、CSTA/AI4K12 优先级、ISTE、DOL TEN 07-25 与加州教育法 §33548,每行带核对日期。" },
+      { slug: "policy", label: "政策引文", blurb: "联邦与各州政策的原文,供申报书、校董会答问和放行申请直接引用,每条带核对标记。" },
+      { slug: "accessibility", label: "无障碍声明", blurb: "WCAG 2.1 AA 目标、交互件按什么设计、已知缺口——第四阶段审计前都是“未审计”,页上照实写。" },
+      { slug: "letter-kit", label: "如何引用 · 如何告诉我们你用它上过课", blurb: "引用块、可选的“我用它上过课”报告、来信骨架,以及我们永远不会要的东西。" },
     ],
+  },
+
+  about: {
+    navLabel: "共用前言",
+    sourceNote: (source) => (
+      <>源文本:<code>classroom-edition/front-matter/{source}.zh.md</code>(草稿 2026-08-22),整合时对照已构建的代码做了修正——修正清单见 REVIEW-CLASSROOM-3.md。中文页与英文页是对等文档,不是翻译。</>
+    ),
+    descriptions: {
+      "model-card": "学生浏览器里跑的模型:经 nano-lm 运行的 TinyStories-1M——它是什么、能做什么、不能做什么、训练数据、课堂采样上限,以及权重许可的现状。",
+      privacy: "给学区审核用的隐私与安全一页纸:无账号、不收集数据、缓存了什么、FERPA / COPPA / SOPIPA 立场、安全声明、网络面板审计。",
+      "tech-check": "上课前一天的技术检查:设备基线、下载内容、过滤分类、放行申请模板、30 台设备同时上课的建议、课前清单。",
+      standards: "六个规划模块的课标对照表:CSTA 2026、AP CSP、AI4K12、CSTA/AI4K12 优先级、ISTE、DOL TEN 07-25、加州教育法 §33548,附核对日期。",
+      policy: "政策引文:联邦与各州政策原文,供申报书、校董会答问与放行申请引用,每条带核对标记。",
+      accessibility: "无障碍声明:WCAG 2.1 AA 目标、交互件的设计原则、已知缺口、兼容性与联系方式。",
+      "letter-kit": "如何引用《Inside the Machine》,以及如何告诉我们你用它上过课:可选的报告、来信骨架,以及我们永远不会要的东西。",
+    },
+    cite: {
+      heading: "如何引用",
+      copy: "复制",
+      copied: "已复制",
+      note: "课堂版与旗舰长文共用同一个引用对象(PRODUCT.md §1.4)。arXiv 预印本即将发布,发布后请改引预印本。",
+    },
   },
 
   footer: () => (

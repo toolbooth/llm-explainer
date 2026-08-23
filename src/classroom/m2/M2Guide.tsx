@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import ClassroomFrame from "../ClassroomFrame";
+import FrontMatterLinks from "../about/FrontMatterLinks";
 import { useClassroomStrings } from "../content/i18n";
 import { classroomHref } from "../route";
 import DiceGrid, { cellWord } from "./DiceGrid";
@@ -45,9 +46,7 @@ export default function M2Guide() {
     >
       <p className="cl-card">{c.modelCard()} {t.modelNote()}</p>
       <p className="cl-card">{c.privacy()}</p>
-      <p className="dim cl-noprint">
-        {c.frontMatter.heading}: {c.frontMatter.note}
-      </p>
+      <FrontMatterLinks />
 
       {/* 1. At a glance */}
       <section className="prose">

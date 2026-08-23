@@ -60,8 +60,46 @@
 .classroom .cl-modules .cl-mod-links { grid-column: 2; font-family: var(--font-sans); font-size: 0.84rem; }
 .classroom .cl-modules .cl-mod-links a { color: var(--muted); margin-right: 1rem; }
 .classroom .cl-front { list-style: none; padding: 0; font-family: var(--font-sans); font-size: 0.92rem; color: var(--dim); }
-.classroom .cl-front li { padding: 0.3rem 0; border-top: 1px dashed var(--border); }
-.classroom .cl-front li::after { content: " — phase 3"; font-size: 0.78rem; }
+.classroom .cl-front li { padding: 0.55rem 0; border-top: 1px dashed var(--border); }
+.classroom .cl-front li a { color: var(--text); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--border); }
+.classroom .cl-front li a:hover { color: var(--accent); border-color: var(--accent); }
+.classroom .cl-front-blurb { display: block; margin-top: 0.2rem; line-height: 1.5; }
+
+/* the guides' one-line row of front-matter links */
+.classroom .cl-front-row { font-family: var(--font-sans); font-size: 0.84rem; color: var(--dim); line-height: 1.9; margin: 0.4rem 0 1.6rem; }
+.classroom .cl-front-k { margin-right: 0.5rem; }
+.classroom .cl-front-row a { color: var(--muted); white-space: nowrap; margin-right: 0.7rem; }
+.classroom .cl-front-row a::after { content: " ·"; color: var(--dim); }
+.classroom .cl-front-row a:last-child::after { content: none; }
+
+/* ── Shared front matter (#/classroom/about/*) ───────────────────────────
+   Markdown.tsx output under .prose: the documents are tables-and-lists
+   heavy, so the table rules differ from the guides' (first column wraps;
+   dense tables keep a minimum width and scroll inside .cl-table-wrap). */
+.classroom .cl-about-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.4rem; font-family: var(--font-sans); }
+.classroom .cl-about-nav a { color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.8rem; min-height: 44px; display: inline-flex; align-items: center; }
+.classroom .cl-about-nav a:hover { color: var(--accent); border-color: var(--accent); }
+.classroom .cl-about-nav a[aria-current="page"] { color: var(--text); border-color: var(--accent); background: var(--panel); font-weight: 600; }
+.classroom.cl-about .hero h1 { font-size: 2rem; }
+.classroom.cl-about .prose.cl-md { margin: 1rem 0; }
+.classroom.cl-about .prose h2 { font-size: 1.3rem; margin-top: 2.4rem; }
+.classroom.cl-about .prose h3 { color: var(--text); font-size: 1.08rem; margin: 1.6rem 0 0.6rem; }
+.classroom.cl-about .prose h4 { color: var(--text); font-size: 1rem; margin: 1.2rem 0 0.4rem; }
+.classroom.cl-about .prose p, .classroom.cl-about .prose li { font-size: 1rem; line-height: 1.65; }
+.classroom.cl-about .prose li { margin: 0.45rem 0; }
+.classroom.cl-about .prose li > ol, .classroom.cl-about .prose li > ul { margin: 0.3rem 0 0.2rem; }
+.classroom.cl-about .prose blockquote { margin: 1rem 0 1.4rem; padding: 0.2rem 0 0.2rem 1rem; border-left: 3px solid var(--border); color: var(--muted); font-family: var(--font-sans); font-size: 0.95rem; }
+.classroom.cl-about .prose blockquote p { margin-bottom: 0.7rem; }
+.classroom.cl-about .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+.classroom .cl-table.cl-md-table td:first-child { white-space: normal; color: inherit; }
+.classroom .cl-md-table th, .classroom .cl-md-table td { line-height: 1.5; }
+.classroom .cl-md-table td code, .classroom .cl-md-table th code { font-size: 0.85em; word-break: break-all; }
+.classroom .cl-md-table.dense { font-size: 0.78rem; min-width: 1100px; }
+.classroom .cl-md-table.dense th, .classroom .cl-md-table.dense td { padding: 0.4rem 0.45rem; }
+.classroom .cl-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+.classroom.cl-about .cl-source { font-family: var(--font-sans); font-size: 0.82rem; margin-top: 2.4rem; line-height: 1.55; }
+.classroom.cl-about .cite { margin-top: 0.4rem; }
+.classroom.cl-about .cite h2 { font-size: 1.3rem; }
 
 /* teacher guide */
 .classroom.cl-guide .prose h2 { font-size: 1.3rem; margin-top: 2.4rem; }
@@ -195,6 +233,19 @@
   .classroom .cl-page-break { break-before: page; }
   .classroom .cl-sheet { box-shadow: none; border-radius: 0; margin: 0; padding: 0; }
   .classroom .cl-strip { break-inside: avoid; }
+  /* shared front matter: tables keep their thead on every sheet; the crosswalk prints landscape */
+  .classroom .cl-front-row, .classroom.cl-about .cl-source { color: #000; }
+  .classroom .cl-front-row a { color: #000; }
+  .classroom .cl-md-table { font-size: 9.5pt; }
+  .classroom .cl-md-table thead { display: table-header-group; }
+  .classroom .cl-md-table tr { break-inside: avoid; }
+  .classroom .cl-md-table.dense { min-width: 0; font-size: 7.5pt; }
+  .classroom .cl-md-table.dense th, .classroom .cl-md-table.dense td { padding: 0.25rem 0.3rem; }
+  .classroom.cl-about .prose blockquote { border-color: #000; color: #000; }
+  .classroom.cl-about .prose h2, .classroom.cl-about .prose h3 { break-after: avoid; }
+  .classroom.cl-about .cite-copy { display: none; }
+  .classroom.cl-about-standards { page: crosswalk; }
+  @page crosswalk { size: landscape; }
 }
 
 /* ── Module 2: Hundred Rolls ─────────────────────────────────────────────

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { STRINGS as CLASSROOM } from "../src/classroom/content/i18n";
+import { ABOUT_SLUGS } from "../src/classroom/about/slugs";
 
 /**
  * The Classroom Edition's replica of the series' content parity test: walk
@@ -57,17 +58,10 @@ describe("classroom shared chrome tables", () => {
       expect(leaves.toLowerCase()).not.toContain("chat with");
       expect(leaves).not.toContain("聊天框");
     }
-    expect(CLASSROOM.en.frontMatter.items.map((i) => i.key)).toEqual([
-      "model-card",
-      "privacy",
-      "tech-check",
-      "crosswalk",
-      "policy",
-      "accessibility",
-      "cite",
-    ]);
-    expect(CLASSROOM.zh.frontMatter.items.map((i) => i.key)).toEqual(
-      CLASSROOM.en.frontMatter.items.map((i) => i.key)
+    // the index's front-matter list is the about route family, in order (PRODUCT.md §5 items 2–8)
+    expect(CLASSROOM.en.frontMatter.items.map((i) => i.slug)).toEqual([...ABOUT_SLUGS]);
+    expect(CLASSROOM.zh.frontMatter.items.map((i) => i.slug)).toEqual(
+      CLASSROOM.en.frontMatter.items.map((i) => i.slug)
     );
   });
 });

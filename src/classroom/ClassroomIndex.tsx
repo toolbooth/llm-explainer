@@ -61,10 +61,13 @@ export default function ClassroomIndex() {
 
       <section className="prose">
         <h2>{ui.forTeachers}</h2>
-        <p className="dim">{t.frontMatter.note}</p>
+        <p className="dim">{t.frontMatter.intro}</p>
         <ul className="cl-front">
           {t.frontMatter.items.map((it) => (
-            <li key={it.key}>{it.label}</li>
+            <li key={it.slug}>
+              <a href={classroomHref({ kind: "about", slug: it.slug })}>{it.label}</a>
+              <span className="cl-front-blurb">{it.blurb}</span>
+            </li>
           ))}
         </ul>
         <p>

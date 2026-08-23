@@ -95,16 +95,44 @@ export const en: ClassroomStrings = {
 
   frontMatter: {
     heading: "Shared front matter",
-    note: "The shared sections of the teacher guide — model card, privacy & safety one-pager, tech check, standards crosswalk, policy citations, accessibility statement, how to cite — arrive in a later phase. Until then, the one-line versions on each lesson page are the authoritative text.",
+    intro:
+      "The shared sections of the teacher guide, one page each, printable (the Print button on every page; the PDF set is built from the same text). Every claim on them is written against the built code and dated.",
+    guideLine: "Shared front matter, on the site",
     items: [
-      { key: "model-card", label: "The model card, honestly" },
-      { key: "privacy", label: "Privacy & safety one-pager" },
-      { key: "tech-check", label: "Tech check (5 minutes, the day before)" },
-      { key: "crosswalk", label: "Standards crosswalk (all six modules)" },
-      { key: "policy", label: "Policy citations" },
-      { key: "accessibility", label: "Accessibility statement" },
-      { key: "cite", label: "How to cite · how to tell us you used it" },
+      { slug: "model-card", label: "The model card, honestly", blurb: "What TinyStories-1M is, what it can and cannot do, its training data, the sampling limits in classroom mode, and the weights-license status." },
+      { slug: "privacy", label: "Privacy & safety one-pager", blurb: "Written to paste into a district vetting form: no accounts, nothing collected, what the browser caches, the FERPA / COPPA / SOPIPA position, and a five-minute network-tab audit." },
+      { slug: "tech-check", label: "Tech check (5 minutes, the day before)", blurb: "Device baseline, what gets downloaded, filter categories, the unblock-request template, and the pre-class checklist." },
+      { slug: "standards", label: "Standards crosswalk (all six modules)", blurb: "CSTA 2026, AP CSP, AI4K12, the CSTA/AI4K12 priorities, ISTE, DOL TEN 07-25 and CA Ed Code §33548, with a verified-against date per row." },
+      { slug: "policy", label: "Policy citations", blurb: "Verbatim federal and state hooks for grant narratives, board questions and unblock requests, each with a verification label." },
+      { slug: "accessibility", label: "Accessibility statement", blurb: "The WCAG 2.1 AA target, what the widgets are designed for, and the known gaps — unaudited until phase 4, and it says so." },
+      { slug: "letter-kit", label: "How to cite · how to tell us you taught with this", blurb: "The citation block, the optional \"I taught with this\" report, the letter skeleton, and what we never ask for." },
     ],
+  },
+
+  about: {
+    navLabel: "Shared front matter",
+    sourceNote: (source) => (
+      <>
+        Source text: <code>classroom-edition/front-matter/{source}.en.md</code> (draft 2026-08-22),
+        corrected against the built code on integration — the corrections are listed in
+        REVIEW-CLASSROOM-3.md. The 中文 page is a peer document, not a translation.
+      </>
+    ),
+    descriptions: {
+      "model-card": "The model in your students' browsers: TinyStories-1M via nano-lm — what it is, what it can and cannot do, its training data, classroom sampling limits, and the weights-license status.",
+      privacy: "Privacy & safety one-pager for district vetting: no accounts, no data collected, what is cached, FERPA / COPPA / SOPIPA position, safety statement, network-tab audit.",
+      "tech-check": "Tech check the day before: device baseline, downloads, filter categories, unblock-request template, 30-client guidance, pre-class checklist.",
+      standards: "Standards crosswalk for all six planned modules: CSTA 2026, AP CSP, AI4K12, CSTA/AI4K12 priorities, ISTE, DOL TEN 07-25, CA Ed Code §33548, with verification dates.",
+      policy: "Policy citations: verbatim federal and state hooks for grant narratives, school-board questions and allowlist requests, each with a verification label.",
+      accessibility: "Accessibility statement: WCAG 2.1 AA target, what the widgets are designed for, known gaps, compatibility and contact.",
+      "letter-kit": "How to cite Inside the Machine and how to tell us you taught with it: the optional report, the letter skeleton, and what we never ask for.",
+    },
+    cite: {
+      heading: "How to cite",
+      copy: "Copy",
+      copied: "Copied",
+      note: "The Classroom Edition shares the flagship essay's citation identity (PRODUCT.md §1.4). An arXiv preprint is forthcoming; please cite that once available.",
+    },
   },
 
   footer: () => (

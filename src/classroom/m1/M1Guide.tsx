@@ -1,4 +1,5 @@
 import ClassroomFrame from "../ClassroomFrame";
+import FrontMatterLinks from "../about/FrontMatterLinks";
 import { useClassroomStrings } from "../content/i18n";
 import { classroomHref } from "../route";
 import { useM1Strings } from "./content/i18n";
@@ -10,7 +11,8 @@ import { EMBED_ORIGIN_PLACEHOLDER, EXTENSION_STRIP, UNPLUGGED_STRIPS } from "./d
  * questions) render from the SAME strings the lesson page uses; item 6's
  * answer key renders from the measured cuts in data.ts. The shared front
  * matter (model card, privacy one-pager, tech check, crosswalk, policy,
- * accessibility statement, cite) is phase 3; the index lists placeholders.
+ * accessibility statement, letter kit) is its own page family under
+ * #/classroom/about/, linked from the row under the privacy card.
  */
 export default function M1Guide() {
   const c = useClassroomStrings();
@@ -39,9 +41,7 @@ export default function M1Guide() {
     >
       <p className="cl-card">{c.modelCard()} {t.modelNote()}</p>
       <p className="cl-card">{c.privacy()}</p>
-      <p className="dim cl-noprint">
-        {c.frontMatter.heading}: {c.frontMatter.note}
-      </p>
+      <FrontMatterLinks />
 
       {/* 1. At a glance */}
       <section className="prose">

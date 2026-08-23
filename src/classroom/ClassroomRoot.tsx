@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import ClassroomIndex from "./ClassroomIndex";
+import AboutPage from "./about/AboutPage";
 import { useClassroomRoute } from "./route";
 import type { ModuleId } from "./registry";
 import "./classroom.css";
@@ -20,10 +21,11 @@ export function registerModulePages(id: ModuleId, pages: ModulePages): void {
   MODULE_PAGES[id] = pages;
 }
 
-/** `#/classroom…` → index, a module's lesson page (optionally at a step), its guide, its printable, or its slides. */
+/** `#/classroom…` → index, a front-matter page, a module's lesson page (optionally at a step), its guide, its printable, or its slides. */
 export default function ClassroomRoot() {
   const page = useClassroomRoute();
   if (page.kind === "index") return <ClassroomIndex />;
+  if (page.kind === "about") return <AboutPage slug={page.slug} />;
   const pages = MODULE_PAGES[page.id];
   if (!pages) return <ClassroomIndex />;
   if (page.kind === "guide") return <pages.Guide />;
