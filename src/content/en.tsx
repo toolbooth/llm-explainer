@@ -249,8 +249,8 @@ export const en: EssayStrings = {
         The model never stores facts — it stores <strong>neighborhoods</strong> (Act 2) and{" "}
         <strong>betting instincts</strong> (Act 4). When you ask for a citation it doesn't look
         one up; it rolls dice through the neighborhood where citations live, and out comes
-        something citation-<em>shaped</em>. Authors that plausibly follow titles. Page numbers
-        that plausibly follow authors. Each individual gamble is reasonable; the chain has no
+        something citation-<em>shaped</em>: author names that plausibly follow a title, page
+        numbers that plausibly follow the author names. Each individual gamble is reasonable; the chain has no
         anchor to reality. And because the loop (Act 5) commits to every word before imagining
         the next, the model can talk itself into a corner — confidently — one plausible token at
         a time.

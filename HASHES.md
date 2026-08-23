@@ -18,7 +18,7 @@ are byte-identical to before.
 
 | page | route | lang | sha256 of `#root` innerHTML | chars |
 |---|---|---|---|---|
-| flagship (Inside the Machine) | `/` | en | `70f47ff5d987f3528454432c27d8241104a9fce21d9eea34fdce5a9493ea90c5` | 20563 |
+| flagship (Inside the Machine) | `/` | en | `680f675b2ece144ab394a306b0bf91a73bf695e30fb48b8c7ce139b8f32e9967` | 20578 |
 | flagship (Inside the Machine) | `/` | zh | `755119071b32966fb8b2fe7b1abaacaa4c6256e16e3c3d2abef9c44bc066312c` | 15473 |
 | #2 Why It Lies | `#/essays/why-it-lies` | en | `2475a7799339f0035e2e4a593281726bc7a2d36402da2b2b6030b9a091fc197b` | 9694 |
 | #2 Why It Lies | `#/essays/why-it-lies` | zh | `4276ba10b2e59769416c75fb9f1f36d1d38428cb170de88a4c6c6483d1ee0514` | 5393 |
