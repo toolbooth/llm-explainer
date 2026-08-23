@@ -4,7 +4,7 @@ import { getNano, type NanoHandle } from "../../lib/nanoEngine";
 import type { TokenProb } from "../../lib/prob";
 import { CLASSROOM } from "../config";
 import { GAMBLE_TEMP_RANGE } from "../../acts/Gamble";
-import { ROLLS_PER_PRESS, addCounts, distributionAt, rollMany, tally, type RollTally } from "./rolls";
+import { ROLLS_PER_PRESS, ROLL_ANIMATION_MS, addCounts, distributionAt, rollMany, rollsDue, tally, type RollTally } from "./rolls";
 
 /** Chrome strings for the widget; Module 2's content tables supply them per language. */
 export interface HundredRollsStrings {
@@ -48,6 +48,24 @@ interface Row extends TokenProb {
 }
 
 /**
+ * One animation tick: ~70 ms, or sooner if the tab's visibility changes
+ * (a throttled background timer still fires eventually; coming back to
+ * the tab resolves at once, and rollsDue then lands everything overdue).
+ */
+function nextTick(): Promise<void> {
+  return new Promise((resolve) => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const done = () => {
+      if (timer !== null) clearTimeout(timer);
+      document.removeEventListener("visibilitychange", done);
+      resolve();
+    };
+    timer = setTimeout(done, 70);
+    document.addEventListener("visibilitychange", done);
+  });
+}
+
+/**
  * Hundred Rolls — the Classroom Edition's one new widget (PRODUCT.md §4.2
  * M2). Same input, same model, same temperature as the Gamble above it —
  * but one press samples the position 100 times and draws, for each of the
@@ -59,8 +77,12 @@ interface Row extends TokenProb {
  * Accessibility: native controls only (input, buttons, range, <details>);
  * the chart is decorative and aria-hidden; the numbers live in a polite
  * live-region summary and a real <table> behind "Show as a table".
- * `prefers-reduced-motion` makes the 100 rolls land at once instead of in
- * ten animated batches.
+ * `prefers-reduced-motion` (or a hidden tab) makes the 100 rolls land at
+ * once; otherwise they land over ROLL_ANIMATION_MS on a time-based step,
+ * so a tab that is backgrounded mid-press — where Chrome throttles timers
+ * to once a second, then once a minute — finds every outstanding roll
+ * landed the moment it is looked at again (REVIEW-CLASSROOM-2, open
+ * question 1).
  */
 export default function HundredRolls(props: {
   engine: Engine;
@@ -158,14 +180,20 @@ export default function HundredRolls(props: {
     const token = ++cancelRef.current;
     setRolling(true);
     const reduced = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const batches = reduced ? 1 : 10;
-    const per = ROLLS_PER_PRESS / batches;
+    const hidden = typeof document !== "undefined" && document.hidden;
+    const duration = reduced || hidden ? 0 : ROLL_ANIMATION_MS;
+    const start = performance.now();
+    let landed = 0;
     try {
-      for (let b = 0; b < batches; b++) {
+      while (landed < ROLLS_PER_PRESS) {
         if (cancelRef.current !== token) return;
-        const add = rollMany(dist, per, Math.random);
-        setCounts((c) => addCounts(c.length ? c : new Array(dist.length).fill(0), add));
-        if (batches > 1) await new Promise((r) => setTimeout(r, 70));
+        const due = rollsDue(performance.now() - start, duration);
+        if (due > landed) {
+          const add = rollMany(dist, due - landed, Math.random);
+          setCounts((c) => addCounts(c.length ? c : new Array(dist.length).fill(0), add));
+          landed = due;
+        }
+        if (landed < ROLLS_PER_PRESS) await nextTick();
       }
     } finally {
       if (cancelRef.current === token) setRolling(false);

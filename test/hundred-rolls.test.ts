@@ -177,3 +177,37 @@ describe("dice tables", () => {
     expect(() => diceGrid([1, 2], 0)).toThrow(/36/);
   });
 });
+
+// ── time-based animation step (REVIEW-CLASSROOM-2 open question 1) ─────────
+import { ROLL_ANIMATION_MS, rollsDue } from "../src/classroom/m2/rolls";
+
+describe("rollsDue — the time-based step behind the animated press", () => {
+  it("lands everything at once when there is no animation (reduced motion, hidden tab)", () => {
+    expect(rollsDue(0, 0)).toBe(ROLLS_PER_PRESS);
+    expect(rollsDue(5, -1)).toBe(ROLLS_PER_PRESS);
+    expect(rollsDue(0, NaN)).toBe(ROLLS_PER_PRESS);
+  });
+
+  it("is proportional to elapsed time, floors, and never exceeds the total", () => {
+    expect(rollsDue(0, ROLL_ANIMATION_MS)).toBe(0);
+    expect(rollsDue(-10, ROLL_ANIMATION_MS)).toBe(0);
+    expect(rollsDue(ROLL_ANIMATION_MS / 2, ROLL_ANIMATION_MS)).toBe(50);
+    expect(rollsDue(ROLL_ANIMATION_MS / 4 + 1, ROLL_ANIMATION_MS)).toBe(25);
+    expect(rollsDue(ROLL_ANIMATION_MS, ROLL_ANIMATION_MS)).toBe(ROLLS_PER_PRESS);
+    // a throttled background timer that fires a second (or a minute) late finds everything due
+    expect(rollsDue(1000, ROLL_ANIMATION_MS)).toBe(ROLLS_PER_PRESS);
+    expect(rollsDue(60_000, ROLL_ANIMATION_MS)).toBe(ROLLS_PER_PRESS);
+    expect(rollsDue(350, 700, 36)).toBe(18);
+  });
+
+  it("is monotone, so a sequence of ticks only ever adds rolls", () => {
+    let prev = 0;
+    for (let t = 0; t <= 2 * ROLL_ANIMATION_MS; t += 13) {
+      const due = rollsDue(t, ROLL_ANIMATION_MS);
+      expect(due).toBeGreaterThanOrEqual(prev);
+      expect(due).toBeLessThanOrEqual(ROLLS_PER_PRESS);
+      prev = due;
+    }
+    expect(prev).toBe(ROLLS_PER_PRESS);
+  });
+});

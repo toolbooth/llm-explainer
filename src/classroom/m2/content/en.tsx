@@ -628,7 +628,7 @@ export const en: M2Strings = {
       "Keyboard: Tab reaches the preset chips, the text field, Think, the temperature slider (arrow keys change it in 0.05 steps; the value is read out as “T = 1.00”), Roll, Reset rolls and the “Show as a table” disclosure in reading order; every control is a native button, input or details element.",
       "Screen reader: the Gamble's bars read as word + percentage; Hundred Rolls announces a summary after each press (polite live region: who won, the favourite's count against its prediction, how many words came up) and offers the full counts as a real table; the Loop's words read as text.",
       "Text alternative: the hundred-roll histogram is aria-hidden and fully duplicated by the summary line and the table; no information is carried by colour alone (the model bar is outlined, the rolls bar is solid, and both are labelled with numbers).",
-      "Reduced motion: with prefers-reduced-motion the hundred rolls land at once instead of in ten animated batches. Known gaps (phase 2): no text-to-speech of prompts yet; the Loop's hover popover has no keyboard equivalent (the step log is the text alternative). The conformance statement arrives with the shared front matter.",
+      "Reduced motion: with prefers-reduced-motion (or in a background tab) the hundred rolls land at once instead of over 0.7 s. Known gaps (phase 2): no text-to-speech of prompts yet; the Loop's hover popover has no keyboard equivalent (the step log is the text alternative). The conformance statement is the Accessibility statement page (#/classroom/about/accessibility), unaudited until phase 4.",
     ],
     embed: {
       slides: () => (

@@ -585,7 +585,7 @@ export const en: M1Strings = {
       "Keyboard: Tab reaches the text field, the preset chips, the hint button and the X-ray's two fields in reading order; chips and hints activate with Enter or Space. The pieces themselves are output, not controls, and read as text.",
       "Screen reader: the Chopper's pieces read as text with their numbers (“st #301 raw #1831 berry #8396”); the piece count is in the note under the widget. Each revealed hint is announced (polite live region).",
       "Text alternative: every visualization on this page is already text — pieces and numbers. No information is carried by color alone: piece colors only separate neighbors; the X-ray marks a letter hit with an underline as well as a color.",
-      "Known gaps (phase 1): no text-to-speech of prompts yet; the X-ray's “you see” row reads as single letters; the dim labels are below AA contrast on some projectors — use the browser's zoom. The conformance statement arrives with the shared front matter.",
+      "Known gaps (phase 1): no text-to-speech of prompts yet; the X-ray's “you see” row reads as single letters. (The phase-1 note about dim labels below AA contrast on projectors is closed by the phase-2 light palette: dim text is 5.9:1 on the page.) The conformance statement is the Accessibility statement page (#/classroom/about/accessibility), unaudited until phase 4.",
     ],
     embed: {
       slides:

@@ -18,6 +18,22 @@ export const ROLLS_PER_PRESS = 100;
 export const TOP_K = 10;
 /** Two six-sided dice: 36 equally likely cells on the printed table. */
 export const DICE_CELLS = 36;
+/** How long one press takes to land all its rolls on screen, when animated. */
+export const ROLL_ANIMATION_MS = 700;
+
+/**
+ * How many of `total` rolls should have landed `elapsedMs` into an
+ * animation of `durationMs` — the time-based step that replaced "ten
+ * setTimeout(70) batches" (REVIEW-CLASSROOM-2 open question 1): a
+ * background tab's throttled timer simply finds more rolls due when it
+ * finally fires, and a zero duration (reduced motion, hidden tab) lands
+ * everything at once. Monotone in elapsed time, never above `total`.
+ */
+export function rollsDue(elapsedMs: number, durationMs: number, total: number = ROLLS_PER_PRESS): number {
+  if (!(durationMs > 0) || elapsedMs >= durationMs) return total;
+  if (!(elapsedMs > 0)) return 0;
+  return Math.min(total, Math.floor((elapsedMs / durationMs) * total));
+}
 
 /**
  * The distribution a roll samples from: temperature softmax over the top-k
