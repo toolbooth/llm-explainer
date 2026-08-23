@@ -211,6 +211,13 @@
 @media print {
   @page { margin: 15mm; }
   html, body { background: #fff !important; overflow: visible; }
+  /* Print/PDF fonts: Chrome cannot embed the macOS system UI face that
+     `-apple-system` / `system-ui` resolve to, so text set in it — every
+     table cell, chip and kicker, and all 中文 sans text — came out of
+     `npm run build:pdf` as blank glyphs. Name embeddable faces instead
+     (scoped to the classroom root so the essays' tokens are untouched). */
+  :root.classroom-light { --font-sans: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif; }
+  :root.classroom-light:lang(zh) { --font-sans: "Hiragino Sans GB", "Heiti SC", "Noto Sans CJK SC", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", "Arial Unicode MS", sans-serif; }
   .classroom { color: #000; max-width: none; padding: 0; font-size: 11pt; line-height: 1.45; }
   .classroom, .classroom .prose p, .classroom .prose li { color: #000; }
   .classroom .hero { margin-bottom: 1.2rem; text-align: left; }
@@ -239,8 +246,14 @@
   .classroom .cl-md-table { font-size: 9.5pt; }
   .classroom .cl-md-table thead { display: table-header-group; }
   .classroom .cl-md-table tr { break-inside: avoid; }
-  .classroom .cl-md-table.dense { min-width: 0; font-size: 7.5pt; }
-  .classroom .cl-md-table.dense th, .classroom .cl-md-table.dense td { padding: 0.25rem 0.3rem; }
+  .classroom .cl-md-table.dense { min-width: 0; width: 100%; table-layout: fixed; font-size: 7.5pt; }
+  .classroom .cl-md-table.dense th, .classroom .cl-md-table.dense td { padding: 0.25rem 0.3rem; overflow-wrap: anywhere; }
+  /* the crosswalk's short columns (#, status) give their width to the long ones */
+  .classroom .cl-md-table.dense th:nth-child(1) { width: 5%; }
+  .classroom .cl-md-table.dense th:nth-child(2) { width: 11%; }
+  .classroom .cl-md-table.dense th:nth-child(3) { width: 6%; }
+  .classroom .cl-md-table.dense th { text-transform: none; letter-spacing: 0; font-size: 7.5pt; }
+  .classroom.cl-about .cite-pre { white-space: pre-wrap; overflow: visible; word-break: break-all; border-color: #000; background: none; color: #000; }
   .classroom.cl-about .prose blockquote { border-color: #000; color: #000; }
   .classroom.cl-about .prose h2, .classroom.cl-about .prose h3 { break-after: avoid; }
   .classroom.cl-about .cite-copy { display: none; }
