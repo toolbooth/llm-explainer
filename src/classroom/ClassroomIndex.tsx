@@ -50,6 +50,7 @@ export default function ClassroomIndex() {
                   <span className="cl-mod-links">
                     <a href={classroomHref({ kind: "guide", id: m.id })}>{ui.guideLink}</a>
                     <a href={classroomHref({ kind: "unplugged", id: m.id })}>{ui.unpluggedLink}</a>
+                    {m.slides && <a href={classroomHref({ kind: "slides", id: m.id })}>{ui.slidesLink}</a>}
                   </span>
                 )}
               </li>

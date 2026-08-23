@@ -522,7 +522,7 @@ export const en: M1Strings = {
           samples: [
             "Because of the space.",
             "The space is part of the piece. “ strawberry” with a space is common in text (words usually follow a space), so it got its own piece; without the space it is rarer and gets built from st·raw·berry.",
-            "The menu was built by counting chunks including their leading space. “ strawberry” appeared often enough to earn one piece; bare “strawberry” mostly appears at the start of a line, which is rarer, so it falls back to fragments. The same word in a different position is different input — which is why a prompt that starts with a word can behave differently from one that has it mid-sentence.",
+            "The menu was built by counting chunks including their leading space. “ strawberry” appeared often enough to earn one piece; bare “strawberry” — no space in front — is rarer in text, so it falls back to fragments. The same word in a different position is different input — which is why a prompt that starts with a word can behave differently from one that has it mid-sentence.",
           ],
         },
         {

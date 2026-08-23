@@ -18,6 +18,7 @@ describe("classroom route family", () => {
     expect(resolveHash("#/classroom/m1")).toBe("classroom");
     expect(resolveHash("#/classroom/m1/step-2")).toBe("classroom");
     expect(resolveHash("#/classroom/m1/guide")).toBe("classroom");
+    expect(resolveHash("#/classroom/m2/slides")).toBe("classroom");
     // not a prefix match
     expect(resolveHash("#/classrooms")).toBe("flagship");
     expect(resolveHash("#/classroom-x")).toBe("flagship");
@@ -39,12 +40,25 @@ describe("classroom route family", () => {
     expect(resolveClassroomHash("#/classroom/m1/unplugged")).toEqual({ kind: "unplugged", id: "m1" });
   });
 
+  it("resolves M2's pages including its Slides companion; M1 has no slides page", () => {
+    expect(resolveClassroomHash("#/classroom/m2")).toEqual({ kind: "module", id: "m2", step: null });
+    expect(resolveClassroomHash("#/classroom/m2/step-2")).toEqual({ kind: "module", id: "m2", step: 2 });
+    expect(resolveClassroomHash("#/classroom/m2/guide")).toEqual({ kind: "guide", id: "m2" });
+    expect(resolveClassroomHash("#/classroom/m2/unplugged")).toEqual({ kind: "unplugged", id: "m2" });
+    expect(resolveClassroomHash("#/classroom/m2/slides")).toEqual({ kind: "slides", id: "m2" });
+    // only modules flagged `slides` route there (PRODUCT.md §10.1: Slides companion for M2 only)
+    expect(moduleById("m1")?.slides).toBeFalsy();
+    expect(moduleById("m2")?.slides).toBe(true);
+    expect(resolveClassroomHash("#/classroom/m1/slides")).toEqual({ kind: "module", id: "m1", step: null });
+  });
+
   it("unknown modules, planned modules and unknown sub-pages fall back safely", () => {
     expect(resolveClassroomHash("#/classroom/m9")).toEqual({ kind: "index" });
     expect(resolveClassroomHash("#/classroom/nope/guide")).toEqual({ kind: "index" });
-    // M2 exists in the plan but has no page yet → index, not a broken page
-    expect(moduleById("m2")?.status).toBe("planned");
-    expect(resolveClassroomHash("#/classroom/m2")).toEqual({ kind: "index" });
+    // M3 exists in the plan but has no page yet → index, not a broken page
+    expect(moduleById("m3")?.status).toBe("planned");
+    expect(resolveClassroomHash("#/classroom/m3")).toEqual({ kind: "index" });
+    expect(resolveClassroomHash("#/classroom/m3/slides")).toEqual({ kind: "index" });
     // an unknown sub-page of a real module lands on the module, top
     expect(resolveClassroomHash("#/classroom/m1/whatever")).toEqual({ kind: "module", id: "m1", step: null });
     expect(resolveClassroomHash("#/classroom/m1/step-x")).toEqual({ kind: "module", id: "m1", step: null });
@@ -57,9 +71,14 @@ describe("classroom route family", () => {
       { kind: "module" as const, id: "m1" as const, step: 2 },
       { kind: "guide" as const, id: "m1" as const },
       { kind: "unplugged" as const, id: "m1" as const },
+      { kind: "module" as const, id: "m2" as const, step: 3 },
+      { kind: "guide" as const, id: "m2" as const },
+      { kind: "unplugged" as const, id: "m2" as const },
+      { kind: "slides" as const, id: "m2" as const },
     ];
     for (const p of pages) expect(resolveClassroomHash(classroomHref(p))).toEqual(p);
     expect(classroomHref({ kind: "module", id: "m1", step: 2 })).toBe("#/classroom/m1/step-2");
+    expect(classroomHref({ kind: "slides", id: "m2" })).toBe("#/classroom/m2/slides");
   });
 
   it("never leaks into the essay listings", () => {
@@ -81,8 +100,10 @@ describe("module registry", () => {
     }
   });
 
-  it("only M1 is available in phase 1", () => {
-    expect(availableModules().map((m) => m.id)).toEqual(["m1"]);
+  it("M1 and M2 are available after phase 2; M3–M6 stay planned", () => {
+    expect(availableModules().map((m) => m.id)).toEqual(["m1", "m2"]);
     expect(moduleById("m1")?.title).toEqual({ en: "The Word Chopper", zh: "切词机" });
+    expect(moduleById("m2")?.title).toEqual({ en: "The Next-Word Gamble", zh: "下一个词的赌局" });
+    expect(MODULES.filter((m) => m.slides).map((m) => m.id)).toEqual(["m2"]);
   });
 });

@@ -9,6 +9,7 @@
  *   #/classroom/<id>/step-<n>        → the lesson page, scrolled to step n
  *   #/classroom/<id>/guide           → the module's teacher guide
  *   #/classroom/<id>/unplugged       → the module's unplugged printable
+ *   #/classroom/<id>/slides          → the module's Slides companion (if it has one)
  *   anything else under #/classroom  → module index (never a broken page)
  *
  * Deep links per step are PRODUCT.md §4.1 rule 7: a teacher pastes the
@@ -21,7 +22,8 @@ export type ClassroomPage =
   | { kind: "index" }
   | { kind: "module"; id: ModuleId; step: number | null }
   | { kind: "guide"; id: ModuleId }
-  | { kind: "unplugged"; id: ModuleId };
+  | { kind: "unplugged"; id: ModuleId }
+  | { kind: "slides"; id: ModuleId };
 
 /** Pure hash → classroom page resolution, exported for tests. */
 export function resolveClassroomHash(hash: string): ClassroomPage {
@@ -32,6 +34,7 @@ export function resolveClassroomHash(hash: string): ClassroomPage {
   const sub = m[2] ? decodeURIComponent(m[2]) : "";
   if (sub === "guide") return { kind: "guide", id: mod.id };
   if (sub === "unplugged") return { kind: "unplugged", id: mod.id };
+  if (sub === "slides" && mod.slides) return { kind: "slides", id: mod.id };
   const step = /^step-(\d+)$/.exec(sub);
   return { kind: "module", id: mod.id, step: step ? Number(step[1]) : null };
 }
@@ -46,6 +49,8 @@ export function classroomHref(page: ClassroomPage): string {
       return `#/classroom/${page.id}/guide`;
     case "unplugged":
       return `#/classroom/${page.id}/unplugged`;
+    case "slides":
+      return `#/classroom/${page.id}/slides`;
   }
 }
 

@@ -4,11 +4,13 @@ import { useClassroomRoute } from "./route";
 import type { ModuleId } from "./registry";
 import "./classroom.css";
 
-/** A module's three pages. Registering a module here makes its routes render. */
+/** A module's pages. Registering a module here makes its routes render. */
 export interface ModulePages {
   Module: ComponentType<{ step: number | null }>;
   Guide: ComponentType;
   Unplugged: ComponentType;
+  /** The Slides companion — only modules with `slides: true` in the registry route here. */
+  Slides?: ComponentType;
 }
 
 const MODULE_PAGES: Partial<Record<ModuleId, ModulePages>> = {};
@@ -18,7 +20,7 @@ export function registerModulePages(id: ModuleId, pages: ModulePages): void {
   MODULE_PAGES[id] = pages;
 }
 
-/** `#/classroom…` → index, a module's lesson page (optionally at a step), its guide, or its printable. */
+/** `#/classroom…` → index, a module's lesson page (optionally at a step), its guide, its printable, or its slides. */
 export default function ClassroomRoot() {
   const page = useClassroomRoute();
   if (page.kind === "index") return <ClassroomIndex />;
@@ -26,5 +28,6 @@ export default function ClassroomRoot() {
   if (!pages) return <ClassroomIndex />;
   if (page.kind === "guide") return <pages.Guide />;
   if (page.kind === "unplugged") return <pages.Unplugged />;
+  if (page.kind === "slides") return pages.Slides ? <pages.Slides /> : <pages.Module step={null} />;
   return <pages.Module step={page.step} />;
 }

@@ -20,6 +20,8 @@ export interface ModuleMeta {
   /** The module's core question, in student language. */
   question: Record<Lang, string>;
   status: ModuleStatus;
+  /** Has a Slides companion page (#/classroom/<id>/slides) — MVP: M2 only (§10.1). */
+  slides?: boolean;
 }
 
 export const MODULES: readonly ModuleMeta[] = [
@@ -38,7 +40,8 @@ export const MODULES: readonly ModuleMeta[] = [
     num: 2,
     title: { en: "The Next-Word Gamble", zh: "下一个词的赌局" },
     question: { en: "Is the model choosing, or rolling dice?", zh: "模型是在选,还是在掷骰子?" },
-    status: "planned",
+    status: "available",
+    slides: true,
   },
   {
     id: "m3",

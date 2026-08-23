@@ -196,3 +196,96 @@
   .classroom .cl-sheet { box-shadow: none; border-radius: 0; margin: 0; padding: 0; }
   .classroom .cl-strip { break-inside: avoid; }
 }
+
+/* ── Module 2: Hundred Rolls ─────────────────────────────────────────────
+   Two bars per word: the model's probability (light, outlined) and the
+   share of rolls that landed there (solid). Tokens only, so the light and
+   dark themes both work; the chart is aria-hidden and the numbers live in
+   the summary line and the <details> table. */
+.classroom .hr-controls { display: flex; align-items: center; gap: 0.6rem 1rem; margin-top: 1.2rem; flex-wrap: wrap; }
+.classroom .hr-legend { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--dim); margin-left: auto; }
+.classroom .hr-swatch { display: inline-block; width: 14px; height: 10px; border-radius: 3px; margin-left: 0.6rem; }
+.classroom .hr-swatch.model { background: rgba(124, 140, 248, 0.35); border: 1px solid var(--accent); }
+.classroom .hr-swatch.rolls { background: var(--warm); }
+.classroom .hr-rows { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 1rem; }
+.classroom .hr-row { display: grid; grid-template-columns: 90px 1fr 112px; align-items: center; gap: 0.6rem; }
+.classroom .hr-label { font-family: var(--font-mono); font-size: 0.84rem; color: var(--text); text-align: right; white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.classroom .hr-bars { display: flex; flex-direction: column; gap: 2px; }
+.classroom .hr-track { display: block; background: var(--cl-track, #0c0f18); border-radius: 5px; height: 11px; overflow: hidden; }
+.classroom .hr-fill { display: block; height: 100%; border-radius: 5px; transition: width 0.12s linear; }
+.classroom .hr-fill.model { background: rgba(124, 140, 248, 0.35); box-shadow: inset 0 0 0 1px var(--accent); }
+.classroom .hr-fill.rolls { background: var(--warm); }
+.classroom .hr-num { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.classroom .hr-row.win .hr-label, .classroom .hr-row.win .hr-num { color: var(--warm); font-weight: 700; }
+.classroom .hr-summary { margin-top: 1rem; color: var(--text); font-size: 0.95rem; line-height: 1.55; }
+.classroom .hr-details { margin-top: 0.6rem; font-size: 0.88rem; }
+.classroom .hr-details summary { cursor: pointer; color: var(--muted); padding: 0.45rem 0; min-height: 44px; display: flex; align-items: center; }
+.classroom .hr-details summary:hover { color: var(--text); }
+.classroom .hr-table th[scope="row"] { font-weight: 600; }
+.classroom .hr-table code { font-family: var(--font-mono); }
+@media (prefers-reduced-motion: reduce) { .classroom .hr-fill { transition: none; } }
+@media (max-width: 740px) {
+  .classroom .hr-row { grid-template-columns: 72px 1fr; }
+  .classroom .hr-num { grid-column: 2; }
+  .classroom .hr-legend { margin-left: 0; }
+}
+
+/* ── Module 2: dice tables (printable + answer key) ───────────────────── */
+.classroom .cl-dice-wrap { margin: 0.6rem 0 1rem; }
+.classroom .cl-dice { border-collapse: collapse; width: 100%; table-layout: fixed; font-family: var(--font-sans); }
+.classroom .cl-dice th, .classroom .cl-dice td { border: 1px solid #111; text-align: center; padding: 0.35rem 0.1rem; font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.classroom .cl-dice th { background: #eee; color: #111; font-weight: 700; width: 2.2rem; }
+.classroom .cl-dice th.corner { width: 2.2rem; }
+.classroom .cl-dice td { color: #111; font-family: var(--font-mono); }
+.classroom .cl-dice td.fav { font-weight: 800; }
+.classroom .cl-dice td.other { color: #444; font-style: italic; font-family: var(--font-sans); }
+.classroom .cl-dice-cap { font-weight: 700; margin: 1rem 0 0.3rem; }
+.classroom .cl-dice-cap code { font-family: var(--font-mono); font-weight: 700; }
+.classroom .cl-dice-axes { font-size: 0.78rem; color: #444; margin: 0.2rem 0 0.4rem; }
+.classroom .cl-sheet .cl-sentence { display: block; border-bottom: 1px solid #111; height: 2rem; margin: 0.4rem 0 0.8rem; }
+/* the guide's answer key reuses the grid on the dark/light page surface */
+.classroom.cl-guide .cl-dice th, .classroom.cl-guide .cl-dice td, .classroom.cl-slides-page .cl-dice th, .classroom.cl-slides-page .cl-dice td { border-color: var(--border); color: var(--text); }
+.classroom.cl-guide .cl-dice th, .classroom.cl-slides-page .cl-dice th { background: var(--panel); }
+.classroom.cl-guide .cl-dice td.other, .classroom.cl-slides-page .cl-dice td.other { color: var(--muted); }
+
+/* ── Module 2: Slides companion (one print-oriented page) ──────────────── */
+.classroom.cl-slides-page { max-width: 900px; }
+.classroom .cl-slide { aspect-ratio: 16 / 9; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 2.2rem 2.6rem; margin: 1.4rem 0; display: flex; flex-direction: column; font-family: var(--font-sans); position: relative; break-inside: avoid; }
+.classroom .cl-slide-n { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; color: var(--warm); text-transform: uppercase; }
+.classroom .cl-slide h2 { font-size: clamp(1.5rem, 3.2vw, 2.3rem); margin: 0.4rem 0 1rem; color: var(--text); line-height: 1.15; }
+.classroom .cl-slide ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+.classroom .cl-slide li { font-size: clamp(1.05rem, 2vw, 1.45rem); line-height: 1.35; color: var(--text); }
+.classroom .cl-slide li::before { content: "▸ "; color: var(--accent); }
+.classroom .cl-slide.title-slide { justify-content: center; text-align: center; }
+.classroom .cl-slide.title-slide h2 { font-size: clamp(2rem, 5vw, 3.4rem); }
+.classroom .cl-slide.title-slide li::before { content: none; }
+.classroom .cl-slide-vis { margin-top: auto; padding-top: 1rem; }
+.classroom .cl-slide-bars { display: flex; flex-direction: column; gap: 0.3rem; }
+.classroom .cl-slide-bar { display: grid; grid-template-columns: 100px 1fr 56px; align-items: center; gap: 0.6rem; font-size: 0.95rem; }
+.classroom .cl-slide-bar .lbl { font-family: var(--font-mono); text-align: right; white-space: pre; }
+.classroom .cl-slide-bar .trk { background: var(--cl-track, #0c0f18); border-radius: 5px; height: 14px; overflow: hidden; }
+.classroom .cl-slide-bar .fil { display: block; height: 100%; background: var(--accent); border-radius: 5px; }
+.classroom .cl-slide-bar .val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+.classroom .cl-slide-cap { font-size: 0.8rem; color: var(--dim); margin-top: 0.4rem; }
+.classroom .cl-slide-temps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+.classroom .cl-slide-temps h3 { font-size: 0.85rem; color: var(--warm); margin: 0 0 0.3rem; }
+.classroom .cl-slide-steps { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
+.classroom .cl-slide-steps code { font-family: var(--font-mono); color: var(--muted); word-break: break-all; }
+.classroom .cl-slide-note { font-size: 0.88rem; color: var(--muted); margin: -0.6rem 0 1.6rem; padding: 0 0.4rem; line-height: 1.5; }
+.classroom .cl-slide-note strong { color: var(--warm); }
+@media (max-width: 740px) {
+  .classroom .cl-slide { aspect-ratio: auto; padding: 1.2rem 1.1rem; }
+  .classroom .cl-slide-temps { grid-template-columns: 1fr; }
+  .classroom .cl-slide-bar { grid-template-columns: 80px 1fr 50px; }
+}
+@media print {
+  .classroom .cl-slide { aspect-ratio: auto; min-height: 55vh; break-before: page; break-inside: avoid; border-color: #000; background: none; border-radius: 0; margin: 0 0 0.6rem; }
+  .classroom .cl-slide:first-of-type { break-before: auto; }
+  .classroom .cl-slide h2, .classroom .cl-slide li, .classroom .cl-slide-bar .val, .classroom .cl-slide-note, .classroom .cl-slide-steps code { color: #000; }
+  .classroom .cl-slide li::before, .classroom .cl-slide-n, .classroom .cl-slide-note strong { color: #000; }
+  .classroom .cl-slide-bar .trk { background: #eee; border: 1px solid #000; }
+  .classroom .cl-slide-bar .fil { background: #000; }
+  .classroom .cl-slides-page .hero { break-after: avoid; }
+  .classroom .cl-dice th, .classroom .cl-dice td { border-color: #000; color: #000; }
+  .classroom .cl-dice th { background: #eee; }
+}

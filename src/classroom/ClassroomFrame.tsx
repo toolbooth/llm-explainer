@@ -2,7 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { LangToggle } from "../content/i18n";
 import { useClassroomStrings } from "./content/i18n";
 import { classroomHref, type ClassroomPage } from "./route";
-import type { ModuleId } from "./registry";
+import { moduleById, type ModuleId } from "./registry";
 
 /** Root class that switches the series tokens to the light palette (classroom.css). */
 export const LIGHT_ROOT_CLASS = "classroom-light";
@@ -72,6 +72,9 @@ export default function ClassroomFrame(props: {
           {id && props.current !== "guide" && <a href={classroomHref({ kind: "guide", id })}>{t.nav.guide}</a>}
           {id && props.current !== "unplugged" && (
             <a href={classroomHref({ kind: "unplugged", id })}>{t.nav.unplugged}</a>
+          )}
+          {id && moduleById(id)?.slides && props.current !== "slides" && (
+            <a href={classroomHref({ kind: "slides", id })}>{t.nav.slides}</a>
           )}
           {props.showPrint && (
             <button type="button" onClick={() => window.print()}>

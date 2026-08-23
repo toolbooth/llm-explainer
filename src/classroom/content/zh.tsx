@@ -35,6 +35,7 @@ export const zh: ClassroomStrings = {
     forTeachers: "给老师",
     guideLink: "教师指南",
     unpluggedLink: "不插电活动(打印版)",
+    slidesLink: "幻灯片",
     seriesLink: "这套课是从《Inside the Machine》长文系列长出来的 →",
   },
 
@@ -43,6 +44,7 @@ export const zh: ClassroomStrings = {
     module: "课页",
     guide: "教师指南",
     unplugged: "打印版",
+    slides: "幻灯片",
     print: "打印本页",
     linkToStep: "本步骤的直达链接",
   },

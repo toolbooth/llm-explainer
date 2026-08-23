@@ -1,38 +1,35 @@
 import { useEffect, useMemo } from "react";
 import { createEngine } from "../../lib/engine";
-import Chopper from "../../acts/Chopper";
-import TokenizerXray from "../../essays/why-it-cant-count/TokenizerXray";
+import Gamble from "../../acts/Gamble";
+import TheLoop from "../../acts/TheLoop";
 import ClassroomFrame from "../ClassroomFrame";
 import HintPanel from "../HintPanel";
+import { CLASSROOM } from "../config";
 import { useClassroomStrings } from "../content/i18n";
 import { jumpTo, stepNum } from "../lesson";
 import { classroomHref } from "../route";
-import { useM1Strings } from "./content/i18n";
-import {
-  EXTENSION_PRESETS,
-  EXTENSION_TEXT,
-  HOOK_TEXT,
-  STEP1_TEXT,
-  STEP2_PRESETS,
-  XRAY_LETTER,
-  XRAY_WORD,
-} from "./data";
+import HundredRolls from "./HundredRolls";
+import { useM2Strings } from "./content/i18n";
+import { EXTENSION_PRESETS, HOOK_TEXT, LOOP_PROMPT, STEP_PRESETS } from "./data";
+import { hookFacts, twoPlusTwoFacts } from "./facts";
 
 /**
- * Module 1 — "The Word Chopper" (切词机): the §4.3 skeleton as one static
- * page. Hook (projector) → unplugged (printable) → three guided steps, one
- * widget each, progressive hints → evaluation act (paper) → exit ticket →
- * block extension. Widgets: Chopper ×4 (hook, step 1, step 2, extension)
- * and the tokenizer-only X-ray (step 3) on the shared GPT-2 vocabulary. No
- * model is loaded on this page at all — only the tokenizer (§4.1 rule 4).
+ * Module 2 — "The Next-Word Gamble" (下一个词的赌局): the §4.3 skeleton as
+ * one static page. Hook (projector Gamble) → unplugged (dice printable) →
+ * three guided steps, one widget each — Gamble, Hundred Rolls (the MVP's
+ * one new widget), TheLoop — with progressive hints → evaluation act
+ * (paper) → exit ticket → block extension (Gamble on "fact" sentences +
+ * debate). Every widget runs the 7.5 MB nano model (§4.1 rule 4) with the
+ * classroom temperature cap; the big model is never mounted.
  *
- * Deep links: #/classroom/m1/step-N scrolls to that step's prompt (the
- * `step` prop arrives from the sub-router and changes on hashchange).
+ * Deep links: #/classroom/m2/step-N scrolls to that step's prompt.
  */
-export default function M1({ step }: { step: number | null }) {
+export default function M2({ step }: { step: number | null }) {
   const engine = useMemo(() => createEngine(), []);
   const c = useClassroomStrings();
-  const t = useM1Strings();
+  const t = useM2Strings();
+  const facts = useMemo(hookFacts, []);
+  const ext = useMemo(twoPlusTwoFacts, []);
 
   useEffect(() => {
     if (step === null) return;
@@ -48,6 +45,7 @@ export default function M1({ step }: { step: number | null }) {
     { id: "exit", label: beats.exit.label },
     { id: "extension", label: beats.extension.label },
   ];
+  const cap = CLASSROOM.maxTemperature;
 
   return (
     <ClassroomFrame
@@ -56,7 +54,7 @@ export default function M1({ step }: { step: number | null }) {
       title={t.title}
       subtitle={t.question}
       subtitleClass="question"
-      moduleId="m1"
+      moduleId="m2"
       current="module"
     >
       <p className="cl-glance">
@@ -73,7 +71,7 @@ export default function M1({ step }: { step: number | null }) {
       </p>
       <nav className="cl-beats cl-noprint" aria-label="Lesson beats">
         {beatNav.map((b) => (
-          <a href={`#/classroom/m1/${b.id}`} key={b.id} onClick={(e) => jumpTo(e, b.id)}>
+          <a href={`#/classroom/m2/${b.id}`} key={b.id} onClick={(e) => jumpTo(e, b.id)}>
             {b.label}
           </a>
         ))}
@@ -85,9 +83,9 @@ export default function M1({ step }: { step: number | null }) {
           {beats.hook.label} <span className="cl-time">{beats.hook.time}</span>
         </h2>
         <p className="cl-teacher">{t.hook.teacherLine()}</p>
-        <p>{t.hook.prose()}</p>
+        <p>{t.hook.prose(facts)}</p>
       </section>
-      <Chopper engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} inputLabel={t.hook.widget.title} />
+      <Gamble engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} maxTemperature={cap} model="nano" />
 
       {/* 2. Unplugged */}
       <section className="prose cl-beat" id="unplugged">
@@ -96,7 +94,7 @@ export default function M1({ step }: { step: number | null }) {
         </h2>
         <p>{t.unplugged.prose()}</p>
         <p>
-          <a className="btn-link" href={classroomHref({ kind: "unplugged", id: "m1" })}>
+          <a className="btn-link" href={classroomHref({ kind: "unplugged", id: "m2" })}>
             {t.unplugged.link}
           </a>
         </p>
@@ -112,7 +110,7 @@ export default function M1({ step }: { step: number | null }) {
 
       {t.explore.steps.map((s, i) => {
         const n = i + 1;
-        const href = classroomHref({ kind: "module", id: "m1", step: n });
+        const href = classroomHref({ kind: "module", id: "m2", step: n });
         return (
           <div key={n}>
             <section className="prose cl-step" id={`step-${n}`}>
@@ -126,34 +124,28 @@ export default function M1({ step }: { step: number | null }) {
               <p>{s.prompt()}</p>
             </section>
             {n === 1 && (
-              <Chopper
+              <Gamble
                 engine={engine}
                 strings={t.explore.step1Widget}
                 htmlId="step-1-widget"
-                initialText={STEP1_TEXT}
-                inputLabel={t.explore.step1Widget.title}
+                initialText={STEP_PRESETS[0]}
+                presets={STEP_PRESETS}
+                maxTemperature={cap}
+                model="nano"
               />
             )}
             {n === 2 && (
-              <Chopper
+              <HundredRolls
                 engine={engine}
                 strings={t.explore.step2Widget}
                 htmlId="step-2-widget"
-                initialText={STEP2_PRESETS[0]}
-                presets={STEP2_PRESETS}
-                inputLabel={t.explore.step2Widget.title}
+                initialText={STEP_PRESETS[0]}
+                presets={STEP_PRESETS}
+                maxTemperature={cap}
               />
             )}
             {n === 3 && (
-              <TokenizerXray
-                engine={engine}
-                strings={t.explore.step3Widget}
-                htmlId="step-3-widget"
-                initialWord={XRAY_WORD}
-                initialLetter={XRAY_LETTER}
-                tokenizer="shared"
-                modelGate={false}
-              />
+              <TheLoop engine={engine} strings={t.explore.step3Widget} htmlId="step-3-widget" initialPrompt={LOOP_PROMPT} maxTemperature={cap} />
             )}
             <HintPanel id={`step-${n}`} hints={s.hints} strings={c.hints} />
             <p className="cl-writedown">✎ {s.writeDown}</p>
@@ -193,15 +185,16 @@ export default function M1({ step }: { step: number | null }) {
         <h2>
           {beats.extension.label} <span className="cl-time">{beats.extension.time}</span>
         </h2>
-        <p>{t.extension.prose()}</p>
+        <p>{t.extension.prose(ext.favourite, ext.favouriteP, ext.fourP)}</p>
       </section>
-      <Chopper
+      <Gamble
         engine={engine}
         strings={t.extension.widget}
         htmlId="extension-widget"
-        initialText={EXTENSION_TEXT}
+        initialText={EXTENSION_PRESETS[0]}
         presets={EXTENSION_PRESETS}
-        inputLabel={t.extension.widget.title}
+        maxTemperature={cap}
+        model="nano"
       />
       <section className="prose">
         <p className="cl-debate">{t.extension.debate()}</p>

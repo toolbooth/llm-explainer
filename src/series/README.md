@@ -107,12 +107,31 @@ It builds on the same four surfaces as an essay and adds nothing to them:
   Chopper `presets` + `inputLabel`; Gamble / TheLoop `maxTemperature`
   (defaults exported as `GAMBLE_TEMP_RANGE` / `LOOP_TEMP_RANGE`);
   TokenizerXray `tokenizer: "shared" | "model"` and `modelGate: false` (a
-  tokenizer-only X-ray over `XrayTokenizerStrings`).
+  tokenizer-only X-ray over `XrayTokenizerStrings`); Gamble `model: "nano"`
+  (phase 2: the bars come from the shared 7.5 MB brain via `getNano`, GPT-2
+  vocabulary, no wake-up gate, optional `loading` string — the flagship and
+  the essays keep the big-model gate).
+- The one new classroom widget, **Hundred Rolls** (`m2/HundredRolls.tsx`
+  over the pure `m2/rolls.ts`: seeded PRNG, `rollMany`, `tally`, dice-cell
+  allocation), samples one position 100× and shows empirical vs. model
+  probabilities; `m2/DiceGrid.tsx` draws the printable's 6×6 tables from the
+  same allocation.
+- Module pages: `Module`, `Guide`, `Unplugged`, and an optional `Slides`
+  (`#/classroom/<id>/slides`, only for modules with `slides: true` in the
+  registry — M2 in the MVP).
+- The shared tokenizer is self-hosted (`public/tokenizers/gpt2/`, built with
+  `GPT2Tokenizer` from two same-origin fetches in `src/lib/engine.ts`); a
+  classroom page never contacts a third-party host.
+- Light theme: `ClassroomFrame` puts `classroom-light` on `<html>` while
+  mounted; `classroom.css` re-points the tokens and the widgets' hard-coded
+  dark surfaces under `:root.classroom-light`.
 - `hints.ts` + `HintPanel.tsx` — progressive hints; `ClassroomFrame.tsx` —
   shared nav/hero/footer; `classroom.css` — scoped styles incl. `@media print`.
 - Per-module content replicates the essay pattern: `m1/content/{types,en,zh,
   i18n}` is one table for the lesson page, the teacher guide and the unplugged
   sheet, so the guide renders the page's prompts and hints from the same
   source; live inputs (sentences, chips, strips, verified cuts) live in
-  `m1/data.ts`. A module registers its three pages in `m1/index.ts`
-  (`registerModulePages`) and `src/main.tsx` imports it.
+  `m1/data.ts` (M2: `m2/data.ts`, every number measured on the real model
+  and re-checked by `test/m2-data.test.ts`). A module registers its pages in
+  `m1/index.ts` / `m2/index.ts` (`registerModulePages`) and `src/main.tsx`
+  imports it.

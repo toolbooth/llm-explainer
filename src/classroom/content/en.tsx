@@ -39,6 +39,7 @@ export const en: ClassroomStrings = {
     forTeachers: "For teachers",
     guideLink: "Teacher guide",
     unpluggedLink: "Unplugged printable",
+    slidesLink: "Slides",
     seriesLink: "Built from the Inside the Machine essay series →",
   },
 
@@ -47,6 +48,7 @@ export const en: ClassroomStrings = {
     module: "Lesson page",
     guide: "Teacher guide",
     unplugged: "Printable",
+    slides: "Slides",
     print: "Print this page",
     linkToStep: "Link to this step",
   },

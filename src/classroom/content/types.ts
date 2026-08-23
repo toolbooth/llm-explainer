@@ -28,6 +28,7 @@ export interface ClassroomStrings {
     forTeachers: string;
     guideLink: string;
     unpluggedLink: string;
+    slidesLink: string;
     seriesLink: string;
   };
 
@@ -36,6 +37,7 @@ export interface ClassroomStrings {
     module: string;
     guide: string;
     unplugged: string;
+    slides: string;
     print: string;
     /** Title of the small "#" anchor next to every step heading. */
     linkToStep: string;
