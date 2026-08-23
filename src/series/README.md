@@ -88,3 +88,31 @@ choice across all essays):
   copy button). Takes the essay's `CiteStrings` table and a BibTeX string;
   the flagship's comes from `src/content/citation.ts`, which is also the
   source of truth for index.html's Google Scholar meta tags and CITATION.cff.
+
+## The Classroom Edition (`src/classroom/`) — a second front door, same engine
+
+`#/classroom…` is a fourth top-level route (`route.ts` → `"classroom"`), and
+everything under it is its own sub-router (`src/classroom/route.ts`: index /
+`<module>` / `<module>/step-N` / `<module>/guide` / `<module>/unplugged`).
+It builds on the same four surfaces as an essay and adds nothing to them:
+
+- `src/classroom/registry.ts` — the six-module plan (`MODULES`); only
+  `status: "available"` modules get pages. Never an `ESSAYS` entry, so the
+  classroom cannot appear in any essay listing; the only way in is the small
+  link under the series index and the URL.
+- `src/classroom/config.ts` — `CLASSROOM` (big model hidden, temperature ≤
+  1.5). Widgets learn the cap only as an explicit prop; the flagship and the
+  essays never import this file.
+- Widget seams lifted for it (all optional, absent → DOM unchanged):
+  Chopper `presets` + `inputLabel`; Gamble / TheLoop `maxTemperature`
+  (defaults exported as `GAMBLE_TEMP_RANGE` / `LOOP_TEMP_RANGE`);
+  TokenizerXray `tokenizer: "shared" | "model"` and `modelGate: false` (a
+  tokenizer-only X-ray over `XrayTokenizerStrings`).
+- `hints.ts` + `HintPanel.tsx` — progressive hints; `ClassroomFrame.tsx` —
+  shared nav/hero/footer; `classroom.css` — scoped styles incl. `@media print`.
+- Per-module content replicates the essay pattern: `m1/content/{types,en,zh,
+  i18n}` is one table for the lesson page, the teacher guide and the unplugged
+  sheet, so the guide renders the page's prompts and hints from the same
+  source; live inputs (sentences, chips, strips, verified cuts) live in
+  `m1/data.ts`. A module registers its three pages in `m1/index.ts`
+  (`registerModulePages`) and `src/main.tsx` imports it.

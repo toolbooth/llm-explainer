@@ -96,6 +96,19 @@
 .classroom .cl-sheet .cl-answer { display: block; border-bottom: 1px solid #888; height: 1.6rem; margin: 0.3rem 0 0.6rem; }
 .classroom .cl-sheet .cl-foot { font-size: 0.78rem; color: #444; border-top: 1px solid #888; margin-top: 1.4rem; padding-top: 0.5rem; }
 
+/* ── Mobile (one breakpoint, matches src/styles.css): 44px tap targets for
+   every classroom control — nav links, beat chips, step anchors, hint button. */
+@media (max-width: 740px) {
+  .classroom .cl-nav a, .classroom .cl-nav button, .classroom .cl-beats a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.7rem; }
+  .classroom .cl-nav { gap: 0.2rem 0.4rem; }
+  .classroom .cl-steplink { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+  .classroom .cl-modules li { grid-template-columns: 1fr; }
+  .classroom .cl-modules .cl-mod-q, .classroom .cl-modules .cl-mod-links { grid-column: 1; }
+  .classroom .cl-modules .cl-mod-links a { display: inline-block; padding: 0.75rem 0.2rem; }
+  .classroom .cl-modules .cl-mod-t a { display: inline-block; padding: 0.55rem 0; }
+  .classroom .cl-table td:first-child { white-space: normal; }
+}
+
 /* ── Print ───────────────────────────────────────────────────────────────
    Guide and printable are the targets; the lesson page prints acceptably.
    Letter or A4: `size: auto` lets the browser's paper setting decide. */
