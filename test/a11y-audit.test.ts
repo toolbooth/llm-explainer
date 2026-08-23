@@ -129,8 +129,8 @@ describe("accessibility strings", () => {
     expect(en.a11y.letters("strawberry", 10, "r", [3, 8, 9])).toBe("strawberry: 10 letters, r at positions 3, 8, 9");
     expect(en.a11y.letters("banana", 6, "n", [3])).toBe("banana: 6 letters, n at position 3");
     expect(en.a11y.letters("cat", 3, "z", [])).toBe("cat: 3 letters, no z");
-    expect(zh.a11y.letters("strawberry", 10, "r", [3, 8, 9])).toBe("strawberry:10 个字母,r 在第 3、8、9 位");
-    expect(zh.a11y.letters("cat", 3, "z", [])).toBe("cat:3 个字母,没有 z");
+    expect(zh.a11y.letters("strawberry", 10, "r", [3, 8, 9])).toBe("strawberry：10 个字母，r 在第 3、8、9 位");
+    expect(zh.a11y.letters("cat", 3, "z", [])).toBe("cat：3 个字母，没有 z");
   });
 
   it("carry the number a sighted reader sees: the slider value, the bar percentage, the token probability", () => {

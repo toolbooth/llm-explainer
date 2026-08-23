@@ -39,7 +39,7 @@ describe("essay #3 content tables", () => {
     ]);
     expect(zh.sec1.heading).toBe("第一幕·十六道目光");
     expect(zh.sec2.heading).toBe("第二幕·人口普查");
-    expect(zh.sec3.heading).toBe("第三幕·三种常见物种,凑近看");
+    expect(zh.sec3.heading).toBe("第三幕·三种常见物种，凑近看");
     expect(zh.sec4.heading).toBe("第四幕·无名的大多数");
     // the flagship's three canonical head names are reused verbatim in the Room chrome…
     expect(zh.sec1.widget.diagPrev(2, 8, "31")).toBe("👀 盯前一个词的头 · L2H8(31%)");
@@ -70,7 +70,7 @@ describe("essay #3 content tables", () => {
     expect(STRINGS.en.sec2.widget.evidenceWash("93")).toBe("93% even");
     expect(STRINGS.zh.sec2.widget.evidenceWash("93")).toBe("93% 均匀");
     expect(STRINGS.en.sec2.widget.closest("👀 previous-word", "1.4")).toBe("closest: 👀 previous-word 1.4×");
-    expect(STRINGS.zh.sec2.widget.closest("👀 盯前一个词的头", "1.4")).toBe("最接近:👀 盯前一个词的头 1.4 倍");
+    expect(STRINGS.zh.sec2.widget.closest("👀 盯前一个词的头", "1.4")).toBe("最接近：👀 盯前一个词的头 1.4 倍");
     expect(STRINGS.en.sec2.widget.count(1)).toBe("1 head");
     expect(STRINGS.en.sec2.widget.count(9)).toBe("9 heads");
     expect(STRINGS.zh.sec2.widget.count(9)).toBe("9 个头");

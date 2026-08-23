@@ -41,9 +41,9 @@ describe("essay content tables", () => {
     expect(zh.hero.title).toBe("ChatGPT 到底在想什么");
     expect(zh.hero.kicker).toContain("一篇让你亲手解剖语言模型的互动长文");
     expect(zh.hero.subtitle).toContain(
-      "一个真实的语言模型,活在这个标签页里,被一幕一幕地解剖"
+      "一个真实的语言模型，活在这个标签页里，被一幕一幕地解剖"
     );
-    expect(zh.act4.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
+    expect(zh.act4.wakeModel).toBe("唤醒模型（约 136MB，只此一次，之后永久缓存）");
     // canonical act titles: 第N幕·<title>
     expect([zh.act1.num, zh.act2.num, zh.act3.num, zh.act4.num, zh.act5.num]).toEqual([
       "第一幕",
@@ -61,7 +61,7 @@ describe("essay content tables", () => {
     expect(zh.act7.heading).toBe("第七幕·它为什么说谎");
     expect(zh.cite.heading).toBe("引用本文");
     expect(zh.cite.copy).toBe("复制");
-    expect(zh.cite.note).toContain("arXiv 预印本即将发布,届时请优先引用预印本");
+    expect(zh.cite.note).toContain("arXiv 预印本即将发布，届时请优先引用预印本");
     expect(STRINGS.en.cite.heading).toBe("Cite this");
     expect(STRINGS.en.cite.note).toBe(
       "An arXiv preprint is forthcoming; please cite that once available."

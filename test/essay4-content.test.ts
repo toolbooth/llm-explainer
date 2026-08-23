@@ -42,10 +42,10 @@ describe("essay #4 content tables", () => {
     expect(zh.sec4.heading).toBe("第四幕·解法跟着机制走");
     // the flagship's canonical wake-button line is reused verbatim in all three model widgets
     for (const w of [zh.sec2.widget, zh.sec3.widget, zh.sec4.widget]) {
-      expect(w.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
+      expect(w.wakeModel).toBe("唤醒模型（约 136MB，只此一次，之后永久缓存）");
     }
     // and the Chopper's flagship chrome (loading line) in Act 1
-    expect(zh.sec1.widget.loading).toBe("正在加载切词器(约 2MB,只下载一次)…");
+    expect(zh.sec1.widget.loading).toBe("正在加载切词器（约 2MB，只下载一次）…");
     expect(zh.htmlLang).toBe("zh");
     expect(STRINGS.en.htmlLang).toBe("en");
   });
@@ -60,9 +60,9 @@ describe("essay #4 content tables", () => {
     expect(STRINGS.en.sec2.widget.pieceTally(3)).toBe("3 pieces");
     expect(STRINGS.zh.sec2.widget.pieceTally(3)).toBe("3 块碎片");
     expect(STRINGS.en.sec2.widget.truthLabel(3)).toBe("true count: 3");
-    expect(STRINGS.zh.sec2.widget.truthLabel(3)).toBe("正确答案:3");
+    expect(STRINGS.zh.sec2.widget.truthLabel(3)).toBe("正确答案：3");
     expect(STRINGS.en.sec2.widget.otherMass("12")).toBe("non-digit tokens: 12%");
-    expect(STRINGS.zh.sec2.widget.otherMass("12")).toBe("非数字 token:12%");
+    expect(STRINGS.zh.sec2.widget.otherMass("12")).toBe("非数字 token：12%");
   });
 
   it("the insight line handles all three cases in both locales", () => {

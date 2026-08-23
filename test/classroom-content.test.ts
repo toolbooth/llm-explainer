@@ -115,7 +115,7 @@ describe("module 1 content tables (page + guide + printable)", () => {
     const zh = M1.zh;
     expect(zh.title).toBe("切词机");
     expect(zh.docTitle).toBe("模块 1 · 切词机 — 机器内部·课堂版");
-    expect(zh.question).toBe("我打一句话进去,模型到底看见了什么?");
+    expect(zh.question).toBe("我打一句话进去，模型到底看见了什么？");
     expect([zh.hook.widget.num, zh.explore.step1Widget.num, zh.explore.step2Widget.num, zh.explore.step3Widget.num, zh.extension.widget.num]).toEqual([
       "导入",
       "第 1 步",
@@ -124,7 +124,7 @@ describe("module 1 content tables (page + guide + printable)", () => {
       "延伸",
     ]);
     // the flagship Chopper's canonical loading line is reused verbatim
-    expect(zh.hook.widget.loading).toBe("正在加载切词器(约 2MB,只下载一次)…");
+    expect(zh.hook.widget.loading).toBe("正在加载切词器（约 2MB，只下载一次）…");
     expect(zh.guide.sections.plan).toBe("逐分钟教案");
     expect(zh.sheet.title).toBe("切词机——不插电");
     expect(M1.en.title).toBe("The Word Chopper");
@@ -244,14 +244,14 @@ describe("module 2 content tables (page + guide + printable + slides)", () => {
       expect(sl.counter(3, 10)).toContain("10");
     }
     expect(M2.en.slides.counter(3, 10)).toBe("Slide 3 of 10");
-    expect(M2.zh.slides.counter(3, 10)).toBe("第 3 张,共 10 张");
+    expect(M2.zh.slides.counter(3, 10)).toBe("第 3 张，共 10 张");
   });
 
   it("keeps the canonical zh copy exact", () => {
     const zh = M2.zh;
     expect(zh.title).toBe("下一个词的赌局");
     expect(zh.docTitle).toBe("模块 2 · 下一个词的赌局 — 机器内部·课堂版");
-    expect(zh.question).toBe("模型是在选,还是在掷骰子?");
+    expect(zh.question).toBe("模型是在选，还是在掷骰子？");
     expect([zh.hook.widget.num, zh.explore.step1Widget.num, zh.explore.step2Widget.num, zh.explore.step3Widget.num, zh.extension.widget.num]).toEqual([
       "导入",
       "第 1 步",

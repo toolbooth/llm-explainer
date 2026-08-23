@@ -41,7 +41,7 @@ describe("essay #2 content tables", () => {
     expect(zh.sec3.heading).toBe("第三幕·重掷测试");
     expect(zh.sec4.heading).toBe("第四幕·尖与平");
     // the flagship's canonical wake-button line is reused verbatim
-    expect(zh.sec1.widget.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
+    expect(zh.sec1.widget.wakeModel).toBe("唤醒模型（约 136MB，只此一次，之后永久缓存）");
     expect(zh.htmlLang).toBe("zh");
     expect(STRINGS.en.htmlLang).toBe("en");
   });
