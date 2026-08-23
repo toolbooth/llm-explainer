@@ -4,6 +4,14 @@
  * nano model in Acts 1–3/5, and the big Act-4 model (~136MB, loads only on
  * explicit user action) brings its own. `?mockModel=1` swaps in a
  * deterministic fake for tests/CI.
+ *
+ * The shared tokenizer is SELF-HOSTED: its two files live in
+ * public/tokenizers/gpt2/ and are fetched from this origin by plain `fetch`
+ * of a root-relative path, then handed to transformers.js's GPT2Tokenizer
+ * constructor directly. No hub resolution, no `env` flag, no host name
+ * anywhere in that code path — so a classroom page (which never wakes the
+ * big model) makes zero requests to huggingface.co or any third party
+ * (PRODUCT.md §6.2). The Act-4 model keeps going through the hub as before.
  */
 
 export interface TokenPiece {
@@ -31,10 +39,40 @@ export interface Engine {
 }
 
 const MODEL = "onnx-community/SmolLM2-135M-Instruct-ONNX";
-// The nano model's weights are indexed by GPT-2's vocab (50257 entries), so
-// the tokenizer shared across acts must stay GPT-2 BPE no matter which big
-// model Act 4 wakes. The two id spaces are mutually meaningless.
-const SHARED_TOK = "Xenova/gpt2";
+
+/**
+ * The nano model's weights are indexed by GPT-2's vocab (50257 entries), so
+ * the tokenizer shared across acts must stay GPT-2 BPE no matter which big
+ * model Act 4 wakes. The two id spaces are mutually meaningless.
+ *
+ * Root-relative on purpose (test/tokenizer-locality.test.ts asserts it):
+ * the files are served from this site, next to the weights.
+ */
+export const SHARED_TOKENIZER_PATH = "/tokenizers/gpt2";
+/** The two files transformers.js's GPT2Tokenizer needs, in constructor order. */
+export const SHARED_TOKENIZER_FILES = ["tokenizer.json", "tokenizer_config.json"] as const;
+
+/** Fetch one same-origin tokenizer file as JSON; a non-2xx is an error, never a silent fallback. */
+async function fetchSameOriginJSON(path: string): Promise<unknown> {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`tokenizer file ${path}: HTTP ${res.status}`);
+  return res.json();
+}
+
+/**
+ * Build the shared GPT-2 tokenizer from the vendored files. Bypasses
+ * `AutoTokenizer.from_pretrained` (hub resolution with a remote fallback) so
+ * the only URLs this can touch are SHARED_TOKENIZER_PATH/<file> on this
+ * origin.
+ */
+export async function loadSharedTokenizer(): Promise<any> {
+  const [{ GPT2Tokenizer }, tokenizerJSON, tokenizerConfig] = await Promise.all([
+    import("@huggingface/transformers"),
+    fetchSameOriginJSON(`${SHARED_TOKENIZER_PATH}/${SHARED_TOKENIZER_FILES[0]}`),
+    fetchSameOriginJSON(`${SHARED_TOKENIZER_PATH}/${SHARED_TOKENIZER_FILES[1]}`),
+  ]);
+  return new GPT2Tokenizer(tokenizerJSON as object, tokenizerConfig as object);
+}
 
 /** Ġ/Ċ are byte-BPE markers for space/newline — make them human-visible. */
 export function displayPiece(piece: string): string {
@@ -47,9 +85,7 @@ function realEngine(): Engine {
   let model: any = null;
 
   const getTok = () => {
-    tokPromise ??= import("@huggingface/transformers").then(({ AutoTokenizer }) =>
-      AutoTokenizer.from_pretrained(SHARED_TOK)
-    );
+    tokPromise ??= loadSharedTokenizer();
     return tokPromise;
   };
 

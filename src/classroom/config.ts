@@ -18,6 +18,20 @@ export const CLASSROOM = {
   maxTemperature: 1.5,
   /** The live model of the whole series (§4.1 rule 4): TinyStories-1M via nano-lm. */
   model: { name: "TinyStories-1M", params: "1M", weightsMB: 7.5 },
+  /**
+   * Everything a classroom page may fetch after the page itself, all from
+   * this origin (§6.1 page-weight budget ≤ 10 MB incl. weights; §6.2 "no
+   * third-party endpoints at all"). Byte counts are the files on disk —
+   * test/tokenizer-locality.test.ts fails if they drift.
+   */
+  assets: {
+    tokenizer: {
+      path: "/tokenizers/gpt2",
+      files: { "tokenizer.json": 2107653, "tokenizer_config.json": 234 },
+    },
+    weights: { path: "/weights", files: { "tinystories-1m.safetensors": 7502858, "meta.json": 249 } },
+    budgetMB: 10,
+  },
   /** Designed-for grade band; no student data is collected at any age (§9). */
   gradeBand: "9–14",
   /** Carnegie period and the marked block extension (§4.1 rule 1). */

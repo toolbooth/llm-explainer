@@ -70,7 +70,8 @@ export const en: ClassroomStrings = {
     <>
       <strong>Privacy.</strong> No accounts, no cookies, no analytics, no identifiers. What
       students type is processed in this tab and never leaves the device; nothing is stored. The
-      only network activity is fetching the page and the tokenizer/model files, once.
+      only network activity is fetching the page, the tokenizer (~2 MB) and the model weights
+      (7.5 MB) — all from this site's own server, once; no third-party host is contacted.
     </>
   ),
 
