@@ -110,9 +110,18 @@ export default function Gamble(props: {
     [label]
   );
 
+  // A forward pass takes ~10–40 ms, far below the threshold of perception, so a
+  // click on "Think" with an unchanged sentence looked dead (identical bars,
+  // no visible busy state). Hold the busy label for a beat and pulse the bars
+  // after every pass so the button visibly acknowledges the click.
+  const MIN_THINKING_MS = 350;
+  const [pulse, setPulse] = useState(false);
+  const pulseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const think = useCallback(
     async (t: string) => {
       setThinking(true);
+      const started = performance.now();
       try {
         const lg = await logitsFor(t);
         if (!lg) {
@@ -123,7 +132,12 @@ export default function Gamble(props: {
         setLogits(lg);
         await refreshBars(lg, temperature);
       } finally {
+        const remaining = MIN_THINKING_MS - (performance.now() - started);
+        if (remaining > 0) await new Promise((r) => setTimeout(r, remaining));
         setThinking(false);
+        setPulse(true);
+        if (pulseTimer.current) clearTimeout(pulseTimer.current);
+        pulseTimer.current = setTimeout(() => setPulse(false), 450);
       }
     },
     [logitsFor, refreshBars, temperature]
@@ -231,6 +245,9 @@ export default function Gamble(props: {
               className="text-input"
               value={text}
               onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !thinking) think(text);
+              }}
               maxLength={200}
               aria-label={a?.inputLabel}
             />
@@ -241,7 +258,7 @@ export default function Gamble(props: {
 
           {bars.length > 0 && (
             <>
-              <div className="bars" role={a ? "list" : undefined} aria-label={a?.probabilities}>
+              <div className={`bars${pulse ? " pulse" : ""}`} role={a ? "list" : undefined} aria-label={a?.probabilities}>
                 {bars.map((b) => (
                   <div
                     className="bar-row"

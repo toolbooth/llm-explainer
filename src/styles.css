@@ -370,3 +370,8 @@ body {
 .series-classroom { margin-top: 2rem; font-family: var(--font-sans); font-size: 0.9rem; }
 .series-classroom a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 .series-classroom a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Act 4 "Think" acknowledgement: the bars blink once after every forward pass. */
+@keyframes bars-pulse { 0% { opacity: 0.35; } 100% { opacity: 1; } }
+.bars.pulse .bar-fill { animation: bars-pulse 0.45s ease-out; }
+@media (prefers-reduced-motion: reduce) { .bars.pulse .bar-fill { animation: none; } }
