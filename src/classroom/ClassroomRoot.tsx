@@ -1,8 +1,9 @@
-import type { ComponentType } from "react";
+import { useEffect, type ComponentType } from "react";
 import ClassroomIndex from "./ClassroomIndex";
 import AboutPage from "./about/AboutPage";
 import { useClassroomRoute } from "./route";
 import type { ModuleId } from "./registry";
+import { registerClassroomServiceWorker } from "./sw/register";
 import "./classroom.css";
 
 /** A module's pages. Registering a module here makes its routes render. */
@@ -24,6 +25,11 @@ export function registerModulePages(id: ModuleId, pages: ModulePages): void {
 /** `#/classroom…` → index, a front-matter page, a module's lesson page (optionally at a step), its guide, its printable, or its slides. */
 export default function ClassroomRoot() {
   const page = useClassroomRoute();
+  // Offline-after-reload (sw/strategy.ts): registered only here, so an
+  // essay visit never installs it; production builds only.
+  useEffect(() => {
+    void registerClassroomServiceWorker();
+  }, []);
   if (page.kind === "index") return <ClassroomIndex />;
   if (page.kind === "about") return <AboutPage slug={page.slug} />;
   const pages = MODULE_PAGES[page.id];

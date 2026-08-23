@@ -12,7 +12,7 @@
 | Cookies, analytics, tracking pixels, fingerprinting? | **None.** No cookie, no beacon, no self-hosted counter, no third-party script [PRODUCT.md §8.3 "Web analytics: none"]. |
 | Does it call any AI service (OpenAI, Google, etc.)? | **No.** The model is a 7.5 MB file downloaded from the lesson site itself and executed by the page's own JavaScript. There is no AI-chat traffic signature for a filter to detect [PRODUCT.md §6.2]. |
 | What is stored on the device? | Only ordinary browser cache: the page, its script, the ~2 MB tokenizer files and the 7.5 MB model file, so the second visit is fast. One preference value (the EN/中文 language choice) is kept in the browser's local storage. Nothing a student types is stored anywhere, including locally. Clearing site data removes all of it. |
-| Does it work offline? | After the first load it keeps working if the connection drops. Surviving a page *reload* offline requires the classroom build's service worker (planned; PRODUCT.md §6.1). |
+| Does it work offline? | After the first load it keeps working if the connection drops, and — since build phase 4 — a page *reload* with no network works too: a small service worker keeps a versioned copy of the page, the tokenizer and the model on the device (about 11 MB; ordinary site data, cleared with it). It stores nothing a student types. Details and a two-minute check in the Tech check. |
 | Who operates it? | A single author, with no company, no revenue, no advertising, no sponsors, no donations [PRODUCT.md "Non-negotiable constraints"]. |
 | Age range | Designed for grades 9–14. No student data is collected at any age, so the grade label exists for developmental fit and state policy, not for privacy [PRODUCT.md §9 "Under-13 drift"]. |
 

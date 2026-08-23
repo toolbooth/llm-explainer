@@ -146,8 +146,12 @@ describe("about documents — EN/zh parity and content", () => {
       expect(card).not.toMatch(/planned configuration|规划中的配置/);
       expect(card).toContain("src/classroom/config.ts");
       expect(privacy).toContain("src/classroom/config.ts");
-      // bundle measured
-      expect(tech).toMatch(/1\.13 MB/);
+      // bundle measured (phase 4: 1.29 MB on disk incl. the front-matter text) and the service worker documented
+      expect(tech).toMatch(/1\.29 MB/);
+      expect(tech).toContain("classroom-sw.js");
+      expect(tech).not.toMatch(/service worker.*(planned|规划中)/);
+      expect(privacy).not.toMatch(/service worker.*(planned|规划中)/);
+      expect(card).toMatch(/Built 2026-08-23|2026-08-23 已实现/);
       // the accessibility statement labels unbuilt items as targets, reports the audit and lists the known gaps
       expect(a11y).toMatch(/Target, not yet built|目标、尚未构建/);
       expect(a11y).toContain("axe-core 4.13.0");

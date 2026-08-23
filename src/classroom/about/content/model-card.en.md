@@ -1,6 +1,6 @@
 # Model card — the model in your students' browsers
 
-*Inside the Machine: Classroom Edition · shared front matter · draft 2026-08-22. Status: integrated into the site 2026-08-22 (build phase 3); anything still marked "planned" is classroom-build work that has not shipped (the service worker, the Chromebook device test).*
+*Inside the Machine: Classroom Edition · shared front matter · draft 2026-08-22. Status: integrated into the site 2026-08-22 (build phase 3); the service worker shipped 2026-08-23 (phase 4); anything still marked "planned" is classroom-build work that has not shipped (the Chromebook device test).*
 
 ## In one paragraph
 
@@ -70,7 +70,7 @@ Why the cap matters pedagogically, not just defensively: above roughly T = 1.5 t
 3. Turn off Wi-Fi (or set the Network tab's throttling menu to **Offline**).
 4. Type a new sentence into the Chopper or the Gamble. Tokens appear and probability bars redraw.
 5. Look at the Network tab: no new requests were attempted, and nothing failed. The computation you just watched happened in the tab.
-6. Reload the page while still offline. **Planned, not yet built:** with the classroom build's service worker, the page reloads from cache and keeps working; today neither the flagship essay nor a classroom page survives a reload offline, only a dropped connection mid-session. Until the service worker ships, keep the printed unplugged sheet as the fallback [PRODUCT.md §6.1 "Offline after first load"].
+6. Reload the page while still offline. **Built 2026-08-23:** a classroom page reloads from the service worker's precache and keeps working (the Tech check describes what is stored, how updates work and how to confirm the worker is running); the flagship essay has no worker of its own, so it survives a dropped connection mid-session but not a reload. Keep the printed unplugged sheet as the fallback for the day a device arrives with a cleared profile [PRODUCT.md §6.1 "Offline after first load"].
 
 A longer network-tab audit, suitable for a district IT reviewer, is in the Privacy & safety one-pager.
 
