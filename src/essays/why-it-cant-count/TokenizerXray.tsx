@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { displayPiece, type Engine, type TokenPiece } from "../../lib/engine";
 import { softmaxTopK } from "../../lib/prob";
 import {
@@ -96,7 +96,7 @@ export default function TokenizerXray(props: XrayProps) {
   const [thinking, setThinking] = useState(false);
   const [attempts, setAttempts] = useState<{ straight: Attempt; spelled: Attempt } | null>(null);
 
-  const ready = props.engine.modelReady();
+  const ready = useSyncExternalStore(props.engine.subscribe, props.engine.modelReady);
 
   // the pieces as the counting model receives them — tokenizer only, no model download
   const shared = props.tokenizer === "shared";

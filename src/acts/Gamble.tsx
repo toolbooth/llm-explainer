@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Engine } from "../lib/engine";
 import { getNano, type NanoHandle } from "../lib/nanoEngine";
 import { sampleFrom, softmaxTopK, type TokenProb } from "../lib/prob";
@@ -80,7 +80,8 @@ export default function Gamble(props: {
   const [nanoPct, setNanoPct] = useState(0);
   const nanoRef = useRef<NanoHandle | null>(null);
 
-  const ready = nanoMode ? nanoReady : props.engine.modelReady();
+  const bigReady = useSyncExternalStore(props.engine.subscribe, props.engine.modelReady);
+  const ready = nanoMode ? nanoReady : bigReady;
 
   /** One word of the current vocabulary (GPT-2 in nano mode, the big model's otherwise). */
   const label = useCallback(

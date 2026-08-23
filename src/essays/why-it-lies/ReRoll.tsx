@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useSyncExternalStore } from "react";
 import type { Engine } from "../../lib/engine";
 import { sampleFrom, softmaxTopK } from "../../lib/prob";
 import { agreementGrid, agreeClass, meanAgreement } from "./agreement";
@@ -37,7 +37,7 @@ export default function ReRoll(props: {
   const [loadPct, setLoadPct] = useState<number | null>(null);
   const [loadError, setLoadError] = useState(false);
 
-  const ready = props.engine.modelReady();
+  const ready = useSyncExternalStore(props.engine.subscribe, props.engine.modelReady);
 
   const rollAll = useCallback(
     async (prompt: string) => {

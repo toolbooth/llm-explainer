@@ -36,6 +36,8 @@ export interface Engine {
   decodeModel(ids: number[]): Promise<string>;
   loadModel(onProgress: (pct: number) => void): Promise<void>;
   modelReady(): boolean;
+  /** Notifies when modelReady() flips; returns an unsubscribe. Widgets use it via useSyncExternalStore so every gate on the page unlocks together. */
+  subscribe(listener: () => void): () => void;
 }
 
 const MODEL = "onnx-community/SmolLM2-135M-Instruct-ONNX";
@@ -83,6 +85,8 @@ function realEngine(): Engine {
   let tokPromise: Promise<any> | null = null;
   let modelTokPromise: Promise<any> | null = null;
   let model: any = null;
+  const listeners = new Set<() => void>();
+  const notify = () => listeners.forEach((l) => l());
 
   const getTok = () => {
     tokPromise ??= loadSharedTokenizer();
@@ -140,22 +144,40 @@ function realEngine(): Engine {
 
     async loadModel(onProgress) {
       if (model) return;
-      const { AutoModelForCausalLM } = await import("@huggingface/transformers");
-      model = await AutoModelForCausalLM.from_pretrained(MODEL, {
+      const tf = await import("@huggingface/transformers");
+      const opts = {
         // SmolLM2-135M-Instruct q8: 135.7MB fully-quantized modern export,
         // verified at default session options; replaced 225.8MB distilgpt2
         // whose greedy continuations degenerated (2026-08-20 eval).
-        dtype: "q8",
+        dtype: "q8" as const,
         progress_callback: (p: { status?: string; progress?: number }) => {
           if (p.status === "progress" && typeof p.progress === "number") {
             onProgress(Math.round(p.progress));
           }
         },
-      });
+      };
+      // Run inference in ORT's worker ("proxy") so a multi-second generation
+      // (ReRoll: 5 continuations; The Loop) doesn't freeze the page. Fall back
+      // to the main thread if the worker can't be created in this browser.
+      const wasm = (tf.env as any)?.backends?.onnx?.wasm;
+      try {
+        if (wasm) wasm.proxy = true;
+        model = await tf.AutoModelForCausalLM.from_pretrained(MODEL, opts);
+      } catch (e) {
+        if (!wasm || wasm.proxy !== true) throw e;
+        wasm.proxy = false;
+        model = await tf.AutoModelForCausalLM.from_pretrained(MODEL, opts);
+      }
+      notify();
     },
 
     modelReady() {
       return model !== null;
+    },
+
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
     },
   };
 }
@@ -163,6 +185,7 @@ function realEngine(): Engine {
 /** Deterministic mock: word-boundary "tokens", hash-derived logits. */
 function mockEngine(): Engine {
   let ready = false;
+  const mockListeners = new Set<() => void>();
   const words = ["floor", "mat", "table", "moon", "keyboard", "sofa", "roof", "grass", "cloud", "chair", "rug", "window"];
   return {
     async tokenize(text) {
@@ -193,9 +216,14 @@ function mockEngine(): Engine {
         onProgress(pct);
       }
       ready = true;
+      mockListeners.forEach((l) => l());
     },
     modelReady() {
       return ready;
+    },
+    subscribe(listener) {
+      mockListeners.add(listener);
+      return () => mockListeners.delete(listener);
     },
   };
 }
