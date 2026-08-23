@@ -44,7 +44,7 @@ export const en: Essay2Strings = {
   },
 
   sec1: {
-    heading: "§1 · The Bet It Can't Refuse",
+    heading: "Act 1 · The Bet It Can't Refuse",
     p1: () => (
       <>
         A language model has no silence token. There is no entry in its vocabulary for staying
@@ -63,7 +63,7 @@ export const en: Essay2Strings = {
       </>
     ),
     widget: {
-      num: "§1",
+      num: "Act 1",
       title: "The Bet It Can't Refuse — ask it something unknowable",
       gateIntro:
         "This section runs a real 135M-parameter model in your tab — the same one essay #1's Act 4 wakes. One download, cached forever.",
@@ -90,7 +90,7 @@ export const en: Essay2Strings = {
   },
 
   sec2: {
-    heading: "§2 · Citation-Shaped Dice",
+    heading: "Act 2 · Citation-Shaped Dice",
     p1: () => (
       <>
         Here is the same loop you watched write a story in essay #1, pointed at the most
@@ -114,7 +114,7 @@ export const en: Essay2Strings = {
       </>
     ),
     widget: {
-      num: "§2",
+      num: "Act 2",
       title: "Citation-Shaped Dice — watch a reference assemble",
       loading: (pct) => `Loading the storybook model (7.5MB, shared with essay #1)… ${pct}%`,
       stop: "⏸ Stop",
@@ -137,7 +137,7 @@ export const en: Essay2Strings = {
   },
 
   sec3: {
-    heading: "§3 · The Re-Roll Test",
+    heading: "Act 3 · The Re-Roll Test",
     p1: () => (
       <>
         Now the practical part. If the model “knew” the answer — if the fact is carved deep into
@@ -158,10 +158,10 @@ export const en: Essay2Strings = {
       </>
     ),
     widget: {
-      num: "§3",
+      num: "Act 3",
       title: "The Re-Roll Test — same question, five rolls",
       gateIntro:
-        "Same 135M model as §1 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
+        "Same 135M model as Act 1 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
       loadError:
         "The download didn't make it — bad connection, or the model CDN is blocked from where you are. Nothing is broken on your end.",
       tryAgain: "Try again",
@@ -190,7 +190,7 @@ export const en: Essay2Strings = {
   },
 
   sec4: {
-    heading: "§4 · Sharp vs Flat",
+    heading: "Act 4 · Sharp vs Flat",
     p1: () => (
       <>
         The re-roll test costs five queries. Here is the cheaper tell, hiding in a widget you
@@ -210,10 +210,10 @@ export const en: Essay2Strings = {
       </>
     ),
     widget: {
-      num: "§4",
+      num: "Act 4",
       title: "Sharp vs Flat — two prompts, same bars",
       gateIntro:
-        "Same 135M model as §1 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
+        "Same 135M model as Act 1 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
       loadError:
         "The download didn't make it — bad connection, or the model CDN is blocked from where you are. Nothing is broken on your end.",
       tryAgain: "Try again",

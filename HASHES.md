@@ -20,12 +20,26 @@ are byte-identical to before.
 |---|---|---|---|---|
 | flagship (Inside the Machine) | `/` | en | `680f675b2ece144ab394a306b0bf91a73bf695e30fb48b8c7ce139b8f32e9967` | 20578 |
 | flagship (Inside the Machine) | `/` | zh | `755119071b32966fb8b2fe7b1abaacaa4c6256e16e3c3d2abef9c44bc066312c` | 15473 |
-| #2 Why It Lies | `#/essays/why-it-lies` | en | `2475a7799339f0035e2e4a593281726bc7a2d36402da2b2b6030b9a091fc197b` | 9694 |
-| #2 Why It Lies | `#/essays/why-it-lies` | zh | `4276ba10b2e59769416c75fb9f1f36d1d38428cb170de88a4c6c6483d1ee0514` | 5393 |
-| #3 The Attention-Head Field Guide | `#/essays/attention-heads` | en | `9cb068c31f17d6ae19def54ddd76a2644f68030aa9dc735cdc9063fa5493f7c4` | 78656 |
-| #3 The Attention-Head Field Guide | `#/essays/attention-heads` | zh | `45e187666f3415dac2dc28aa1a9f1f58a33de339843d253b0ad5d2781861ef52` | 69464 |
-| #4 Why It Can't Count | `#/essays/why-it-cant-count` | en | `71364230e5aba6be208e0ee31f3c99c639d864400319869278392e819c44fa28` | 12395 |
-| #4 Why It Can't Count | `#/essays/why-it-cant-count` | zh | `009c3dac887ebdf82374619d1ecc756c26a23177b235400bafd10ebf1f3953e5` | 7237 |
+| #2 Why It Lies | `#/essays/why-it-lies` | en | `8a6cc20d60175a6dc866e218328bacbd3dd55a93fb3dcad17030c037d3e66fea` | 9724 |
+| #2 Why It Lies | `#/essays/why-it-lies` | zh | `9a71fd61a3c0d218ab4c91acfde9bc02fa82c66c148b1002a66502a45277bcc6` | 5393 |
+| #3 The Attention-Head Field Guide | `#/essays/attention-heads` | en | `396f9fdbe1fd498c18f4846cc90fb37cb99adc55ad0868addb6b155b14dbda11` | 78680 |
+| #3 The Attention-Head Field Guide | `#/essays/attention-heads` | zh | `d1af981b4f8c341b26205de6fe71602c2784d2bea0c6267de483c5b382584165` | 69464 |
+| #4 Why It Can't Count | `#/essays/why-it-cant-count` | en | `d21af9f6d0a6574404fd19ce2a59d1bbcd03bf835e3ff11c088d0c464c4c3100` | 12425 |
+| #4 Why It Can't Count | `#/essays/why-it-cant-count` | zh | `6a959e8f124a576feb9cdaff0110ce80bf2a7ed4aa8cfe2ae16bdcf01e3d1cf2` | 7237 |
+
+## Superseded: essays #2–#4 before the Act/幕 relabel (commit `4be85e5` and earlier)
+
+Deliberate series-wide change 2026-08-23: section labels §N / 第N节 → Act N / 第N幕
+to match the flagship's seven-act framing. Flagship unchanged.
+
+| page | lang | sha256 | chars |
+|---|---|---|---|
+| #2 Why It Lies | en | `2475a7799339f0035e2e4a593281726bc7a2d36402da2b2b6030b9a091fc197b` | 9694 |
+| #2 Why It Lies | zh | `4276ba10b2e59769416c75fb9f1f36d1d38428cb170de88a4c6c6483d1ee0514` | 5393 |
+| #3 The Attention-Head Field Guide | en | `9cb068c31f17d6ae19def54ddd76a2644f68030aa9dc735cdc9063fa5493f7c4` | 78656 |
+| #3 The Attention-Head Field Guide | zh | `45e187666f3415dac2dc28aa1a9f1f58a33de339843d253b0ad5d2781861ef52` | 69464 |
+| #4 Why It Can't Count | en | `71364230e5aba6be208e0ee31f3c99c639d864400319869278392e819c44fa28` | 12395 |
+| #4 Why It Can't Count | zh | `009c3dac887ebdf82374619d1ecc756c26a23177b235400bafd10ebf1f3953e5` | 7237 |
 
 ## Superseded: pre-Act-3-transition flagship (commit `2308a84` and earlier)
 

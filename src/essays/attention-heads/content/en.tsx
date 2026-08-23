@@ -63,7 +63,7 @@ export const en: Essay3Strings = {
   },
 
   sec1: {
-    heading: "§1 · Sixteen Gazes",
+    heading: "Act 1 · Sixteen Gazes",
     p1: () => (
       <>
         Start with a correction. Below is the same Attention Room
@@ -88,7 +88,7 @@ export const en: Essay3Strings = {
     ),
     widget: {
       ...room,
-      num: "§1",
+      num: "Act 1",
       title: "Sixteen Gazes — one sentence, one layer, sixteen readings",
       note: () => (
         <>
@@ -101,7 +101,7 @@ export const en: Essay3Strings = {
   },
 
   sec2: {
-    heading: "§2 · The Census",
+    heading: "Act 2 · The Census",
     p1: () => (
       <>
         Now all of them at once. Type a sentence — English, since that's all this model has read
@@ -127,9 +127,9 @@ export const en: Essay3Strings = {
       </>
     ),
     widget: {
-      num: "§2",
+      num: "Act 2",
       title: "The Census — every head in your sentence, sorted",
-      loading: (pct) => `Loading the dissection model (7.5MB, shared with §1)… ${pct}%`,
+      loading: (pct) => `Loading the dissection model (7.5MB, shared with Act 1)… ${pct}%`,
       tooShort: "Give it at least four tokens — the templates need a few rows to read.",
       summary: (c, total) => (
         <>
@@ -193,7 +193,7 @@ export const en: Essay3Strings = {
   },
 
   sec3: {
-    heading: "§3 · Three Species, Up Close",
+    heading: "Act 3 · Three Species, Up Close",
     p1: () => (
       <>
         A field guide earns its keep when you can recognise the bird without it. Here are the
@@ -220,7 +220,7 @@ export const en: Essay3Strings = {
     ),
     widget: {
       ...room,
-      num: "§3",
+      num: "Act 3",
       title: "Three Species, Up Close — stripe, column, smear",
       note: () => (
         <>
@@ -235,7 +235,7 @@ export const en: Essay3Strings = {
   },
 
   sec4: {
-    heading: "§4 · The Unlabeled Majority",
+    heading: "Act 4 · The Unlabeled Majority",
     p1: () => (
       <>
         Scroll up to the census and look at the last pile. Pick any head from it — read its
@@ -260,7 +260,7 @@ export const en: Essay3Strings = {
     ),
     widget: {
       ...room,
-      num: "§4",
+      num: "Act 4",
       title: "The Unlabeled Majority — dial in a nameless head",
       note: () => (
         <>

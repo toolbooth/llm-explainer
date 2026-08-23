@@ -3,7 +3,7 @@ import { STRINGS } from "../src/essays/why-it-lies/content/i18n";
 
 /**
  * Essay #2's replica of the flagship's content parity test (the per-essay
- * pattern from src/series/README.md §3): walk both locale tables and compare
+ * pattern from src/series/README.md Act 3): walk both locale tables and compare
  * every leaf path tagged with its runtime type, catching drift beyond what
  * the shared Essay2Strings interface enforces at compile time.
  */
@@ -31,15 +31,15 @@ describe("essay #2 content tables", () => {
     expect(zh.hero.title).toBe("它为什么说谎");
     expect(zh.docTitle).toBe("它为什么说谎 — 看穿语言模型系列·第二篇");
     expect([zh.sec1.widget.num, zh.sec2.widget.num, zh.sec3.widget.num, zh.sec4.widget.num]).toEqual([
-      "第一节",
-      "第二节",
-      "第三节",
-      "第四节",
+      "第一幕",
+      "第二幕",
+      "第三幕",
+      "第四幕",
     ]);
-    expect(zh.sec1.heading).toBe("第一节·拒绝不了的赌局");
-    expect(zh.sec2.heading).toBe("第二节·文献形状的骰子");
-    expect(zh.sec3.heading).toBe("第三节·重掷测试");
-    expect(zh.sec4.heading).toBe("第四节·尖与平");
+    expect(zh.sec1.heading).toBe("第一幕·拒绝不了的赌局");
+    expect(zh.sec2.heading).toBe("第二幕·文献形状的骰子");
+    expect(zh.sec3.heading).toBe("第三幕·重掷测试");
+    expect(zh.sec4.heading).toBe("第四幕·尖与平");
     // the flagship's canonical wake-button line is reused verbatim
     expect(zh.sec1.widget.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
     expect(zh.htmlLang).toBe("zh");

@@ -5,7 +5,7 @@ import type { Essay4Strings } from "./types";
  * English prose for essay #4. Same authorial voice as the flagship:
  * metaphor-dense, short-sentence payoffs, restrained humor. The claims-care
  * rules from essays/04-why-it-cant-count/OUTLINE.md are load-bearing here —
- * tokenization is ONE root, not the whole tree (§3 says so in the body);
+ * tokenization is ONE root, not the whole tree (Act 3 says so in the body);
  * frontier models now often get strawberry right and the intro says so
  * plainly; the model is blind at the token grain, never "dumb"; every
  * digit-tokenization sentence was measured on the two tokenizers in this
@@ -68,7 +68,7 @@ export const en: Essay4Strings = {
   },
 
   sec1: {
-    heading: "§1 · Perception Is Tokens",
+    heading: "Act 1 · Perception Is Tokens",
     p1: () => (
       <>
         Here is the Chopper again, opened on the word by itself. The tokenizer — a small separate
@@ -90,7 +90,7 @@ export const en: Essay4Strings = {
       </>
     ),
     widget: {
-      num: "§1",
+      num: "Act 1",
       title: "Perception Is Tokens — the Chopper, one word at a time",
       placeholder: "Type a word, a number, an emoji…",
       loading: "Loading the tokenizer (~2MB, once)…",
@@ -114,7 +114,7 @@ export const en: Essay4Strings = {
   },
 
   sec2: {
-    heading: "§2 · The X-ray",
+    heading: "Act 2 · The X-ray",
     p1: () => (
       <>
         The X-ray below shows the letters you see, then
@@ -138,7 +138,7 @@ export const en: Essay4Strings = {
       </>
     ),
     widget: {
-      num: "§2",
+      num: "Act 2",
       title: "The X-ray — what you see, what it sees, what it answers",
       wordLabel: "word",
       letterLabel: "letter",
@@ -212,7 +212,7 @@ export const en: Essay4Strings = {
   },
 
   sec3: {
-    heading: "§3 · Digits Are Tokens Too",
+    heading: "Act 3 · Digits Are Tokens Too",
     p1: () => (
       <>
         Numbers go through the same chopper, and each tokenizer chops them its own way. The GPT-2
@@ -240,10 +240,10 @@ export const en: Essay4Strings = {
     ),
     widget: {
       ...gamble,
-      num: "§3",
+      num: "Act 3",
       title: "Digits Are Tokens Too — the first digit is easy, the last is not",
       gateIntro:
-        "Same 135M model as §2 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
+        "Same 135M model as Act 2 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
       note: () => (
         <>
           The bars are over single digits because that is how this model's vocabulary cuts
@@ -256,7 +256,7 @@ export const en: Essay4Strings = {
   },
 
   sec4: {
-    heading: "§4 · The Fix Follows the Mechanism",
+    heading: "Act 4 · The Fix Follows the Mechanism",
     p1: () => (
       <>
         If the failure is perception, the fixes are ways of putting the missing thing into the
@@ -282,10 +282,10 @@ export const en: Essay4Strings = {
     ),
     widget: {
       ...gamble,
-      num: "§4",
+      num: "Act 4",
       title: "The Fix Follows the Mechanism — straight, spelled, tallied",
       gateIntro:
-        "Same 135M model as §2 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
+        "Same 135M model as Act 2 — if you already woke it there, this button is instant. Otherwise: one download, cached forever.",
       note: () => (
         <>
           Three prompts, one question, more of the work done in the text each time. The third

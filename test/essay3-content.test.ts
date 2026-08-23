@@ -4,7 +4,7 @@ import { SPECIES_ORDER } from "../src/essays/attention-heads/scanner";
 
 /**
  * Essay #3's replica of the flagship's content parity test (the per-essay
- * pattern from src/series/README.md §3): walk both locale tables and compare
+ * pattern from src/series/README.md Act 3): walk both locale tables and compare
  * every leaf path tagged with its runtime type, catching drift beyond what
  * the shared Essay3Strings interface enforces at compile time.
  */
@@ -32,15 +32,15 @@ describe("essay #3 content tables", () => {
     expect(zh.hero.title).toBe("野生 attention head 图鉴");
     expect(zh.docTitle).toBe("野生 attention head 图鉴 — 看穿语言模型系列·第三篇");
     expect([zh.sec1.widget.num, zh.sec2.widget.num, zh.sec3.widget.num, zh.sec4.widget.num]).toEqual([
-      "第一节",
-      "第二节",
-      "第三节",
-      "第四节",
+      "第一幕",
+      "第二幕",
+      "第三幕",
+      "第四幕",
     ]);
-    expect(zh.sec1.heading).toBe("第一节·十六道目光");
-    expect(zh.sec2.heading).toBe("第二节·人口普查");
-    expect(zh.sec3.heading).toBe("第三节·三种常见物种,凑近看");
-    expect(zh.sec4.heading).toBe("第四节·无名的大多数");
+    expect(zh.sec1.heading).toBe("第一幕·十六道目光");
+    expect(zh.sec2.heading).toBe("第二幕·人口普查");
+    expect(zh.sec3.heading).toBe("第三幕·三种常见物种,凑近看");
+    expect(zh.sec4.heading).toBe("第四幕·无名的大多数");
     // the flagship's three canonical head names are reused verbatim in the Room chrome…
     expect(zh.sec1.widget.diagPrev(2, 8, "31")).toBe("👀 盯前一个词的头 · L2H8(31%)");
     expect(zh.sec3.widget.diagAnchor(1, 4, "51")).toBe("⚓ 锚在句首的头 · L1H4(51%)");

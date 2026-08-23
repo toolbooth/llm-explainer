@@ -3,7 +3,7 @@ import { STRINGS } from "../src/essays/why-it-cant-count/content/i18n";
 
 /**
  * Essay #4's replica of the flagship's content parity test (the per-essay
- * pattern from src/series/README.md §3): walk both locale tables and compare
+ * pattern from src/series/README.md Act 3): walk both locale tables and compare
  * every leaf path tagged with its runtime type, catching drift beyond what
  * the shared Essay4Strings interface enforces at compile time.
  */
@@ -31,20 +31,20 @@ describe("essay #4 content tables", () => {
     expect(zh.hero.title).toBe("为什么 AI 数不出 strawberry 有几个 r");
     expect(zh.docTitle).toBe("为什么 AI 数不出 strawberry 有几个 r — 看穿语言模型系列·第四篇");
     expect([zh.sec1.widget.num, zh.sec2.widget.num, zh.sec3.widget.num, zh.sec4.widget.num]).toEqual([
-      "第一节",
-      "第二节",
-      "第三节",
-      "第四节",
+      "第一幕",
+      "第二幕",
+      "第三幕",
+      "第四幕",
     ]);
-    expect(zh.sec1.heading).toBe("第一节·模型的感官是 token");
-    expect(zh.sec2.heading).toBe("第二节·切词 X 光");
-    expect(zh.sec3.heading).toBe("第三节·数字也是 token");
-    expect(zh.sec4.heading).toBe("第四节·解法跟着机制走");
+    expect(zh.sec1.heading).toBe("第一幕·模型的感官是 token");
+    expect(zh.sec2.heading).toBe("第二幕·切词 X 光");
+    expect(zh.sec3.heading).toBe("第三幕·数字也是 token");
+    expect(zh.sec4.heading).toBe("第四幕·解法跟着机制走");
     // the flagship's canonical wake-button line is reused verbatim in all three model widgets
     for (const w of [zh.sec2.widget, zh.sec3.widget, zh.sec4.widget]) {
       expect(w.wakeModel).toBe("唤醒模型(约 136MB,只此一次,之后永久缓存)");
     }
-    // and the Chopper's flagship chrome (loading line) in §1
+    // and the Chopper's flagship chrome (loading line) in Act 1
     expect(zh.sec1.widget.loading).toBe("正在加载切词器(约 2MB,只下载一次)…");
     expect(zh.htmlLang).toBe("zh");
     expect(STRINGS.en.htmlLang).toBe("en");
