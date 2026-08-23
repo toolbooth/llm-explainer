@@ -28,7 +28,7 @@
 .classroom .cl-teacher strong { color: var(--warm); }
 
 .classroom .cl-step { scroll-margin-top: 1rem; }
-.classroom .cl-step h3 { color: #fff; font-size: 1.2rem; margin: 2.2rem 0 0.8rem; display: flex; align-items: baseline; gap: 0.6rem; }
+.classroom .cl-step h3 { color: var(--text); font-size: 1.2rem; margin: 2.2rem 0 0.8rem; display: flex; align-items: baseline; gap: 0.6rem; }
 .classroom .cl-step-n { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }
 .classroom .cl-steplink { color: var(--dim); text-decoration: none; font-size: 0.95rem; font-family: var(--font-mono); padding: 0.3rem 0.5rem; margin-left: auto; border-radius: 6px; }
 .classroom .cl-steplink:hover, .classroom .cl-steplink:focus-visible { color: var(--accent); background: var(--panel); }
@@ -51,8 +51,8 @@
 .classroom .cl-modules { list-style: none; padding: 0; margin: 1.2rem 0; }
 .classroom .cl-modules li { display: grid; grid-template-columns: 5.2rem 1fr; gap: 0.2rem 0.8rem; align-items: baseline; padding: 0.8rem 0; border-top: 1px solid var(--border); }
 .classroom .cl-modules .cl-mod-n { font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }
-.classroom .cl-modules .cl-mod-t { font-size: 1.15rem; font-weight: 600; color: #fff; }
-.classroom .cl-modules .cl-mod-t a { color: #fff; text-decoration: none; border-bottom: 1px solid var(--border); }
+.classroom .cl-modules .cl-mod-t { font-size: 1.15rem; font-weight: 600; color: var(--text); }
+.classroom .cl-modules .cl-mod-t a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
 .classroom .cl-modules .cl-mod-t a:hover { color: var(--accent); border-color: var(--accent); }
 .classroom .cl-modules .cl-mod-t.planned { color: var(--dim); font-weight: 500; }
 .classroom .cl-modules .cl-planned { font-family: var(--font-sans); font-size: 0.7rem; color: var(--dim); border: 1px solid var(--border); border-radius: 6px; padding: 0 0.4rem; margin-left: 0.5rem; vertical-align: middle; }
@@ -65,7 +65,7 @@
 
 /* teacher guide */
 .classroom.cl-guide .prose h2 { font-size: 1.3rem; margin-top: 2.4rem; }
-.classroom.cl-guide .prose h3 { color: #fff; font-size: 1.05rem; margin: 1.4rem 0 0.6rem; }
+.classroom.cl-guide .prose h3 { color: var(--text); font-size: 1.05rem; margin: 1.4rem 0 0.6rem; }
 .classroom .cl-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 0.9rem; margin: 0.8rem 0 1.2rem; }
 .classroom .cl-table th, .classroom .cl-table td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-top: 1px solid var(--border); }
 .classroom .cl-table th { color: var(--muted); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
@@ -95,6 +95,64 @@
 .classroom .cl-strip.zh .cl-strip-text { letter-spacing: 0.35em; }
 .classroom .cl-sheet .cl-answer { display: block; border-bottom: 1px solid #888; height: 1.6rem; margin: 0.3rem 0 0.6rem; }
 .classroom .cl-sheet .cl-foot { font-size: 0.78rem; color: #444; border-top: 1px solid #888; margin-top: 1.4rem; padding-top: 0.5rem; }
+
+/* ── Light theme (projector legibility; PRODUCT.md §6.3 "contrast ≥ 4.5:1 in
+   both light and dark themes") ───────────────────────────────────────────
+   ClassroomFrame puts `classroom-light` on <html> while a classroom page is
+   mounted; the essays never mount it, so they stay dark. Two layers:
+   (1) the series tokens re-pointed at a light palette — every ratio below
+   was computed before it was chosen (text on bg/panel ≥ 5.3:1, accent and
+   warm on bg ≥ 6:1, bar fill on track ≥ 4:1); (2) the widgets' hard-coded
+   dark surfaces (#0c0f18 inputs/tracks, #fff titles, pastel token tints)
+   re-pointed one by one. Specificity note: classroom.css is imported
+   before styles.css, so every rule here carries `:root.classroom-light`
+   (0,2,0) in front to win ties. Print rules further down are unchanged. */
+:root.classroom-light {
+  --bg: #ffffff;
+  --panel: #f2f4f9;
+  --border: #c9d0df;
+  --text: #16192a;
+  --muted: #454c60;   /* 8.6:1 on bg, 7.8:1 on panel */
+  --dim: #5c6478;     /* 5.9:1 on bg, 5.4:1 on panel */
+  --accent: #2f3fb8;  /* 8.3:1 on bg; 6.7:1 on the bar track */
+  --warm: #9a4f00;    /* 6.0:1 on bg */
+  --cl-track: #e3e7f0;
+  --cl-input: #ffffff;
+  --cl-accent-2: #5562d6; /* bar-fill gradient end, 4.1:1 on the track */
+  color-scheme: light;
+}
+:root.classroom-light body { background: var(--bg); color: var(--text); }
+:root.classroom-light .hero h1, :root.classroom-light .prose h2, :root.classroom-light .widget-title,
+:root.classroom-light .bar-label, :root.classroom-light .xr-panel h4, :root.classroom-light .hs-species,
+:root.classroom-light .hs-detail h4, :root.classroom-light .series-list a { color: var(--text); }
+:root.classroom-light .btn, :root.classroom-light .btn-link, :root.classroom-light .langtoggle button.active,
+:root.classroom-light .head-btn.active { color: #fff; }
+:root.classroom-light .btn.ghost { color: var(--muted); background: var(--cl-input); }
+:root.classroom-light .btn.ghost:hover { border-color: var(--accent); color: var(--text); }
+:root.classroom-light .text-input { background: var(--cl-input); color: var(--text); border-color: var(--border); }
+:root.classroom-light .text-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(47, 63, 184, 0.2); }
+:root.classroom-light .bar-track, :root.classroom-light .pop-track, :root.classroom-light .progress,
+:root.classroom-light .wm-track, :root.classroom-light .hs-score-track, :root.classroom-light .scale-track { background: var(--cl-track); }
+:root.classroom-light .bar-fill, :root.classroom-light .wm-fill { background: linear-gradient(90deg, var(--accent), var(--cl-accent-2)); }
+:root.classroom-light .loop-out, :root.classroom-light .wm-card, :root.classroom-light .rr-row, :root.classroom-light .xr-panel,
+:root.classroom-light .hs-detail, :root.classroom-light .lens-tok, :root.classroom-light .xr-ch, :root.classroom-light .hs-tok,
+:root.classroom-light .hs-head, :root.classroom-light .head-btn, :root.classroom-light .mx-cell { background: var(--cl-input); }
+:root.classroom-light .loop-pop { background: #fff; box-shadow: 0 12px 32px rgba(20, 24, 40, 0.18); }
+:root.classroom-light .mx-cell.future { background: repeating-linear-gradient(45deg, #fff, #fff 3px, var(--cl-track) 3px, var(--cl-track) 6px); }
+:root.classroom-light .preset-btn { background: rgba(47, 63, 184, 0.07); }
+:root.classroom-light .prose code, :root.classroom-light .xr-prompt, :root.classroom-light .xr-raw code { background: var(--panel); }
+:root.classroom-light .load-error { color: #b42318; }
+/* token chips: dark ink on the same pastel tints (≥ 8:1 on bg and panel) */
+:root.classroom-light .tok.c1 { color: #1f2c8a; }
+:root.classroom-light .tok.c2 { color: #6b3400; }
+:root.classroom-light .tok.c3 { color: #0b4a2e; }
+:root.classroom-light .tok.c4 { color: #7a1a40; }
+:root.classroom-light .tok.c5 { color: #0a4660; }
+:root.classroom-light .xr-piece { color: #1f2c8a; }
+:root.classroom-light .xr-bin.top .xr-bin-fill { background: linear-gradient(180deg, var(--cl-accent-2), var(--accent)); }
+/* the printable already is white paper; on a white page it needs an edge, not a shadow */
+:root.classroom-light .classroom .cl-sheet { box-shadow: 0 2px 12px rgba(20, 24, 40, 0.12); border: 1px solid var(--border); }
+:root.classroom-light .classroom .cl-nav a:hover, :root.classroom-light .classroom .cl-beats a:hover { color: var(--accent); }
 
 /* ── Mobile (one breakpoint, matches src/styles.css): 44px tap targets for
    every classroom control — nav links, beat chips, step anchors, hint button. */

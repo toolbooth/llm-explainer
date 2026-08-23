@@ -4,6 +4,11 @@ import { useClassroomStrings } from "./content/i18n";
 import { classroomHref, type ClassroomPage } from "./route";
 import type { ModuleId } from "./registry";
 
+/** Root class that switches the series tokens to the light palette (classroom.css). */
+export const LIGHT_ROOT_CLASS = "classroom-light";
+/** `<meta name="theme-color">` while a classroom page is up (the light page background). */
+export const LIGHT_THEME_COLOR = "#ffffff";
+
 /**
  * The frame every classroom page shares: language toggle, the small nav
  * row (index / lesson / guide / printable / print), the hero, and the footer.
@@ -35,6 +40,22 @@ export default function ClassroomFrame(props: {
     document.documentElement.lang = t.htmlLang;
     document.querySelector('meta[name="description"]')?.setAttribute("content", props.metaDescription);
   }, [props.docTitle, props.metaDescription, t.htmlLang]);
+
+  // Light theme for projectors (classroom.css, scoped to this root class).
+  // Set on <html> while any classroom page is mounted and removed on the way
+  // out, so the essays — which never mount this frame — stay dark; the
+  // hash baseline in HASHES.md covers #root's innerHTML, which this never touches.
+  useEffect(() => {
+    const root = document.documentElement;
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    const darkThemeColor = themeMeta?.getAttribute("content") ?? null;
+    root.classList.add(LIGHT_ROOT_CLASS);
+    themeMeta?.setAttribute("content", LIGHT_THEME_COLOR);
+    return () => {
+      root.classList.remove(LIGHT_ROOT_CLASS);
+      if (darkThemeColor !== null) themeMeta?.setAttribute("content", darkThemeColor);
+    };
+  }, []);
 
   const id = props.moduleId;
   return (
