@@ -11,6 +11,9 @@ import type { EssayStrings } from "../content/types";
  */
 export type GambleStrings = EssayStrings["act4"];
 
+/** The flagship's slider range — the default when no `maxTemperature` prop is passed. */
+export const GAMBLE_TEMP_RANGE = { min: 0.1, max: 2, step: 0.05 } as const;
+
 interface Bar extends TokenProb {
   label: string;
 }
@@ -23,8 +26,14 @@ export default function Gamble(props: {
   initialText?: string;
   /** Optional preset prompts, rendered as one-click chips above the input. */
   presets?: string[];
+  /**
+   * Slider ceiling. The flagship/essays leave it at GAMBLE_TEMP_RANGE.max;
+   * classroom pages pass CLASSROOM.maxTemperature (1.5).
+   */
+  maxTemperature?: number;
 }) {
   const t = props.strings;
+  const tempMax = props.maxTemperature ?? GAMBLE_TEMP_RANGE.max;
   const [text, setText] = useState(props.initialText ?? "The cat sat on the");
   const [temperature, setTemperature] = useState(1.0);
   const [logits, setLogits] = useState<Float32Array | null>(null);
@@ -162,9 +171,9 @@ export default function Gamble(props: {
                 <span className="temp-label">{t.tempCareful}</span>
                 <input
                   type="range"
-                  min={0.1}
-                  max={2}
-                  step={0.05}
+                  min={GAMBLE_TEMP_RANGE.min}
+                  max={tempMax}
+                  step={GAMBLE_TEMP_RANGE.step}
                   value={temperature}
                   onChange={(e) => onTemp(Number(e.target.value))}
                 />

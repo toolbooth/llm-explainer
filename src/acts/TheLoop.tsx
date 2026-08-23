@@ -20,14 +20,20 @@ interface Step {
 
 const MAX_TOKENS = 30;
 
+/** The flagship's slider range — the default when no `maxTemperature` prop is passed. */
+export const LOOP_TEMP_RANGE = { min: 0.1, max: 1.6, step: 0.05 } as const;
+
 export default function TheLoop(props: {
   engine: Engine;
   strings: LoopStrings;
   /** DOM id for deep links — "act-5" in the flagship, a section id elsewhere. */
   htmlId: string;
   initialPrompt?: string;
+  /** Slider ceiling; classroom pages pass CLASSROOM.maxTemperature (1.5). */
+  maxTemperature?: number;
 }) {
   const t = props.strings;
+  const tempMax = props.maxTemperature ?? LOOP_TEMP_RANGE.max;
   const [prompt, setPrompt] = useState(props.initialPrompt ?? "Once upon a time");
   const [steps, setSteps] = useState<Step[]>([]);
   const [running, setRunning] = useState(false);
@@ -158,9 +164,9 @@ export default function TheLoop(props: {
               <span className="temp-label">🧊</span>
               <input
                 type="range"
-                min={0.1}
-                max={1.6}
-                step={0.05}
+                min={LOOP_TEMP_RANGE.min}
+                max={tempMax}
+                step={LOOP_TEMP_RANGE.step}
                 value={temperature}
                 onChange={(e) => setTemperature(Number(e.target.value))}
               />

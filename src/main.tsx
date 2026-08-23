@@ -6,6 +6,7 @@ import { useRoute } from "./series/route";
 import WhyItLies from "./essays/why-it-lies/WhyItLies";
 import AttentionHeads from "./essays/attention-heads/AttentionHeads";
 import WhyItCantCount from "./essays/why-it-cant-count/WhyItCantCount";
+import ClassroomRoot from "./classroom/ClassroomRoot";
 import "./styles.css";
 
 /**
@@ -19,10 +20,11 @@ const ESSAY_PAGES: Record<string, ComponentType> = {
   "why-it-cant-count": WhyItCantCount,
 };
 
-/** `#/essays/<slug>` → that essay; `#/essays…` → series index; else essay #1. */
+/** `#/essays/<slug>` → that essay; `#/essays…` → series index; `#/classroom…` → Classroom Edition; else essay #1. */
 function Root() {
   const route = useRoute();
   if (route === "index") return <SeriesIndex />;
+  if (route === "classroom") return <ClassroomRoot />;
   if (route !== "flagship") {
     const Page = ESSAY_PAGES[route.slice("essay:".length)];
     if (Page) return <Page />;

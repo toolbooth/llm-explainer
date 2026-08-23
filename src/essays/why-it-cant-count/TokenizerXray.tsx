@@ -34,15 +34,40 @@ interface Attempt {
   readout: DigitReadout;
 }
 
-export default function TokenizerXray(props: {
+/**
+ * The chrome a tokenizer-only X-ray needs (the top half: letters, pieces,
+ * insight, note). The Classroom Edition mounts the widget with
+ * `modelGate: false` and passes just these — no "wake the model" copy ever
+ * enters a classroom strings table (PRODUCT.md §4.1 rule 4).
+ */
+export type XrayTokenizerStrings = Pick<
+  XrayStrings,
+  "num" | "title" | "wordLabel" | "letterLabel" | "loadingTokenizer" | "youSee" | "modelSees" | "letterTally" | "pieceTally" | "insight" | "note"
+>;
+
+type XrayProps = {
   engine: Engine;
-  strings: XrayStrings;
   /** DOM id for deep links (e.g. "sec-2"). */
   htmlId: string;
   initialWord: string;
   initialLetter: string;
-}) {
-  const t = props.strings;
+  /**
+   * Which vocabulary cuts the word: the Act-4 model's own ("model", the
+   * essay's default — it is about to take the test) or the shared GPT-2 BPE
+   * the Chopper and the nano model use ("shared" — the classroom's single
+   * vocabulary, so M1's three widgets agree).
+   */
+  tokenizer?: "model" | "shared";
+} & (
+  | { modelGate?: true; strings: XrayStrings }
+  | { modelGate: false; strings: XrayTokenizerStrings }
+);
+
+export default function TokenizerXray(props: XrayProps) {
+  const gate = props.modelGate !== false;
+  // With the gate off, the model-side strings are never read (see the JSX),
+  // so the wider type is only a convenience for the one `t` binding.
+  const t = props.strings as XrayStrings;
   const [word, setWord] = useState(props.initialWord);
   const [letter, setLetter] = useState(props.initialLetter);
   const [pieces, setPieces] = useState<TokenPiece[] | null>(null);
@@ -54,11 +79,11 @@ export default function TokenizerXray(props: {
   const ready = props.engine.modelReady();
 
   // the pieces as the counting model receives them — tokenizer only, no model download
+  const shared = props.tokenizer === "shared";
   useEffect(() => {
     let stale = false;
     const id = setTimeout(() => {
-      props.engine
-        .tokenizeModel(word)
+      (shared ? props.engine.tokenize(word) : props.engine.tokenizeModel(word))
         .then((p) => {
           if (!stale) setPieces(p);
         })
@@ -70,7 +95,7 @@ export default function TokenizerXray(props: {
       stale = true;
       clearTimeout(id);
     };
-  }, [word, props.engine]);
+  }, [word, props.engine, shared]);
 
   // a new word or letter invalidates the last attempt
   useEffect(() => {
@@ -199,7 +224,7 @@ export default function TokenizerXray(props: {
         </p>
       )}
 
-      {!ready ? (
+      {!gate ? null : !ready ? (
         <div className="model-gate">
           <p className="dim">{t.gateIntro}</p>
           {loadError && <p className="load-error">{t.loadError}</p>}

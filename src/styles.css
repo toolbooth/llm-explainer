@@ -364,3 +364,9 @@ body {
   .xr-ch { min-width: 1.7rem; }
   .xr-field-letter { width: 4.5rem; }
 }
+
+/* ── Series index → Classroom Edition (small link under the essay list) ── */
+
+.series-classroom { margin-top: 2rem; font-family: var(--font-sans); font-size: 0.9rem; }
+.series-classroom a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+.series-classroom a:hover { color: var(--accent); border-color: var(--accent); }

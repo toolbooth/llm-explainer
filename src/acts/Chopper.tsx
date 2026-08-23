@@ -12,12 +12,25 @@ export type ChopperStrings = EssayStrings["act1"];
 
 const PALETTE = ["c1", "c2", "c3", "c4", "c5"];
 
+/** Preset chips show their leading/inner spaces as ␣ — the space IS the lesson. */
+function presetLabel(p: string): string {
+  return p.replace(/ /g, "␣");
+}
+
 export default function Chopper(props: {
   engine: Engine;
   strings: ChopperStrings;
   /** DOM id for deep links — "act-1" in the flagship, a section id elsewhere. */
   htmlId: string;
   initialText?: string;
+  /**
+   * Optional preset inputs, rendered as one-click chips above the field (the
+   * Gamble's `presets` seam, lifted here by the Classroom Edition's M1).
+   * Absent → no chips, no DOM change.
+   */
+  presets?: string[];
+  /** Optional accessible name for the text field (absent → no attribute). */
+  inputLabel?: string;
 }) {
   const t = props.strings;
   const [text, setText] = useState(props.initialText ?? "strawberry smoothie, please");
@@ -52,12 +65,27 @@ export default function Chopper(props: {
         <span className="act-num">{t.num}</span>
         <span className="widget-title">{t.title}</span>
       </div>
+      {props.presets && props.presets.length > 0 && (
+        <div className="preset-row">
+          {props.presets.map((p) => (
+            <button
+              key={p}
+              type="button"
+              className={`preset-btn${text === p ? " active" : ""}`}
+              onClick={() => setText(p)}
+            >
+              {presetLabel(p)}
+            </button>
+          ))}
+        </div>
+      )}
       <input
         className="text-input"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={t.placeholder}
         maxLength={120}
+        aria-label={props.inputLabel}
       />
       <div className="tokens">
         {status === "loading" && !pieces ? (
