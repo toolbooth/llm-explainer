@@ -23,6 +23,9 @@ that format into a cadence.*
   existing widget can carry the section.
 - **Bilingual from the start**: EN + 中文 as peer versions, same widgets,
   rewritten (not translated) voice — the flagship's `zh.tsx` discipline.
+  中文 typography is full-width throughout (，：；？！（）, curly “ ”), with a
+  space between 中文 and Latin/number runs; `test/zh-punctuation.test.ts`
+  fails the build on any half-width mark touching a CJK character.
 - **VISxAI-submittable**: each essay stands alone as an interactive-
   explainer submission — self-contained question, live evidence, honest
   limitations section. Keep per-essay CITATION metadata current.
