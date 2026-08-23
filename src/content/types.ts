@@ -62,6 +62,8 @@ export interface EssayStrings {
     lensHintIdle: string;
     lensHintReading: (word: string) => string;
     layerLabel: string;
+    /** Optional caption before the 0–15 head buttons (flagship only). */
+    headLabel?: string;
     futureMasked: string;
     diagIntro: string;
     diagPrev: (layer: number, head: number, pct: string) => string;

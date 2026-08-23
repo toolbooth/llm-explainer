@@ -375,3 +375,5 @@ body {
 @keyframes bars-pulse { 0% { opacity: 0.35; } 100% { opacity: 1; } }
 .bars.pulse .bar-fill { animation: bars-pulse 0.45s ease-out; }
 @media (prefers-reduced-motion: reduce) { .bars.pulse .bar-fill { animation: none; } }
+
+.head-label { color: var(--muted); font-size: 0.85rem; }

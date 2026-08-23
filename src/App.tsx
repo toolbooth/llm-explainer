@@ -43,7 +43,7 @@ export default function App() {
       <WordMap engine={engine} />
 
       <section className="prose">
-        <p>{t.beforeAttention()}</p>
+        {t.beforeAttention()}
       </section>
 
       <AttentionRoom engine={engine} strings={t.act3} htmlId="act-3" />

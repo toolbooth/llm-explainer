@@ -160,6 +160,7 @@ export default function AttentionRoom(props: {
                   />
                   <span className="temp-value">{layer}</span>
                 </label>
+                {t.headLabel && <span className="head-label">{t.headLabel}</span>}
                 <div className="head-strip">
                   {result?.attentions[layer]?.map((_, h) => (
                     <button

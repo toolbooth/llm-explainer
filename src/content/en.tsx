@@ -58,11 +58,24 @@ export const en: EssayStrings = {
 
   beforeAttention: () => (
     <>
-      Once your words are places on a map, the model has to work out how they relate. It does
-      this with a mechanism called <em>attention</em>: as it reads each token, it decides how
-      much to look back at every token before it. Below is that <strong>same model</strong> —
-      all 7.5 megabytes of it, smaller than a selfie — dissected live. You are looking at its
-      actual attention weights, not an illustration.
+      <p>
+        Once your words are places on a map, the model has to work out how they relate. It does
+        this with a mechanism called <em>attention</em>: as it reads each token, it decides how
+        much to look back at every token before it. Below is that <strong>same model</strong> —
+        all 7.5 megabytes of it, smaller than a selfie — dissected live. You are looking at its
+        actual attention weights, not an illustration.
+      </p>
+      <p>
+        One more thing before the grid, because the widget will hand you two controls the essay
+        hasn't earned yet. The model doesn't look back once. It looks back sixteen times at once
+        — sixteen <em>heads</em>, each a reader with its own highlighter and its own fixed
+        question: <em>what came just before me? where did the sentence start? which word am I
+        describing?</em> Their sixteen sets of marks are kept side by side. Then the whole thing
+        happens again, seven more times — eight <em>layers</em> — and each new layer reads not
+        the raw words but what the previous layer made of them. Eight passes, sixteen readers
+        each: 128 ways of reading your sentence. The slider picks the pass, the numbered buttons
+        pick the reader, and <em>L2H8</em> is just “layer 2, head 8.”
+      </p>
     </>
   ),
 
@@ -131,7 +144,8 @@ export const en: EssayStrings = {
     lensHintIdle: "Click a token to see where it looks.",
     lensHintReading: (word) =>
       `Reading “${word}” — highlighted words show where this head sends its attention.`,
-    layerLabel: "Layer",
+    layerLabel: "Layer · 8 passes",
+    headLabel: "Head · 16 readers",
     futureMasked: "the future is masked",
     diagIntro: "Auto-discovered in your sentence:",
     diagPrev: (layer, head, pct) => `👀 previous-word head · L${layer}H${head} (${pct}%)`,

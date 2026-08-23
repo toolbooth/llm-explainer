@@ -44,7 +44,10 @@ export const zh: EssayStrings = {
   },
 
   beforeAttention: () => (
-    <>等你的词在地图上各有住址,模型就得琢磨它们之间的关系了。它靠的是一种叫 <em>attention</em>(注意力)的机制:每读一个 token,它都要决定回头看之前每个 token 多少眼。下面还是<strong>同一个模型</strong>——整整 7.5MB,比一张自拍还小——正在被现场解剖。你看到的是它真实的注意力权重,不是示意图。</>
+    <>
+      <p>等你的词在地图上各有住址,模型就得琢磨它们之间的关系了。它靠的是一种叫 <em>attention</em>(注意力)的机制:每读一个 token,它都要决定回头看之前每个 token 多少眼。下面还是<strong>同一个模型</strong>——整整 7.5MB,比一张自拍还小——正在被现场解剖。你看到的是它真实的注意力权重,不是示意图。</p>
+      <p>进格子之前还得补一句,因为下面的部件会递给你两个控制项,而文章还没把它们讲清楚。模型回头看,不是看一次——是<strong>十六次同时看</strong>:十六个 <em>head</em>(头),每个都像一位攥着自己那支荧光笔、问题固定的读者:<em>我前面那个词是什么?句子从哪开头的?我在形容哪个词?</em> 十六份标注并排保留。然后整件事再来七遍——一共八个 <em>layer</em>(层)——每一层读的已经不是原始的词,而是上一层消化过的版本。八道工序,每道十六位读者:你这句话被读了 128 种方式。滑块选工序,编号按钮选读者,<em>L2H8</em> 就是“第 2 层第 8 号头”。</p>
+    </>
   ),
 
   beforeGamble: () => (
@@ -85,7 +88,8 @@ export const zh: EssayStrings = {
     loading: (pct) => `正在加载解剖用的小模型(7.5MB,自托管)… ${pct}%`,
     lensHintIdle: "点一个 token,看看它在往哪儿看。",
     lensHintReading: (word) => `正在读“${word}”——高亮标出的,是这个注意力头(head)回头看的词。`,
-    layerLabel: "层",
+    layerLabel: "层 · 8 道工序",
+    headLabel: "头 · 16 位读者",
     futureMasked: "未来被遮住了",
     diagIntro: "在你这句话里自动发现:",
     diagPrev: (layer, head, pct) => `👀 盯前一个词的头 · L${layer}H${head}(${pct}%)`,
