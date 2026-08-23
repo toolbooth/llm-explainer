@@ -61,11 +61,11 @@ export default function AboutPage({ slug }: { slug: AboutSlug }) {
       {body.map((p, i) =>
         p.lang === lang ? (
           <section className="prose cl-md" key={i}>
-            <Markdown blocks={p.blocks} />
+            <Markdown blocks={p.blocks} lang={p.lang} regionLabel={t.a11y.tableRegion} />
           </section>
         ) : (
           <section className="prose cl-md" key={i} lang={p.lang}>
-            <Markdown blocks={p.blocks} />
+            <Markdown blocks={p.blocks} lang={p.lang} regionLabel={t.a11y.tableRegion} />
           </section>
         )
       )}

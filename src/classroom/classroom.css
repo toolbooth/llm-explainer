@@ -192,6 +192,36 @@
 :root.classroom-light .classroom .cl-sheet { box-shadow: 0 2px 12px rgba(20, 24, 40, 0.12); border: 1px solid var(--border); }
 :root.classroom-light .classroom .cl-nav a:hover, :root.classroom-light .classroom .cl-beats a:hover { color: var(--accent); }
 
+/* ── Accessibility (phase-4 WCAG 2.1 AA pass; REVIEW-CLASSROOM-4) ───────
+   Skip link (2.4.1), a visible focus ring on every control in the light
+   theme (2.4.7 — the essays' `.text-input:focus { outline: none }` is
+   overridden here with a 3 px accent ring), the two light-theme contrast
+   fixes axe found (1.4.3: the act number's dark ink on the accent pill,
+   and the 75 %-opacity token ids), the written-token buttons of TheLoop
+   in classroom mode, its step log, and reduced motion (2.3.3). The
+   `.cl-sr-only` utility is the usual visually-hidden recipe for live
+   regions that only a screen reader should hear. */
+.classroom .cl-skip { position: absolute; left: 0.5rem; top: 0.5rem; transform: translateY(-300%); background: var(--accent); color: #fff; padding: 0.6rem 1rem; border-radius: 10px; font-family: var(--font-sans); font-weight: 700; font-size: 0.9rem; z-index: 100; text-decoration: none; }
+.classroom .cl-skip:focus, .classroom .cl-skip:focus-visible { transform: none; }
+.classroom .cl-main:focus { outline: none; }
+.cl-sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+:root.classroom-light :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+:root.classroom-light .text-input:focus { outline: none; }
+:root.classroom-light .text-input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; box-shadow: none; }
+:root.classroom-light .cl-table-wrap:focus-visible, :root.classroom-light .cl-embed:focus-visible { outline-offset: -3px; }
+:root.classroom-light .act-num { color: #fff; }                                  /* 8.3:1 on the accent pill */
+:root.classroom-light .tok-id, :root.classroom-light .xr-piece-id { opacity: 1; } /* the tints' inks are ≥ 8:1 at full opacity */
+.classroom button.loop-tok { font: inherit; color: inherit; border: 0; cursor: pointer; line-height: inherit; text-align: left; }
+.classroom button.loop-tok[aria-expanded="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+.classroom .loop-log { margin-top: 0.9rem; font-family: var(--font-sans); font-size: 0.85rem; color: var(--muted); }
+.classroom .loop-log summary { cursor: pointer; padding: 0.3rem 0; }
+.classroom .loop-log-table { margin-top: 0.5rem; width: 100%; }
+.classroom .loop-log-table td:first-child, .classroom .loop-log-table th[scope="row"] { white-space: nowrap; color: var(--text); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) {
+  :root.classroom-light .cursor-blink { animation: none; }
+  :root.classroom-light .classroom *, :root.classroom-light .classroom *::before, :root.classroom-light .classroom *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
 /* ── Mobile (one breakpoint, matches src/styles.css): 44px tap targets for
    every classroom control — nav links, beat chips, step anchors, hint button. */
 @media (max-width: 740px) {

@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, type MouseEvent, type ReactNode } from "react";
 import { LangToggle } from "../content/i18n";
 import { useClassroomStrings } from "./content/i18n";
 import { classroomHref, type ClassroomPage } from "./route";
@@ -8,6 +8,21 @@ import { moduleById, type ModuleId } from "./registry";
 export const LIGHT_ROOT_CLASS = "classroom-light";
 /** `<meta name="theme-color">` while a classroom page is up (the light page background). */
 export const LIGHT_THEME_COLOR = "#ffffff";
+/** id of the content wrapper the skip link lands on. */
+export const MAIN_ID = "cl-main";
+
+/**
+ * The skip link (WCAG 2.4.1) cannot be a plain `href="#cl-main"`: the site
+ * routes on the hash, so that href would navigate to the flagship. It
+ * moves focus to the content wrapper instead and leaves the route alone.
+ */
+export function skipToMain(e: MouseEvent<HTMLAnchorElement>): void {
+  const el = document.getElementById(MAIN_ID);
+  if (!el) return;
+  e.preventDefault();
+  el.focus({ preventScroll: true });
+  el.scrollIntoView({ block: "start" });
+}
 
 /**
  * The frame every classroom page shares: language toggle, the small nav
@@ -62,7 +77,10 @@ export default function ClassroomFrame(props: {
   const id = props.moduleId;
   return (
     <article className={`essay classroom${props.className ? ` ${props.className}` : ""}`}>
-      <header className="hero">
+      <a className="cl-skip" href={`#${MAIN_ID}`} onClick={skipToMain}>
+        {t.a11y.skipLink}
+      </a>
+      <header className="hero" role="banner">
         <div className="lang-row">
           <LangToggle />
         </div>
@@ -89,9 +107,11 @@ export default function ClassroomFrame(props: {
         {props.subtitle && <p className={props.subtitleClass ?? "subtitle"}>{props.subtitle}</p>}
       </header>
 
-      {props.children}
+      <main id={MAIN_ID} className="cl-main" tabIndex={-1}>
+        {props.children}
+      </main>
 
-      <footer className="essay-foot">
+      <footer className="essay-foot" role="contentinfo">
         <p>{t.footer()}</p>
       </footer>
     </article>

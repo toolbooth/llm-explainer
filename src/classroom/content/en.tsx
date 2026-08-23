@@ -59,6 +59,30 @@ export const en: ClassroomStrings = {
     label: (n) => `Hint ${n}`,
   },
 
+  a11y: {
+    skipLink: "Skip to the lesson",
+    inputLabel: "Your sentence",
+    temperature: "Temperature",
+    temperatureValue: (t) => `T = ${t}`,
+    pieces: "Pieces the model sees",
+    pieceItem: (n, text, id) => `piece ${n}: “${text}”, id ${id}`,
+    letters: (word, n, letter, positions) =>
+      positions.length === 0
+        ? `${word}: ${n} letters, no ${letter}`
+        : `${word}: ${n} letters, ${letter} at ${positions.length === 1 ? "position" : "positions"} ${positions.join(", ")}`,
+    xrayPieceItem: (n, text, id, carries) => `piece ${n}: “${text}”, id ${id}, carries ${carries}`,
+    probabilities: "Next-word probabilities, top ten",
+    probabilityItem: (label, pct) => `“${label}”: ${pct}`,
+    tokenName: (text, pct) => `“${text}”, ${pct}`,
+    alternatives: "Words the model weighed at this position",
+    status: (n, text, pct) => `${n} ${n === 1 ? "word" : "words"} written; last “${text}” at ${pct}`,
+    statusRunning: "Writing…",
+    stepLog: "Show the step log",
+    stepLogHeaders: { n: "#", token: "Word", p: "Probability", alts: "Alternatives" },
+    tableRegion: "Table, scrolls sideways",
+    codeRegion: "Embed code, scrolls sideways",
+  },
+
   modelCard: () => (
     <>
       <strong>The model card, honestly.</strong> The model in this series is TinyStories-1M, a
@@ -104,7 +128,7 @@ export const en: ClassroomStrings = {
       { slug: "tech-check", label: "Tech check (5 minutes, the day before)", blurb: "Device baseline, what gets downloaded, filter categories, the unblock-request template, and the pre-class checklist." },
       { slug: "standards", label: "Standards crosswalk (all six modules)", blurb: "CSTA 2026, AP CSP, AI4K12, the CSTA/AI4K12 priorities, ISTE, DOL TEN 07-25 and CA Ed Code §33548, with a verified-against date per row." },
       { slug: "policy", label: "Policy citations", blurb: "Verbatim federal and state hooks for grant narratives, board questions and unblock requests, each with a verification label." },
-      { slug: "accessibility", label: "Accessibility statement", blurb: "The WCAG 2.1 AA target, what the widgets are designed for, and the known gaps — unaudited until phase 4, and it says so." },
+      { slug: "accessibility", label: "Accessibility statement", blurb: "The WCAG 2.1 AA target, the automated audit and keyboard walk that every page passes, and the known gaps — screen-reader testing is still owed, and it says so." },
       { slug: "letter-kit", label: "How to cite · how to tell us you taught with this", blurb: "The citation block, the optional \"I taught with this\" report, the letter skeleton, and what we never ask for." },
     ],
   },

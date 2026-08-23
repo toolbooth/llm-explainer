@@ -92,8 +92,12 @@ export default function HundredRolls(props: {
   presets?: string[];
   /** Slider ceiling — classroom pages pass CLASSROOM.maxTemperature. */
   maxTemperature?: number;
+  /** Localized slider name and announced value (the shared classroom a11y table); absent → English defaults. */
+  a11y?: { temperature: string; temperatureValue: (t: string) => string };
 }) {
   const t = props.strings;
+  const tempName = props.a11y?.temperature ?? "temperature";
+  const tempValue = props.a11y?.temperatureValue ?? ((x: string) => `T = ${x}`);
   const tempMax = props.maxTemperature ?? CLASSROOM.maxTemperature;
   const [text, setText] = useState(props.initialText);
   const [temperature, setTemperature] = useState(1.0);
@@ -242,6 +246,7 @@ export default function HundredRolls(props: {
                   type="button"
                   className={`preset-btn${text === p ? " active" : ""}`}
                   disabled={thinking}
+                  aria-pressed={text === p}
                   onClick={() => {
                     setText(p);
                     void think(p);
@@ -261,7 +266,7 @@ export default function HundredRolls(props: {
               onChange={(e) => setText(e.target.value)}
               maxLength={200}
             />
-            <button type="button" className="btn ghost" disabled={thinking} onClick={() => void think(text)}>
+            <button type="button" className="btn ghost" disabled={thinking} onClick={() => void think(text)} aria-label={thinking ? t.think : undefined}>
               {thinking ? "…" : t.think}
             </button>
           </div>
@@ -276,8 +281,8 @@ export default function HundredRolls(props: {
                   max={tempMax}
                   step={GAMBLE_TEMP_RANGE.step}
                   value={temperature}
-                  aria-label="temperature"
-                  aria-valuetext={`T = ${temperature.toFixed(2)}`}
+                  aria-label={tempName}
+                  aria-valuetext={tempValue(temperature.toFixed(2))}
                   onChange={(e) => void onTemp(Number(e.target.value))}
                 />
                 <span className="temp-label">{t.tempChaotic}</span>

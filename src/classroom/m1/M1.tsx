@@ -87,7 +87,7 @@ export default function M1({ step }: { step: number | null }) {
         <p className="cl-teacher">{t.hook.teacherLine()}</p>
         <p>{t.hook.prose()}</p>
       </section>
-      <Chopper engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} inputLabel={t.hook.widget.title} />
+      <Chopper engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} inputLabel={t.hook.widget.title} a11y={c.a11y} />
 
       {/* 2. Unplugged */}
       <section className="prose cl-beat" id="unplugged">
@@ -132,6 +132,7 @@ export default function M1({ step }: { step: number | null }) {
                 htmlId="step-1-widget"
                 initialText={STEP1_TEXT}
                 inputLabel={t.explore.step1Widget.title}
+                a11y={c.a11y}
               />
             )}
             {n === 2 && (
@@ -142,6 +143,7 @@ export default function M1({ step }: { step: number | null }) {
                 initialText={STEP2_PRESETS[0]}
                 presets={STEP2_PRESETS}
                 inputLabel={t.explore.step2Widget.title}
+                a11y={c.a11y}
               />
             )}
             {n === 3 && (
@@ -153,6 +155,7 @@ export default function M1({ step }: { step: number | null }) {
                 initialLetter={XRAY_LETTER}
                 tokenizer="shared"
                 modelGate={false}
+                a11y={{ letters: c.a11y.letters, pieces: c.a11y.pieces, pieceItem: c.a11y.xrayPieceItem }}
               />
             )}
             <HintPanel id={`step-${n}`} hints={s.hints} strings={c.hints} />
@@ -202,6 +205,7 @@ export default function M1({ step }: { step: number | null }) {
         initialText={EXTENSION_TEXT}
         presets={EXTENSION_PRESETS}
         inputLabel={t.extension.widget.title}
+        a11y={c.a11y}
       />
       <section className="prose">
         <p className="cl-debate">{t.extension.debate()}</p>

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import ClassroomFrame from "../ClassroomFrame";
+import TableWrap from "../TableWrap";
 import FrontMatterLinks from "../about/FrontMatterLinks";
 import { useClassroomStrings } from "../content/i18n";
 import { classroomHref } from "../route";
@@ -76,7 +77,7 @@ export default function M2Guide() {
       {/* 3. Standards */}
       <section className="prose">
         {H(s.standards)}
-        <div className="cl-table-wrap">
+        <TableWrap label={c.a11y.tableRegion}>
           <table className="cl-table">
             <tbody>
               {g.standards.rows.map((r) => (
@@ -91,7 +92,7 @@ export default function M2Guide() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableWrap>
         <p className="dim">{g.standards.verified}</p>
         <p className="dim">{g.standards.churn()}</p>
       </section>
@@ -108,12 +109,14 @@ export default function M2Guide() {
       {/* 5. Minute-by-minute */}
       <section className="prose">
         {H(s.plan)}
-        <div className="cl-table-wrap">
+        <TableWrap label={c.a11y.tableRegion}>
           <table className="cl-table">
             <thead>
               <tr>
                 {g.plan.columns.map((col) => (
-                  <th key={col}>{col}</th>
+                  <th key={col} scope="col">
+                    {col}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -127,7 +130,7 @@ export default function M2Guide() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableWrap>
       </section>
 
       {/* 6. Unplugged + answer key (dice tables from measured data) */}
@@ -153,12 +156,14 @@ export default function M2Guide() {
                 assumed={tbl.picked}
                 compact
               />
-              <div className="cl-table-wrap">
+              <TableWrap label={c.a11y.tableRegion}>
                 <table className="cl-table">
                   <thead>
                     <tr>
                       {g.unplugged.keyColumns.map((col) => (
-                        <th key={col}>{col}</th>
+                        <th key={col} scope="col">
+                    {col}
+                  </th>
                       ))}
                     </tr>
                   </thead>
@@ -174,7 +179,7 @@ export default function M2Guide() {
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </TableWrap>
               {tbl.picked && <p className="dim">{g.unplugged.spineNote(tbl.picked)}</p>}
             </div>
           );
@@ -228,12 +233,14 @@ export default function M2Guide() {
       {/* 9. Misconceptions */}
       <section className="prose">
         {H(s.misconceptions)}
-        <div className="cl-table-wrap">
+        <TableWrap label={c.a11y.tableRegion}>
           <table className="cl-table">
             <thead>
               <tr>
                 {g.misconceptions.columns.map((col) => (
-                  <th key={col}>{col}</th>
+                  <th key={col} scope="col">
+                    {col}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -246,7 +253,7 @@ export default function M2Guide() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableWrap>
       </section>
 
       {/* 10. Evaluation act + exit ticket, rubric, samples (numbers from measured runs) */}
@@ -297,26 +304,28 @@ export default function M2Guide() {
         {H(s.differentiation)}
         <h3>{g.differentiation.ell.heading}</h3>
         <p>{g.differentiation.ell.intro}</p>
-        <div className="cl-table-wrap">
+        <TableWrap label={c.a11y.tableRegion}>
           <table className="cl-table">
             <thead>
               <tr>
                 {g.differentiation.ell.columns.map((col) => (
-                  <th key={col}>{col}</th>
+                  <th key={col} scope="col">
+                    {col}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {g.differentiation.ell.glossary.map((row) => (
                 <tr key={row.term}>
-                  <td>{row.term}</td>
-                  <td>{row.zh}</td>
+                  <td lang="en">{row.term}</td>
+                  <td lang="zh">{row.zh}</td>
                   <td>{row.plain}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
+        </TableWrap>
         <h3>{g.differentiation.nonStem.heading}</h3>
         <ul className="cl-list">
           {g.differentiation.nonStem.prompts.map((p, i) => (
@@ -342,7 +351,7 @@ export default function M2Guide() {
         {H(s.embed)}
         <p>{g.embed.slides()}</p>
         <p>{g.embed.canvasIntro}</p>
-        <pre className="cl-embed">
+        <pre className="cl-embed" tabIndex={0} role="group" aria-label={c.a11y.codeRegion}>
           <code>{embed}</code>
         </pre>
         <p className="dim">{g.embed.canvasNote}</p>

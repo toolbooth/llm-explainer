@@ -85,7 +85,7 @@ export default function M2({ step }: { step: number | null }) {
         <p className="cl-teacher">{t.hook.teacherLine()}</p>
         <p>{t.hook.prose(facts)}</p>
       </section>
-      <Gamble engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} maxTemperature={cap} model="nano" />
+      <Gamble engine={engine} strings={t.hook.widget} htmlId="hook-widget" initialText={HOOK_TEXT} maxTemperature={cap} model="nano" a11y={c.a11y} />
 
       {/* 2. Unplugged */}
       <section className="prose cl-beat" id="unplugged">
@@ -132,6 +132,7 @@ export default function M2({ step }: { step: number | null }) {
                 presets={STEP_PRESETS}
                 maxTemperature={cap}
                 model="nano"
+                a11y={c.a11y}
               />
             )}
             {n === 2 && (
@@ -142,10 +143,11 @@ export default function M2({ step }: { step: number | null }) {
                 initialText={STEP_PRESETS[0]}
                 presets={STEP_PRESETS}
                 maxTemperature={cap}
+                a11y={c.a11y}
               />
             )}
             {n === 3 && (
-              <TheLoop engine={engine} strings={t.explore.step3Widget} htmlId="step-3-widget" initialPrompt={LOOP_PROMPT} maxTemperature={cap} />
+              <TheLoop engine={engine} strings={t.explore.step3Widget} htmlId="step-3-widget" initialPrompt={LOOP_PROMPT} maxTemperature={cap} a11y={c.a11y} />
             )}
             <HintPanel id={`step-${n}`} hints={s.hints} strings={c.hints} />
             <p className="cl-writedown">✎ {s.writeDown}</p>
@@ -195,6 +197,7 @@ export default function M2({ step }: { step: number | null }) {
         presets={EXTENSION_PRESETS}
         maxTemperature={cap}
         model="nano"
+        a11y={c.a11y}
       />
       <section className="prose">
         <p className="cl-debate">{t.extension.debate()}</p>

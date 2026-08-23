@@ -3,6 +3,35 @@ import type { CiteStrings } from "../../content/types";
 import type { HintStrings } from "../HintPanel";
 import type { AboutSlug } from "../about/slugs";
 
+export interface ClassroomA11yStrings {
+  /** "Skip to the lesson" — first focusable element on every classroom page. */
+  skipLink: string;
+  /** Name of every widget's free-text field ("Your sentence"); widgets that already label theirs ignore it. */
+  inputLabel: string;
+  /** Name of every temperature slider, and its announced value ("T = 1.05"). */
+  temperature: string;
+  temperatureValue: (t: string) => string;
+  /** Chopper / X-ray: the piece list and one piece's name. */
+  pieces: string;
+  pieceItem: (n: number, text: string, id: number) => string;
+  /** X-ray: the letters row ("strawberry: 10 letters, r at 3, 8, 9") and one piece with its letter count. */
+  letters: (word: string, n: number, letter: string, positions: number[]) => string;
+  xrayPieceItem: (n: number, text: string, id: number, carries: number) => string;
+  /** Gamble: the bar list and one bar's name ("'the': 41.2%"). */
+  probabilities: string;
+  probabilityItem: (label: string, pct: string) => string;
+  /** TheLoop: a written token's name, the popover list, the live status, the step log. */
+  tokenName: (text: string, pct: string) => string;
+  alternatives: string;
+  status: (n: number, text: string, pct: string) => string;
+  statusRunning: string;
+  stepLog: string;
+  stepLogHeaders: { n: string; token: string; p: string; alts: string };
+  /** Scrollable regions a keyboard user can focus: tables and the embed code. */
+  tableRegion: string;
+  codeRegion: string;
+}
+
 /**
  * The Classroom Edition's shared chrome, per language: the module index,
  * the frame every classroom page shares (nav, at-a-glance, model card line,
@@ -46,6 +75,15 @@ export interface ClassroomStrings {
   };
 
   hints: HintStrings;
+
+  /**
+   * Accessibility chrome (PRODUCT.md §6.3): the skip link, and the names
+   * and live-region text the shared widgets render only when a classroom
+   * page passes them (Chopper, Gamble, TheLoop, Tokenizer X-ray, Hundred
+   * Rolls each declare the subset they take as an `a11y` prop; this one
+   * table satisfies all five structurally). Essays never pass it.
+   */
+  a11y: ClassroomA11yStrings;
 
   /** §5 front matter item 2, one line; every module page surfaces it. */
   modelCard: () => ReactNode;

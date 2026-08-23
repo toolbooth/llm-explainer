@@ -3,3 +3,4 @@ dist/
 dist-pdf/
 .DS_Store
 .claude/
+dist-a11y/

@@ -14,5 +14,10 @@ export function jumpTo(e: MouseEvent<HTMLAnchorElement>, id: string): void {
   const el = document.getElementById(id);
   if (!el) return;
   e.preventDefault();
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+}
+
+/** `prefers-reduced-motion: reduce` — the smooth scroll and the widgets' animations step aside (WCAG 2.3.3). */
+export function prefersReducedMotion(): boolean {
+  return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

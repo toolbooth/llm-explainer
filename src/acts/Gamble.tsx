@@ -13,6 +13,22 @@ import type { EssayStrings } from "../content/types";
  */
 export type GambleStrings = EssayStrings["act4"] & { loading?: (pct: number) => string };
 
+/**
+ * Accessible names the Classroom Edition passes (PRODUCT.md §6.3): the text
+ * field and the temperature slider get names (the slider also announces
+ * "T = 1.05" via aria-valuetext), the bars become a named list whose items
+ * read as "'the': 41.2%", the picked-word line becomes a polite live region,
+ * the decorative tracks are hidden, and the preset chips expose their
+ * pressed state. Absent → no attribute is added (HASHES.md byte identity).
+ */
+export interface GambleA11y {
+  inputLabel: string;
+  temperature: string;
+  temperatureValue: (t: string) => string;
+  probabilities: string;
+  probabilityItem: (label: string, pct: string) => string;
+}
+
 /** Which brain the bars come from (see the `model` prop). */
 export type GambleModel = "big" | "nano";
 
@@ -45,8 +61,11 @@ export default function Gamble(props: {
    * as soon as it is ready — PRODUCT.md §4.1 rule 4, "same model throughout".
    */
   model?: GambleModel;
+  /** Optional accessibility chrome (classroom pages); absent → DOM unchanged. */
+  a11y?: GambleA11y;
 }) {
   const t = props.strings;
+  const a = props.a11y;
   const tempMax = props.maxTemperature ?? GAMBLE_TEMP_RANGE.max;
   const nanoMode = props.model === "nano";
   const [text, setText] = useState(props.initialText ?? "The cat sat on the");
@@ -196,6 +215,7 @@ export default function Gamble(props: {
                   key={p}
                   className={`preset-btn${text === p ? " active" : ""}`}
                   disabled={thinking}
+                  aria-pressed={a ? text === p : undefined}
                   onClick={() => {
                     setText(p);
                     think(p);
@@ -212,19 +232,25 @@ export default function Gamble(props: {
               value={text}
               onChange={(e) => setText(e.target.value)}
               maxLength={200}
+              aria-label={a?.inputLabel}
             />
-            <button className="btn ghost" disabled={thinking} onClick={() => think(text)}>
+            <button className="btn ghost" disabled={thinking} onClick={() => think(text)} aria-label={a && thinking ? t.think : undefined}>
               {thinking ? "…" : t.think}
             </button>
           </div>
 
           {bars.length > 0 && (
             <>
-              <div className="bars">
+              <div className="bars" role={a ? "list" : undefined} aria-label={a?.probabilities}>
                 {bars.map((b) => (
-                  <div className="bar-row" key={b.id}>
+                  <div
+                    className="bar-row"
+                    key={b.id}
+                    role={a ? "listitem" : undefined}
+                    aria-label={a ? a.probabilityItem(JSON.stringify(b.label).slice(1, -1), `${(b.p * 100).toFixed(1)}%`) : undefined}
+                  >
                     <span className="bar-label">{JSON.stringify(b.label).slice(1, -1)}</span>
-                    <div className="bar-track">
+                    <div className="bar-track" aria-hidden={a ? true : undefined}>
                       <div className="bar-fill" style={{ width: `${Math.max(1, b.p * 100)}%` }} />
                     </div>
                     <span className="bar-pct">{(b.p * 100).toFixed(1)}%</span>
@@ -241,6 +267,8 @@ export default function Gamble(props: {
                   step={GAMBLE_TEMP_RANGE.step}
                   value={temperature}
                   onChange={(e) => onTemp(Number(e.target.value))}
+                  aria-label={a?.temperature}
+                  aria-valuetext={a ? a.temperatureValue(temperature.toFixed(2)) : undefined}
                 />
                 <span className="temp-label">{t.tempChaotic}</span>
                 <span className="temp-value">T = {temperature.toFixed(2)}</span>
@@ -250,10 +278,16 @@ export default function Gamble(props: {
                 <button className="btn" disabled={thinking} onClick={roll}>
                   {t.roll}
                 </button>
-                {lastPick && (
-                  <span className="dim">
-                    {t.picked(JSON.stringify(lastPick).slice(1, -1))}
+                {a ? (
+                  <span className="dim" aria-live="polite">
+                    {lastPick && t.picked(JSON.stringify(lastPick).slice(1, -1))}
                   </span>
+                ) : (
+                  lastPick && (
+                    <span className="dim">
+                      {t.picked(JSON.stringify(lastPick).slice(1, -1))}
+                    </span>
+                  )
                 )}
               </div>
             </>

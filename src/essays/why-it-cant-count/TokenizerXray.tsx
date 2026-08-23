@@ -45,6 +45,23 @@ export type XrayTokenizerStrings = Pick<
   "num" | "title" | "wordLabel" | "letterLabel" | "loadingTokenizer" | "youSee" | "modelSees" | "letterTally" | "pieceTally" | "insight" | "note"
 >;
 
+/**
+ * Accessibility chrome the Classroom Edition passes (PRODUCT.md §6.3): the
+ * "you see" row — which a screen reader would otherwise read letter by
+ * letter — becomes one named image ("strawberry: 10 letters, r at 3, 8,
+ * 9"), the "model sees" row becomes a named list whose items read as
+ * "piece 2, 'raw', id 1831, carries 1 r", and the insight line is a polite
+ * live region. Absent → DOM byte-identical to essay #4 (HASHES.md).
+ */
+export interface XrayA11y {
+  /** Name of the letters row: the word, its length, the target letter and its 1-based positions. */
+  letters: (word: string, n: number, letter: string, positions: number[]) => string;
+  /** Name of the piece list. */
+  pieces: string;
+  /** One piece's name: 1-based index, text, id, how many of the target letter it carries. */
+  pieceItem: (n: number, text: string, id: number, carries: number) => string;
+}
+
 type XrayProps = {
   engine: Engine;
   /** DOM id for deep links (e.g. "sec-2"). */
@@ -58,6 +75,8 @@ type XrayProps = {
    * vocabulary, so M1's three widgets agree).
    */
   tokenizer?: "model" | "shared";
+  /** Optional accessibility chrome (classroom pages); absent → DOM unchanged. */
+  a11y?: XrayA11y;
 } & (
   | { modelGate?: true; strings: XrayStrings }
   | { modelGate: false; strings: XrayTokenizerStrings }
@@ -68,6 +87,7 @@ export default function TokenizerXray(props: XrayProps) {
   // With the gate off, the model-side strings are never read (see the JSX),
   // so the wider type is only a convenience for the one `t` binding.
   const t = props.strings as XrayStrings;
+  const a = props.a11y;
   const [word, setWord] = useState(props.initialWord);
   const [letter, setLetter] = useState(props.initialLetter);
   const [pieces, setPieces] = useState<TokenPiece[] | null>(null);
@@ -177,7 +197,11 @@ export default function TokenizerXray(props: XrayProps) {
 
       <div className="xr-row">
         <span className="xr-row-label">{t.youSee}</span>
-        <div className="xr-cells">
+        <div
+          className="xr-cells"
+          role={a ? "img" : undefined}
+          aria-label={a ? a.letters(word, letters.length, letter, tally.positions.map((p) => p + 1)) : undefined}
+        >
           {letters.map((c, i) => (
             <span className={`xr-ch${hit.has(i) ? " hit" : ""}`} key={i}>
               {c === " " ? "␣" : c}
@@ -193,9 +217,14 @@ export default function TokenizerXray(props: XrayProps) {
           <span className="dim">{t.loadingTokenizer}</span>
         ) : (
           <>
-            <div className="xr-cells">
+            <div className="xr-cells" role={a ? "list" : undefined} aria-label={a?.pieces}>
               {mapped.map((p, i) => (
-                <span className={`xr-piece${p.count > 0 ? " carries" : ""}`} key={i}>
+                <span
+                  className={`xr-piece${p.count > 0 ? " carries" : ""}`}
+                  key={i}
+                  role={a ? "listitem" : undefined}
+                  aria-label={a ? a.pieceItem(i + 1, p.letters.join(""), p.id, p.count) : undefined}
+                >
                   <span className="xr-piece-letters">
                     {p.letters.map((c, j) => (
                       <span className={p.hits[j] ? "hit" : ""} key={j}>
@@ -213,7 +242,7 @@ export default function TokenizerXray(props: XrayProps) {
       </div>
 
       {mapped && (
-        <p className="xr-insight">
+        <p className="xr-insight" aria-live={a ? "polite" : undefined}>
           {t.insight({
             letters: letters.length,
             count: tally.count,

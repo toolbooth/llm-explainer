@@ -119,8 +119,8 @@ describe("about documents — EN/zh parity and content", () => {
     expect(zh("policy")).toContain("*二手来源*");
     expect(en("model-card")).toContain("no license field");
     expect(en("model-card")).toContain("CDLA-Sharing-1.0");
-    expect(en("accessibility")).toContain("not yet audited");
-    expect(zh("accessibility")).toContain("尚未审计");
+    expect(en("accessibility")).toContain("not yet tested with assistive technology");
+    expect(zh("accessibility")).toContain("尚未用辅助技术实测");
     expect(en("standards")).toContain("author's extension");
     expect(en("standards")).toContain("Verified against");
     expect(en("letter-kit")).toContain("immigration records");
@@ -148,9 +148,12 @@ describe("about documents — EN/zh parity and content", () => {
       expect(privacy).toContain("src/classroom/config.ts");
       // bundle measured
       expect(tech).toMatch(/1\.13 MB/);
-      // the accessibility statement labels unbuilt items as targets and lists the known gaps
+      // the accessibility statement labels unbuilt items as targets, reports the audit and lists the known gaps
       expect(a11y).toMatch(/Target, not yet built|目标、尚未构建/);
-      expect(a11y).toMatch(/2\.1\.1/);
+      expect(a11y).toContain("axe-core 4.13.0");
+      expect(a11y).toMatch(/ChromeVox, VoiceOver or NVDA|ChromeVox、VoiceOver 或 NVDA/);
+      expect(a11y).toMatch(/4\.1\.2/);
+      expect(a11y).toMatch(/1\.4\.10/);
     }
   });
 });

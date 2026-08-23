@@ -55,6 +55,28 @@ export const zh: ClassroomStrings = {
     label: (n) => `提示 ${n}`,
   },
 
+  a11y: {
+    skipLink: "跳到课程内容",
+    inputLabel: "你的句子",
+    temperature: "温度",
+    temperatureValue: (t) => `T = ${t}`,
+    pieces: "模型看到的碎片",
+    pieceItem: (n, text, id) => `第 ${n} 块:“${text}”,编号 ${id}`,
+    letters: (word, n, letter, positions) =>
+      positions.length === 0 ? `${word}:${n} 个字母,没有 ${letter}` : `${word}:${n} 个字母,${letter} 在第 ${positions.join("、")} 位`,
+    xrayPieceItem: (n, text, id, carries) => `第 ${n} 块:“${text}”,编号 ${id},含 ${carries} 个`,
+    probabilities: "下一个词的概率,前十名",
+    probabilityItem: (label, pct) => `“${label}”:${pct}`,
+    tokenName: (text, pct) => `“${text}”,${pct}`,
+    alternatives: "模型在这个位置权衡过的词",
+    status: (n, text, pct) => `已写 ${n} 个词;最后一个是“${text}”,概率 ${pct}`,
+    statusRunning: "正在写……",
+    stepLog: "查看逐步记录",
+    stepLogHeaders: { n: "#", token: "词", p: "概率", alts: "备选" },
+    tableRegion: "表格,可横向滚动",
+    codeRegion: "嵌入代码,可横向滚动",
+  },
+
   modelCard: () => (
     <><strong>模型说明卡,实话实说。</strong>这套课里跑的模型是 TinyStories-1M——一个 100 万参数的 GPT-Neo,用合成的儿童故事训练而成,比 ChatGPT 那一级的模型小约十万倍。token、概率、注意力、采样,机制一模一样;词汇量和本事,差得远。它只读过英文,所以每一页的例句一律是英文。</>
   ),
@@ -88,7 +110,7 @@ export const zh: ClassroomStrings = {
       { slug: "tech-check", label: "技术检查(5 分钟,提前一天做)", blurb: "设备基线、首次访问下载什么、过滤分类、放行申请模板,以及课前清单。" },
       { slug: "standards", label: "课标对照表(全部六个模块)", blurb: "CSTA 2026、AP CSP、AI4K12、CSTA/AI4K12 优先级、ISTE、DOL TEN 07-25 与加州教育法 §33548,每行带核对日期。" },
       { slug: "policy", label: "政策引文", blurb: "联邦与各州政策的原文,供申报书、校董会答问和放行申请直接引用,每条带核对标记。" },
-      { slug: "accessibility", label: "无障碍声明", blurb: "WCAG 2.1 AA 目标、交互件按什么设计、已知缺口——第四阶段审计前都是“未审计”,页上照实写。" },
+      { slug: "accessibility", label: "无障碍声明", blurb: "WCAG 2.1 AA 目标、每个页面都通过的自动化审计与键盘走查、已知缺口——读屏软件测试还欠着,页上照实写。" },
       { slug: "letter-kit", label: "如何引用 · 如何告诉我们你用它上过课", blurb: "引用块、可选的“我用它上过课”报告、来信骨架,以及我们永远不会要的东西。" },
     ],
   },
