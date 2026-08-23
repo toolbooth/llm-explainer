@@ -7,6 +7,7 @@ import WhyItLies from "./essays/why-it-lies/WhyItLies";
 import AttentionHeads from "./essays/attention-heads/AttentionHeads";
 import WhyItCantCount from "./essays/why-it-cant-count/WhyItCantCount";
 import ClassroomRoot from "./classroom/ClassroomRoot";
+import "./classroom/m1"; // registers M1's lesson page, guide and printable
 import "./styles.css";
 
 /**
