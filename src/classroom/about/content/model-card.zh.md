@@ -60,7 +60,7 @@
 
 - **来源。** 作者用 nano-lm 中的 `tools/convert_weights.py` 从 `roneneldan/TinyStories-1M` 转换而来；转换是确定性的，参考夹具（`tools/reference.json`）由上游检查点重新生成[nano-lm README "Weights";`tools/README.md`]。
 - **上游许可——请仔细读这一条。** 截至 2026-08-22,Hugging Face 上 `roneneldan/TinyStories-1M` 的模型卡片**没有显示任何 license 字段**。TinyStories *数据集* 卡片标注的许可是 **CDLA-Sharing-1.0**（Community Data License Agreement – Sharing）。nano-lm 的 `meta.json` 把权重记录为 “roneneldan/TinyStories (research release)”。因此本文档**不**对权重断言任何许可；作者会在公开发布前向上游作者确认条款，或把再分发依据写清楚，届时更新本节。在那之前，把这些权重当作“原样再分发、注明出处的研究发布”对待。[2026-08-22 查阅自 huggingface.co/roneneldan/TinyStories-1M 与 huggingface.co/datasets/roneneldan/TinyStories]
-- **引擎许可。** nano-lm 的许可“将在开源发布前选定”，并受作者雇主的开源审批流程约束[nano-lm README "Status";PRODUCT.md §9 第 5 行]。占位：`[LICENSE——开源审批通过后确定]`。
+- **引擎许可。** nano-lm 的许可“将在开源发布前选定”[nano-lm README "Status";PRODUCT.md §9 第 5 行]。占位：`[LICENSE——发布时确定]`。
 - **引用。** 请引用旗舰对象：Shen, Shangyan. *Inside the Machine: An Interactive Guide to How LLMs Actually Think*（仓库中的 CITATION.cff）。若专门引用浏览器内的模型，请引用 nano-lm（它有自己的 CITATION.cff）。arXiv 预印本即将发布，发布后请改引预印本。
 
 ## 怎么验证它真的离线运行（五分钟，任何设备）
