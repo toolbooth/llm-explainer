@@ -26,11 +26,11 @@ keywords:
   - machine learning education
   - transformers
   - explorable explanations
+license: MIT
 # TODO before public launch:
 #   - add `doi` from Zenodo after linking the repo and cutting a release
 #   - replace the interim `url` above with the essay's domain once it is live
 #   - enable `preferred-citation` below once the arXiv ID exists
-#   - add `license` after OSS approval clears
 #
 # Preferred citation — the arXiv preprint (Google Scholar indexes arXiv;
 # Zenodo it does not, see PAPER.md). Uncomment and fill in once the preprint
