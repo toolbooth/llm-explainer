@@ -85,20 +85,23 @@ software artifacts of the decade --- and, for most of their users, the
 least understood. \emph{Inside the Machine} is a long-form interactive
 essay that lets a curious non-engineer put their own sentence into a
 transparent model: every widget runs a complete GPT-Neo forward pass ---
-roughly 260 lines of dependency-free TypeScript, verified token-exactly
+under 250 lines of dependency-free TypeScript, verified token-exactly
 against the reference implementation --- entirely in the reader's
 browser tab, and every visualization (tokenization, an embedding map,
 attention heads discovered live, next-token gambling, the
 autoregressive loop) is computed from the reader's own words. The
 narrative assumes no ML background and is fully bilingual
-(English/Chinese). % original draft phrasing: (English / 中文)
-\signoff{abstract drafted at LaTeX-conversion time from Section 1
-language; requires author approval like everything else}
+(English/Chinese). The essay, its Classroom Edition, and its engine are
+open source (MIT) and archived on Zenodo
+(DOI~10.5281/zenodo.22089051); the site launches at
+\url{https://insidethemachine.org}. \fillatlaunch{switch ``launches
+at'' to ``is at'' once the deploy is live}
+\signoff{abstract; requires author approval like everything else}
 \end{abstract}
 
-\noindent\signoff{GLOBAL: this entire draft (2026-08-19) was written by
-Claude at the author's direction; every claim requires author sign-off
-at the scheduled post-completion deep-dive before any submission}
+\noindent\signoff{GLOBAL: drafted by Claude at the author's direction
+(2026-08-19, finalized 2026-08-24); every claim requires author
+sign-off at the read-through before any submission}
 
 \section{Introduction}
 
@@ -109,13 +112,14 @@ understood. The prevailing mental models are either magic or dismissal
 person no way to reason about \emph{why} the system just did what it
 did. High-quality explainers exist, but each leaves a gap. The
 most-cited introduction, \emph{The Illustrated Transformer}
-\citep{alammar2018illustrated}, is static and written for
-practitioners; Bycroft's 3D walkthrough \citep{bycroft2023llmviz}
-renders a real network in exquisite detail, for readers who already
-speak linear algebra; and Transformer Explainer
-\citep{cho2025transformer}, the closest neighbor to this work, puts a
-live GPT-2 in the browser but keeps its computation inside a compiled
-inference runtime and its narrative in English, aimed at ML students.
+\citep{alammar2018illustrated}, is static and speaks the field's
+vocabulary (embeddings, encoder--decoder, softmax); Bycroft's 3D
+walkthrough \citep{bycroft2023llmviz} renders a real network in
+exquisite detail, for readers who already speak linear algebra; and
+Transformer Explainer \citep{cho2025transformer}, the closest neighbor
+to this work, puts a live GPT-2 in the browser but keeps its
+computation inside a compiled inference runtime and its narrative in
+English, couched in the field's terms.
 The Annotated Transformer \citep{rush2018annotated} pioneered the
 implementation-as-exposition ideal this work adopts, but as runnable
 code for practitioners; CNN Explainer \citep{wang2021cnnexplainer}
@@ -142,13 +146,17 @@ This experience rests on two contributions:
 
 \paragraph{C1 --- an auditable in-browser model.}
 The essay's model is not an embedded inference runtime but a complete
-GPT-Neo forward pass written in roughly 260 lines of dependency-free
+GPT-Neo forward pass written in under 250 lines of dependency-free
 TypeScript (tensor ops, the transformer stack, and a hand-rolled
-safetensors parser; the full in-page engine is under 500 lines),
-executing in ${\sim}10$\,ms per pass. Its fidelity is verified
-token-exactly: greedy 12-token generations reproduce the reference
-implementation's output exactly \verifynote{restate the precise
-verification protocol}, down to faithfully reimplementing GPT-Neo's
+safetensors parser --- 238 code lines; the full engine, adding weight
+loading, sampling, embedding-neighbor search, and the live
+attention-head diagnostics, is 501), executing in 5--20\,ms per pass
+for typical sentences on a laptop. Its fidelity is enforced by a test
+suite pinned to the reference implementation: a pinned prompt's greedy
+12-token continuation must reproduce the reference token ids exactly,
+and the leading last-position logits are checked against the reference
+within fp16 tolerance, with the top next-token ranking required to
+agree --- which required faithfully reimplementing GPT-Neo's
 idiosyncratic departure from standard attention scaling (no
 $1/\sqrt{d}$ division). Where prior in-browser explainers visualize
 tensors emitted by an opaque compiled artifact, here the exposition and
@@ -172,29 +180,30 @@ pre-rendered illustration, and the bilingual plain-language narration
 extends it to audiences existing explainers do not reach.
 \signoff{AUTHOR: pedagogical claim wording}
 
-\fillatlaunch{P4 --- STATUS: deployment numbers, countries, course
-adoption, community translations. Transformer Explainer's AAAI version
-carried a single number here (125{,}000 users); ours will carry
-whatever the Q1 2027 launch produces.}
+\paragraph{Status.}
+The essay was released as open source in August~2026 (MIT; engine and
+essay archived on Zenodo, DOIs 10.5281/zenodo.22089051 and
+10.5281/zenodo.22089053) together with a Classroom Edition: the same
+widgets packaged as two lesson modules with teacher guides, printables,
+an unplugged activity, standards crosswalks, and a WCAG-audited,
+offline-capable build. Three further essays in the series (on
+confabulation, attention-head taxonomy, and tokenization failure modes)
+are built and in editorial review, with a monthly cadence planned.
+\fillatlaunch{deployment numbers for a future revision, once the
+host-side counters have accumulated}
 
 \begin{figure}[t]
   \centering
-  % [FILL AT LAUNCH] Replace this placeholder box with the real
-  % screenshot, e.g.:
-  % \includegraphics[width=\columnwidth]{figures/interface}
-  \fbox{\parbox[c][0.6\columnwidth][c]{0.92\columnwidth}{\centering
-    \emph{Placeholder: interface screenshot}\\[4pt]
-    \footnotesize figures/interface.\{png,pdf\} --- not yet captured}}
-  \caption{The reader's sentence as the connective thread of
-  \emph{Inside the Machine}. Left to right: the sentence fragments into
-  tokens (Act 1); the attention room renders the model's live attention
-  tensors over the reader's sentence and automatically discovers a
-  previous-token head (Act 3); the probability bars gamble on the next
-  token as the temperature slider moves (Act 4). Every number shown is
-  computed in the browser tab by a dependency-free TypeScript GPT-Neo
-  forward pass. \fillatlaunch{final interface screenshot; confirm act
-  numbering and panel order} \signoff{caption drafted at
-  LaTeX-conversion time}}
+  \includegraphics[width=\columnwidth]{figures/interface}
+  \caption{The reader's sentence is the essay's connective thread.
+  Top: the sentence fragments into tokens (Act 1). Bottom left: the
+  attention room renders the model's live attention tensors over the
+  reader's sentence and automatically discovers interpretable heads ---
+  here a previous-token head at L2H8 and an anchor head at L0H8
+  (Act 3). Bottom right: the probability bars gamble on the next token
+  as the temperature slider moves (Act 4, the optional larger model).
+  Every number shown is computed live in the browser tab.
+  \signoff{caption}}
   \label{fig:interface}
 \end{figure}
 
@@ -206,14 +215,12 @@ Two principles shaped the essay.
 
 \paragraph{P1 --- The implementation is the exposition.}
 Every number the reader sees is produced by a forward pass they can
-read: a dependency-free TypeScript implementation of GPT-Neo
-(${\sim}260$ lines covering the tensor ops, the transformer stack, and
-a hand-rolled safetensors parser) running TinyStories-1M (7.5\,MB,
-fp16, self-hosted). Fidelity is enforced by token-exact verification
-against the reference implementation --- greedy 12-token generations
-reproduce exactly --- which required faithfully reimplementing
-GPT-Neo's departure from standard $1/\sqrt{d}$ attention scaling.
-\signoff{verification protocol wording}
+read: a dependency-free TypeScript implementation of GPT-Neo (238 code
+lines covering the tensor ops, the transformer stack, and a hand-rolled
+safetensors parser) running TinyStories-1M (7.5\,MB, fp16,
+self-hosted). Fidelity is enforced as described in C1: a token-exact greedy
+continuation and fp16-tolerance logit checks against the reference
+implementation. \signoff{verification protocol wording}
 
 \paragraph{P2 --- The reader's sentence is the curriculum.}
 The seven acts follow the actual data path (tokenize $\rightarrow$
@@ -242,11 +249,15 @@ leaves the tab.
 
 \section{Ongoing Work}
 
-Mobile refinement and the Chinese edition's editorial pass precede a
-Q1~2027 public launch. We plan privacy-respecting deployment counting,
-outreach to instructors (the essay is designed as assignable course
-reading), and a formal learning-outcome study for an extended paper.
-\fillatlaunch{deployment numbers}
+The series continues at a planned monthly cadence (three essays are in
+editorial review), and the Classroom Edition moves from materials to
+classroom pilots with instructors other than the author. Deployment
+counting stays host-side (static-host request statistics, no in-page
+analytics), keeping the essay's ``nothing you type leaves the tab''
+promise intact while still producing the usage evidence an extended
+paper needs. Planned next: instructor outreach (the essay is designed
+as assignable course reading) and a formal learning-outcome study.
+\signoff{ongoing-work framing}
 
 % Optional future reference noted in the draft: Olah et al.,
 % distill.pub lineage for "explorable explanations". Add to

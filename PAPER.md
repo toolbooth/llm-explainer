@@ -83,9 +83,9 @@ defer, grow under the same arXiv ID.
 
 | When | Action |
 |---|---|
-| Now → 2026 Q4 | Clear the remaining pre-launch gates; finish S3b (中文/polish/80MB path test). |
-| 2026 Q4 | Author (Shangyan) drafts the 3-page paper skeleton; instrument privacy-respecting usage counting for deployment stats. |
-| **2026 Oct–Nov (pulled forward 08-21)** | Launch. Same week: Zenodo DOI (GitHub release toggle), update CITATION.cff (doi, url), create Google Scholar profile, begin arXiv endorsement hunt. |
+| **Done 2026-08-24** | Approval landed; repos public; MIT; Zenodo DOIs minted (10.5281/zenodo.22089051 / .22089053); domain insidethemachine.org wired. |
+| Now (accelerated from Q4) | 3-page paper finalized (draft complete 2026-08-24; author read-through pending). Deployment counting = host-side request stats (Cloudflare), no in-page analytics — keeps the zero-telemetry promise. |
+| Next (site deploy + author sign-off) | arXiv v1: start endorsement hunt with live site + draft PDF in hand; create Google Scholar profile once the preprint is live. Later revisions (v2+) add usage stats and new essays under the same arXiv ID. |
 | ~Feb 2027 | ACL 2027 demos — decide when CFP posts (location/travel permitting). |
 | May 2027 | VISxAI 2027 CFP posts — prep submission. |
 | ~Early Aug 2027 | **Submit explainable to VISxAI 2027** with launch usage stats. |
