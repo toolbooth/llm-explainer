@@ -51,4 +51,4 @@ Sessions the author runs — Hour of AI events, workshops, conference demos — 
 
 ## Contact
 
-`shenshangyan2001@gmail.com` — the author, as listed in CITATION.cff. Reports and letters go there or to the GitHub Discussion board at `[classroom repository URL — TBD]`. There is no mailing list and no form that stores anything on our side [PRODUCT.md §7.3].
+`shenshangyan2001@gmail.com` — the author, as listed in CITATION.cff. Reports and letters go there or to the GitHub Discussion board at [github.com/toolbooth/llm-explainer/discussions](https://github.com/toolbooth/llm-explainer/discussions). There is no mailing list and no form that stores anything on our side [PRODUCT.md §7.3].
