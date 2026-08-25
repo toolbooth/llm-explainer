@@ -38,7 +38,7 @@
 
 ## 网络与内容过滤
 
-- **域名。** 课堂站点位于 `[classroom.<旗舰域名>——待定]`，由作者持有的稳定域名，至少在第一次推广前 60 天上线，好让过滤厂商完成分类。`*.github.io`、`*.netlify.app`、`*.vercel.app` 有意不作为正式地址；它们被误判为“parked（停放域名）”或直接屏蔽的案例已有记录[PRODUCT.md §6.2]。
+- **域名。** 课堂站点位于 `insidethemachine.org`（课堂入口：`https://insidethemachine.org/#/classroom`），由作者持有的稳定域名，至少在第一次推广前 60 天上线，好让过滤厂商完成分类。`*.github.io`、`*.netlify.app`、`*.vercel.app` 有意不作为正式地址；它们被误判为“parked（停放域名）”或直接屏蔽的案例已有记录[PRODUCT.md §6.2]。
 - **申请的分类：Education / Reference（教育/参考）。** GoGuardian 的 “Artificial Intelligence Tools” 分类和 Lightspeed 的 “AI – Generative” 名单针对的是托管 AI 服务；本站不调用任何 AI 服务，也不是聊天产品[PRODUCT.md §6.2;goguardian.com/product-update/new-ai-filtering-category]。上线后作者会主动向 GoGuardian、Lightspeed、Securly、ContentKeeper 提交分类。
 - **如果还是被拦**，症状通常是三种之一：看到过滤器的拦截页而不是课程；页面打开了但模型进度一直停在 0%（`.safetensors` 文件按扩展名或大小被拦）；切词机始终不显示 token（同一域名下 `/tokenizers/gpt2/` 的分词器文件被拦——少见，因为它们只是普通 JSON）。把下面的模板发给你的 IT 联系人。
 - **无需登录**，意味着未满 18 岁的访问不需要 Google Workspace 管理员审批[PRODUCT.md §6.2]。
@@ -46,19 +46,19 @@
 
 ### 放行申请模板（改好发给 IT）
 
-> 主题：放行申请——Inside the Machine: Classroom Edition（`[课堂版域名]`）
+> 主题：放行申请——Inside the Machine: Classroom Edition（`insidethemachine.org`）
 >
 > `[姓名]` 您好，
 >
-> 我计划于 `[日期]` 在 `[课程]` 班使用一套免费的 AI 素养课程。该资源是位于 `https://[课堂版域名]/` 的静态网站（托管商：`[主机]`；仓库：`[地址]`）。目前在我校学生 Chromebook 上 `[被完全拦截 / 页面可开但模型文件无法下载 / 未分类]`。
+> 我计划于 `[日期]` 在 `[课程]` 班使用一套免费的 AI 素养课程。该资源是位于 `https://insidethemachine.org/` 的静态网站（托管商：Cloudflare Pages；仓库：`https://github.com/toolbooth/llm-explainer`）。目前在我校学生 Chromebook 上 `[被完全拦截 / 页面可开但模型文件无法下载 / 未分类]`。
 >
 > 供您审核的技术摘要：
 > - 静态 HTML/JavaScript；无账号、无登录、无 cookie、无统计、无第三方脚本。
 > - 从同一域名下载一个 7.5 MB 的模型文件（`tinystories-1m.safetensors`）和约 2 MB 的词表文件，之后不再发起任何网络请求。学生输入永不离开浏览器。
 > - 它不是聊天机器人，不联系任何 AI 服务；合适的分类是 Education/Reference 而非 AI Tools。
-> - 隐私声明与五分钟网络面板审计步骤：`https://[课堂版域名]/#/classroom/about/privacy`。
+> - 隐私声明与五分钟网络面板审计步骤：`https://insidethemachine.org/#/classroom/about/privacy`。
 >
-> 能否为学生设备放行 `[课堂版域名]`（若 `.safetensors` 文件类型被拦，请一并放行）？我很乐意在学生设备上演示。
+> 能否为学生设备放行 `insidethemachine.org`（若 `.safetensors` 文件类型被拦，请一并放行）？我很乐意在学生设备上演示。
 >
 > 谢谢！
 > `[教师姓名、学校、教室]`

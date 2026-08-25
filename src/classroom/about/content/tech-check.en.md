@@ -38,7 +38,7 @@ Built 2026-08-23 (PRODUCT.md §6.1 "offline behaviour", level (b); §10.1 item 4
 
 ## Network and content-filter notes
 
-- **Domain.** The classroom site lives at `[classroom.<flagship-domain> — TBD]`, a stable domain owned by the author, published at least 60 days before the first distribution push so that filter vendors categorize it. `*.github.io`, `*.netlify.app` and `*.vercel.app` are deliberately not the canonical URL; they have been miscategorized as "parked" or blocked [PRODUCT.md §6.2].
+- **Domain.** The classroom site lives at `insidethemachine.org` (classroom entry: `https://insidethemachine.org/#/classroom`), a stable domain owned by the author, published at least 60 days before the first distribution push so that filter vendors categorize it. `*.github.io`, `*.netlify.app` and `*.vercel.app` are deliberately not the canonical URL; they have been miscategorized as "parked" or blocked [PRODUCT.md §6.2].
 - **Category we request:** **Education / Reference.** GoGuardian's "Artificial Intelligence Tools" category and Lightspeed's "AI – Generative" list are keyed on hosted AI services; this site makes no call to any AI service and is not a chat product [PRODUCT.md §6.2; goguardian.com/product-update/new-ai-filtering-category]. The author submits the domain proactively to GoGuardian, Lightspeed, Securly and ContentKeeper once live.
 - **If the page is blocked anyway**, the symptom is usually one of: a filter block page instead of the lesson; the page loads but the model indicator never leaves 0 % (the `.safetensors` file is blocked by extension or size); or the Chopper never shows tokens (the tokenizer files under `/tokenizers/gpt2/` on the same domain are blocked — unusual, since they are plain JSON). Send the template below to your IT contact.
 - **No sign-in** means no Google Workspace admin approval is needed for under-18 access [PRODUCT.md §6.2].
@@ -46,19 +46,19 @@ Built 2026-08-23 (PRODUCT.md §6.1 "offline behaviour", level (b); §10.1 item 4
 
 ### Unblock-request template (adapt and send to IT)
 
-> Subject: Allowlist request — Inside the Machine: Classroom Edition (`[classroom domain]`)
+> Subject: Allowlist request — Inside the Machine: Classroom Edition (`insidethemachine.org`)
 >
 > Hello `[name]`,
 >
-> I plan to use a free AI-literacy lesson with my `[course]` class on `[date]`. The resource is a static website at `https://[classroom domain]/` (hosted by `[host]`; repository: `[URL]`). It is currently `[blocked entirely / loads but the model file does not download / uncategorized]` on our student Chromebooks.
+> I plan to use a free AI-literacy lesson with my `[course]` class on `[date]`. The resource is a static website at `https://insidethemachine.org/` (hosted by Cloudflare Pages; repository: `https://github.com/toolbooth/llm-explainer`). It is currently `[blocked entirely / loads but the model file does not download / uncategorized]` on our student Chromebooks.
 >
 > Technical summary for your review:
 > - Static HTML/JavaScript; no accounts, no sign-in, no cookies, no analytics, no third-party scripts.
 > - Downloads one 7.5 MB model file (`tinystories-1m.safetensors`) and ~2 MB of vocabulary files from the same domain, then makes no further network requests. Student input never leaves the browser.
 > - It is not a chatbot and contacts no AI service; the appropriate category is Education/Reference rather than AI Tools.
-> - Privacy statement and a five-minute network-tab audit procedure: `https://[classroom domain]/#/classroom/about/privacy`.
+> - Privacy statement and a five-minute network-tab audit procedure: `https://insidethemachine.org/#/classroom/about/privacy`.
 >
-> Could you allow `[classroom domain]` for student devices (and permit the `.safetensors` file type if it is blocked by extension)? I am happy to demonstrate on a student device.
+> Could you allow `insidethemachine.org` for student devices (and permit the `.safetensors` file type if it is blocked by extension)? I am happy to demonstrate on a student device.
 >
 > Thank you,
 > `[teacher name, school, room]`

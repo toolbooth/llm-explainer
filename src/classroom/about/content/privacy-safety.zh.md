@@ -42,7 +42,7 @@
 
 可直接粘贴或改写：
 
-> 该资源是一个静态网站（HTML、JavaScript、一个 7.5 MB 的模型权重文件和约 2 MB 的分词器文件），托管于 `[课堂版域名——待定]`，仅通过 HTTPS 提供。不需要账号，不设置 cookie。页面及其资源加载完成后不再发起任何网络请求：语言模型以普通 JavaScript 在浏览器标签页内运行（不用 WebGPU、不用 WebAssembly、不用浏览器扩展、无需安装）。学生输入不离开设备，输入内容不被保存。没有第三方脚本、字体、统计或 AI 服务调用。合适的过滤分类是 **Education / Reference（教育/参考）**；它不是生成式 AI 聊天服务，不应归入 “AI Tools” 类别。请放行 `[课堂版域名]`（若权重由其他主机提供，另加 `[权重/CDN 主机]`）。站点响应头允许在 Canvas/Schoology 中以 iframe 嵌入。源代码：`[仓库地址——待定]`。
+> 该资源是一个静态网站（HTML、JavaScript、一个 7.5 MB 的模型权重文件和约 2 MB 的分词器文件），托管于 `insidethemachine.org`，仅通过 HTTPS 提供。不需要账号，不设置 cookie。页面及其资源加载完成后不再发起任何网络请求：语言模型以普通 JavaScript 在浏览器标签页内运行（不用 WebGPU、不用 WebAssembly、不用浏览器扩展、无需安装）。学生输入不离开设备，输入内容不被保存。没有第三方脚本、字体、统计或 AI 服务调用。合适的过滤分类是 **Education / Reference（教育/参考）**；它不是生成式 AI 聊天服务，不应归入 “AI Tools” 类别。请放行 `insidethemachine.org`。站点响应头允许在 Canvas/Schoology 中以 iframe 嵌入。源代码：`https://github.com/toolbooth/llm-explainer`。
 
 两条审核员迟早会发现、不如我们先说的事：
 

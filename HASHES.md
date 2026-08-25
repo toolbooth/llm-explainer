@@ -18,14 +18,25 @@ are byte-identical to before.
 
 | page | route | lang | sha256 of `#root` innerHTML | chars |
 |---|---|---|---|---|
-| flagship (Inside the Machine) | `/` | en | `680f675b2ece144ab394a306b0bf91a73bf695e30fb48b8c7ce139b8f32e9967` | 20578 |
-| flagship (Inside the Machine) | `/` | zh | `bb4b603c6754e45dd4a09d3fef674ce91d5c0fff9261506c5605d62b0586f55c` | 15473 |
+| flagship (Inside the Machine) | `/` | en | `0b213e5788a2dfcd2a1cc4af60934175463f2fd7606d9fe2f5c532a720bab3b3` | 20564 |
+| flagship (Inside the Machine) | `/` | zh | `ef6cce52c483d59996d4d5cae6d0329c18bf002f5ca2a0f001959d29a2e17d31` | 15459 |
 | #2 Why It Lies | `#/essays/why-it-lies` | en | `8a6cc20d60175a6dc866e218328bacbd3dd55a93fb3dcad17030c037d3e66fea` | 9724 |
 | #2 Why It Lies | `#/essays/why-it-lies` | zh | `308034756efebfef28c88033ae543446b9320048b8629eee86b57b1e9f9f1d79` | 5393 |
 | #3 The Attention-Head Field Guide | `#/essays/attention-heads` | en | `396f9fdbe1fd498c18f4846cc90fb37cb99adc55ad0868addb6b155b14dbda11` | 78680 |
 | #3 The Attention-Head Field Guide | `#/essays/attention-heads` | zh | `c0cde6df74f55489530fffa7bebadf90b839ba78f37f5d1e48bee62d4c530696` | 69464 |
 | #4 Why It Can't Count | `#/essays/why-it-cant-count` | en | `d21af9f6d0a6574404fd19ce2a59d1bbcd03bf835e3ff11c088d0c464c4c3100` | 12425 |
 | #4 Why It Can't Count | `#/essays/why-it-cant-count` | zh | `fb7c5d8158db499ba44f02027a566d36ef3825c61e410a6305febee70d8391ce` | 7237 |
+
+## Superseded: pre-domain flagship (commit before insidethemachine.org wiring, 2026-08-24)
+
+Deliberate change: the Cite-this section's canonical URL moved from the interim
+GitHub URL to https://insidethemachine.org (14 characters shorter, hence the
+char-count drop). Essays #2–#4 untouched (reproduced).
+
+| page | lang | sha256 | chars |
+|---|---|---|---|
+| flagship (Inside the Machine) | en | `680f675b2ece144ab394a306b0bf91a73bf695e30fb48b8c7ce139b8f32e9967` | 20578 |
+| flagship (Inside the Machine) | zh | `bb4b603c6754e45dd4a09d3fef674ce91d5c0fff9261506c5605d62b0586f55c` | 15473 |
 
 ## Superseded: 中文 pages before full-width punctuation (commit `c823e61` and earlier)
 

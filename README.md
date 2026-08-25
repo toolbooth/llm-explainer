@@ -9,7 +9,7 @@ heads at once, and gambles on the next word — every step shown live, on
 your device. No videos, no mock-ups, no server: the 7.5 MB model runs in
 plain TypeScript in the page, and nothing you type leaves the tab.
 
-*Live site: launching autumn 2026. Until then, run it locally (below).*
+*Live site: [insidethemachine.org](https://insidethemachine.org) — launching autumn 2026. Until then, run it locally (below).*
 
 ## The series
 

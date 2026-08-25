@@ -65,7 +65,7 @@ Intended to work with current versions of Chrome (including ChromeOS), Edge, Saf
 If you encounter a barrier, or a gap not listed above, please tell us; a report with the widget name, the assistive technology and browser you used, and what happened is enough.
 
 - Email: `shenshangyan2001@gmail.com` (the author, as listed in CITATION.cff)
-- Issue tracker: `[classroom repository URL — TBD]` (GitHub Issues; no account needed to read, a GitHub account to post)
+- Issue tracker: `https://github.com/toolbooth/llm-explainer/issues` (GitHub Issues; no account needed to read, a GitHub account to post)
 
 We aim to acknowledge reports within two weeks. This is a solo, volunteer-maintained project; fixes are prioritized by how many learners a barrier affects.
 

@@ -14,7 +14,7 @@ export const CITE_YEAR = "2026";
 // TODO(launch): replace with the essay's canonical domain once it is live
 // (interim: the repository). Keep in sync with citation_public_url in
 // index.html and `url` in CITATION.cff.
-export const CITE_URL = "https://github.com/toolbooth/llm-explainer";
+export const CITE_URL = "https://insidethemachine.org";
 export const CITE_KEY = "shen2026insidethemachine";
 
 /** BibTeX for an interactive essay with no DOI yet — an @misc entry. */

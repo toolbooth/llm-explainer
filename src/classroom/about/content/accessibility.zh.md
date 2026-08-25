@@ -65,7 +65,7 @@
 如果你遇到了障碍，或发现上面没列出的缺口，请告诉我们；写清交互件名称、所用的辅助技术与浏览器、发生了什么，就够了。
 
 - 邮件：`shenshangyan2001@gmail.com`（作者，见 CITATION.cff）
-- 问题跟踪：`[课堂版仓库地址——待定]`（GitHub Issues；阅读不需要账号，发帖需要 GitHub 账号）
+- 问题跟踪：`https://github.com/toolbooth/llm-explainer/issues`（GitHub Issues；阅读不需要账号，发帖需要 GitHub 账号）
 
 我们争取在两周内答复。这是一个人业余维护的项目；修复顺序按障碍影响的学习者人数排。
 
