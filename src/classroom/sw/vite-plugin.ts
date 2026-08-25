@@ -9,7 +9,7 @@
  * the worker changes, the browser installs it, the old cache is dropped.
  */
 import { createHash } from "node:crypto";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import type { Plugin, ResolvedConfig } from "vite";
 import { CLASSROOM } from "../config";
@@ -41,6 +41,13 @@ export default function classroomServiceWorker(): Plugin {
       // only the main app build (the nested worker build below has no html input and skips this plugin)
       if (config.build.lib) return;
       const outDir = config.build.outDir;
+      // Rollup calls closeBundle even when the build FAILED before writing
+      // anything. Throwing here would mask the real error — warn and step
+      // aside instead (seen on Cloudflare Pages, 2026-08-24).
+      if (!existsSync(outDir)) {
+        config.logger.warn(`[classroom-service-worker] ${outDir} does not exist (build failed before write?) — skipping service-worker emit`);
+        return;
+      }
       const base = config.base; // "/" by default
       const emitted = listFiles(outDir).filter((f) => f.startsWith("assets/") && /\.(js|css)$/.test(f));
       const paths = precachePaths(base, emitted, modelAssets(CLASSROOM.assets));
