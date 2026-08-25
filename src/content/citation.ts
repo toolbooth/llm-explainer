@@ -14,6 +14,7 @@ export const CITE_YEAR = "2026";
 // TODO(launch): replace with the essay's canonical domain once it is live
 // (interim: the repository). Keep in sync with citation_public_url in
 // index.html and `url` in CITATION.cff.
+export const CITE_DOI = "10.5281/zenodo.22089051";
 export const CITE_URL = "https://insidethemachine.org";
 export const CITE_KEY = "shen2026insidethemachine";
 
@@ -24,6 +25,7 @@ export function bibtexEntry(opts: {
   title: string;
   year: string;
   url: string;
+  doi?: string;
   note: string;
 }): string {
   // Brace-protect the acronym so case-folding styles keep "LLMs".
@@ -34,6 +36,7 @@ export function bibtexEntry(opts: {
     `  title        = {${title}},`,
     `  year         = {${opts.year}},`,
     `  howpublished = {\\url{${opts.url}}},`,
+    ...(opts.doi ? [`  doi          = {${opts.doi}},`] : []),
     `  note         = {${opts.note}}`,
     `}`,
   ].join("\n");
@@ -45,5 +48,6 @@ export const FLAGSHIP_BIBTEX = bibtexEntry({
   title: CITE_TITLE,
   year: CITE_YEAR,
   url: CITE_URL,
+  doi: CITE_DOI,
   note: "Interactive essay",
 });

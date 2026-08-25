@@ -27,8 +27,8 @@ keywords:
   - transformers
   - explorable explanations
 license: MIT
+doi: 10.5281/zenodo.22089051
 # TODO before public launch:
-#   - add `doi` from Zenodo after linking the repo and cutting a release
 #   - enable `preferred-citation` below once the arXiv ID exists
 #
 # Preferred citation — the arXiv preprint (Google Scholar indexes arXiv;

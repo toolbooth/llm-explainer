@@ -1,5 +1,7 @@
 # Inside the Machine
 
+[![DOI](https://zenodo.org/badge/1345520185.svg)](https://zenodo.org/badge/latestdoi/1345520185)
+
 **An interactive guide to how LLMs actually think — a real language model,
 dissected live in your browser tab.** English and 中文.
 
