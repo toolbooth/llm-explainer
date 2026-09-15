@@ -1,0 +1,82 @@
+# "I taught with this" — discussion category form (PRODUCT.md §8.2).
+# GitHub renders this form when someone starts a new discussion in the
+# category whose slug matches this file name, so a category named
+# "I taught with this" must exist once in the repository's Discussions
+# settings (its slug becomes i-taught-with-this). Fields mirror the
+# letter kit's §A report and the site's #/classroom/taught page.
+# Teacher-level only: no field asks for anything about an individual
+# student, on purpose — if student data is posted anyway, we delete it
+# and say so (§8.1 rule 1).
+title: "I taught with this: [course, term]"
+labels: ["use-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — the lessons collect nothing, so reports like this are the only record of classroom use that exists. Teacher-level information only, please: no student names, no student work, no screenshots that show students. "Anonymous HS teacher, Ohio" is a perfectly good name. 中文报告同样欢迎。
+  - type: input
+    id: name
+    attributes:
+      label: Name — or an anonymous label
+      placeholder: "e.g. Jane Doe — or: anonymous HS teacher, Ohio"
+    validations:
+      required: true
+  - type: input
+    id: institution
+    attributes:
+      label: Institution (optional)
+  - type: input
+    id: course
+    attributes:
+      label: Course
+      placeholder: "e.g. AP CSP, Intro to CS, AI-literacy week"
+    validations:
+      required: true
+  - type: input
+    id: grade-band
+    attributes:
+      label: Grade band
+      placeholder: "e.g. 9–10, community college"
+  - type: input
+    id: term
+    attributes:
+      label: Date(s) / term
+      placeholder: "e.g. Fall 2026"
+    validations:
+      required: true
+  - type: checkboxes
+    id: modules
+    attributes:
+      label: Which modules
+      options:
+        - label: "M1 · The Word Chopper (切词机)"
+        - label: "M2 · The Next-Word Gamble (下一个词的赌局)"
+  - type: input
+    id: class-size
+    attributes:
+      label: Approximate class size, rounded to tens
+      placeholder: "e.g. about 30"
+  - type: input
+    id: devices
+    attributes:
+      label: Device type
+      placeholder: "e.g. school Chromebooks, iPads, mixed laptops"
+  - type: textarea
+    id: worked
+    attributes:
+      label: One thing that worked
+  - type: textarea
+    id: didnt
+    attributes:
+      label: One thing that didn't
+  - type: dropdown
+    id: public-listing
+    attributes:
+      label: May we list this report on the site's "I taught with this" page?
+      description: Discussions are public either way; this consent is only about the site's own list at insidethemachine.org/#/classroom/taught. Changeable or revocable at any time.
+      options:
+        - "Yes, with my name"
+        - "Yes, anonymously"
+        - "No — keep it here only"
+    validations:
+      required: true

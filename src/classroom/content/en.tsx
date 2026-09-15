@@ -133,6 +133,142 @@ export const en: ClassroomStrings = {
     ],
   },
 
+  tools: {
+    embed: {
+      label: "Embed kit",
+      blurb:
+        "One-line iframe snippets (fixed height, fallback link) for Canvas / Schoology, clean per-step URLs for Google Classroom, and live previews of the three single-widget embeds.",
+    },
+    taught: {
+      label: "“I taught with this”",
+      blurb:
+        "The public list of teachers who have reported using these lessons — and how to add yours: a two-minute report on the Discussion board or by email. Voluntary, revocable, never required.",
+    },
+  },
+
+  taught: {
+    docTitle: "I taught with this — Classroom Edition — Inside the Machine",
+    metaDescription:
+      "The public record of classroom use: consenting teachers' reports (name or anonymous, course, term, modules), how to add yours via GitHub Discussions or email, and what we never ask for.",
+    title: "“I taught with this”",
+    subtitle:
+      "The lessons collect nothing, so this page is the only record of use that exists — and every line of it was volunteered by a teacher. Here is the list, and how to join it.",
+    why: () => (
+      <>
+        These lessons have no analytics, no accounts and no counters, so the only way we can ever
+        know they were used is if a teacher says so. Reports do three things, and we say all
+        three plainly: they <strong>improve the lessons</strong> (what worked and what didn't in
+        a real class is the only feedback loop we have); they <strong>document teaching use</strong>{" "}
+        for academic submissions (a Journal of Open Source Education submission, conference
+        posters); and they serve as <strong>evidence of the work's impact</strong> in the
+        author's own professional and immigration records. You can consent to any subset of
+        those three, or none — the consent section below spells it out.
+      </>
+    ),
+    principles: {
+      heading: "The rules we hold ourselves to",
+      items: [
+        "Teacher-level only. We never ask for, accept or store student names, student work, screenshots that show students, or any student-level data; if any arrives anyway, we delete it and say so.",
+        "Aggregate professional observation is fine — “about 25 students; most could explain temperature afterward” is a teacher's own judgment and contains no student data.",
+        "Voluntary, un-incentivized, revocable. No gift cards, no swag, no early access; any statement is removed on request, at any time, and we confirm the removal.",
+        "Adults only. We never solicit student testimonials.",
+        "Disclosed dual use. Public listing, academic submissions and the author's professional and immigration records are three separate consents — you choose any subset.",
+      ],
+    },
+    adopters: {
+      heading: "Who taught with it",
+      empty: () => (
+        <>
+          <strong>No reports yet.</strong> This site went live in September 2026, and this list
+          starts with the first teacher who says “I taught with this.” If that could be you: the
+          report takes about two minutes, the fields are listed below, and{" "}
+          <em>“anonymous HS teacher, Ohio”</em> is a perfectly good name. Post it on the
+          Discussion board or email it — either way it lands here as a plain, public commit to a
+          data file. No form, no backend, nothing stored anywhere else.
+        </>
+      ),
+      modulesLabel: "Modules:",
+      via: { discussion: "via the Discussion board", email: "reported by email" },
+    },
+    channels: {
+      heading: "Tell us — two ways, both optional",
+      discussion: {
+        heading: "A. The public report (two minutes)",
+        body: () => (
+          <>
+            Post in the repository's GitHub Discussions using the “I taught with this” template —
+            the fields below are the whole form. Public by default, editable by you afterwards,
+            and other teachers get to see what worked.
+          </>
+        ),
+        link: "Open the Discussion board →",
+        notOpen: () => <>The Discussion board is not open yet — use email below.</>,
+      },
+      email: {
+        heading: "B. The same report, by email",
+        body: () => (
+          <>
+            Prefer not to post publicly? Email the same fields, and say plainly whether we may
+            list the report on this page — with your name, or anonymously. The mail stays in the
+            author's mailbox; nothing else stores it.
+          </>
+        ),
+        link: "Email a report →",
+        subject: "I taught with this — use report",
+        bodyTemplate:
+          "Name (or a label like: anonymous HS teacher, Ohio):\nInstitution (optional):\nCourse:\nGrade band:\nDate(s) / term:\nModules used (M1 The Word Chopper / M2 The Next-Word Gamble):\nApproximate class size, rounded to tens:\nDevice type:\nOne thing that worked:\nOne thing that didn't:\nMay we list this report publicly on the site? (yes with name / yes anonymously / no):",
+      },
+      letter: {
+        heading: "C. A letter (only if you want to help further)",
+        body: () => (
+          <>
+            If you have posted a report and ask how else you can help, we send the letter kit — a
+            one-page explanation of why letters matter and a 150-word skeleton. A letter is
+            signed by you, on your letterhead if you choose, and describes your own use in your
+            own words.
+          </>
+        ),
+        link: "The letter kit →",
+      },
+    },
+    fields: {
+      heading: "The report fields",
+      intro: "The same list the letter kit and the Discussion template use — teacher-level only:",
+      items: [
+        "Your name — or a label like “anonymous HS teacher, Ohio”",
+        "Institution (optional)",
+        "Course",
+        "Grade band",
+        "Date(s) / term",
+        "Which modules",
+        "Approximate class size, rounded to tens",
+        "Device type",
+        "One thing that worked",
+        "One thing that didn't",
+      ],
+    },
+    consent: {
+      heading: "Consent, in plain words",
+      body: () => (
+        <>
+          A report appears on this page only if you say it may — with your name or an anonymous
+          label, your choice, changeable or revocable at any time by email. Separately, you may
+          allow a report or a letter to be (a) quoted publicly, (b) cited in academic
+          submissions, and (c) used by the author as evidence of the work's impact in
+          professional and immigration records. Each is its own yes; none is required, and any
+          subset is fine.
+        </>
+      ),
+    },
+    never: () => (
+      <>
+        <strong>What we never ask for, accept or store:</strong> student names, student work,
+        screenshots that show students, exit-ticket responses, or any student-level data — and
+        we do not offer gift cards, swag or early access in return for reports.
+      </>
+    ),
+  },
+
   embed: {
     docTitle: "Embed kit — Classroom Edition — Inside the Machine",
     metaDescription:

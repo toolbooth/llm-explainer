@@ -69,6 +69,14 @@ export default function ClassroomIndex() {
               <span className="cl-front-blurb">{it.blurb}</span>
             </li>
           ))}
+          <li>
+            <a href={classroomHref({ kind: "embed", widget: null })}>{t.tools.embed.label}</a>
+            <span className="cl-front-blurb">{t.tools.embed.blurb}</span>
+          </li>
+          <li>
+            <a href={classroomHref({ kind: "taught" })}>{t.tools.taught.label}</a>
+            <span className="cl-front-blurb">{t.tools.taught.blurb}</span>
+          </li>
         </ul>
         <p>
           <a href="#/essays">{ui.seriesLink}</a>

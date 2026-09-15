@@ -16,6 +16,7 @@ import {
 import { en } from "../src/classroom/content/en";
 import { zh } from "../src/classroom/content/zh";
 import { availableModules } from "../src/classroom/registry";
+import { EMBED_WIDGET_IDS } from "../src/classroom/route";
 
 /**
  * `npm run audit:a11y` (scripts/audit-a11y.mjs) runs axe-core over the
@@ -29,13 +30,16 @@ import { availableModules } from "../src/classroom/registry";
 describe("accessibility audit targets", () => {
   const targets = auditTargets();
 
-  it("covers every classroom route kind for every available module, one step deep link each, and the seven front-matter pages", () => {
+  it("covers every classroom route kind for every available module, one step deep link each, the seven front-matter pages, the embed kit + widget surfaces and the taught page", () => {
     const expected = ["index"];
     for (const m of availableModules()) {
       expected.push(`${m.id}-lesson`, `${m.id}-step-2`, `${m.id}-guide`, `${m.id}-unplugged`);
       if (m.slides) expected.push(`${m.id}-slides`);
     }
     for (const slug of ABOUT_SLUGS) expected.push(`about-${slug}`);
+    expected.push("embed-kit");
+    for (const w of EMBED_WIDGET_IDS) expected.push(`embed-${w}`);
+    expected.push("taught");
     expect(targets.map((t) => t.id)).toEqual(expected);
     expect(new Set(targets.map((t) => t.route)).size).toBe(targets.length);
     expect(AUDIT_LANGS).toEqual(["en", "zh"]);

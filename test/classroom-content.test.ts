@@ -392,3 +392,29 @@ describe("embed kit strings (page + guides' §14)", () => {
     }
   });
 });
+
+// ── Adoption-evidence page strings ─────────────────────────────────────────
+describe("taught page strings (adoption evidence, PRODUCT.md §8)", () => {
+  it("follows §8: five principles, the ten §A report fields, and an email template that carries every field", () => {
+    for (const lang of ["en", "zh"] as const) {
+      const t = CLASSROOM[lang].taught;
+      expect(t.principles.items).toHaveLength(5);
+      expect(t.fields.items).toHaveLength(10);
+      // ten field lines + the site-listing consent question
+      expect(t.channels.email.bodyTemplate.split("\n")).toHaveLength(11);
+      for (const item of t.principles.items) expect(item.length).toBeGreaterThan(15);
+    }
+  });
+
+  it("keeps the canonical zh copy exact and discloses the dual use in both languages (§8.1 rule 5)", () => {
+    expect(CLASSROOM.zh.taught.title).toBe("“我用它上过课”");
+    expect(CLASSROOM.en.taught.title).toBe("“I taught with this”");
+    expect(CLASSROOM.zh.taught.adopters.heading).toBe("谁用它上过课");
+    expect(CLASSROOM.en.taught.channels.email.subject).toBe("I taught with this — use report");
+    expect(JSON.stringify(CLASSROOM.en.taught.why())).toContain("immigration");
+    expect(JSON.stringify(CLASSROOM.zh.taught.why())).toContain("移民");
+    // the anonymous pattern is offered, not just permitted
+    expect(JSON.stringify(CLASSROOM.en.taught.adopters.empty())).toContain("anonymous HS teacher, Ohio");
+    expect(JSON.stringify(CLASSROOM.zh.taught.adopters.empty())).toContain("匿名");
+  });
+});

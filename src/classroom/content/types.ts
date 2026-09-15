@@ -116,6 +116,42 @@ export interface ClassroomStrings {
     items: { slug: AboutSlug; label: string; blurb: string }[];
   };
 
+  /** The index's two tool links under the front matter: the embed kit and the evidence page. */
+  tools: {
+    embed: { label: string; blurb: string };
+    taught: { label: string; blurb: string };
+  };
+
+  /** #/classroom/taught — the adoption-evidence surface (PRODUCT.md §8). */
+  taught: {
+    docTitle: string;
+    metaDescription: string;
+    title: string;
+    subtitle: string;
+    /** Why we ask, with all three uses — improvement, academic, the author's records — disclosed plainly (§8.1 rule 5). */
+    why: () => ReactNode;
+    principles: { heading: string; items: string[] };
+    /** The public list of consenting adopters (src/classroom/adopters.ts) and its designed empty state. */
+    adopters: {
+      heading: string;
+      empty: () => ReactNode;
+      /** "Modules:" label in front of an entry's M1/M2 list. */
+      modulesLabel: string;
+      /** Where an entry came from. */
+      via: { discussion: string; email: string };
+    };
+    channels: {
+      heading: string;
+      discussion: { heading: string; body: () => ReactNode; link: string; notOpen: () => ReactNode };
+      email: { heading: string; body: () => ReactNode; link: string; subject: string; bodyTemplate: string };
+      letter: { heading: string; body: () => ReactNode; link: string };
+    };
+    /** The §A report fields, mirrored from the letter kit. */
+    fields: { heading: string; intro: string; items: string[] };
+    consent: { heading: string; body: () => ReactNode };
+    never: () => ReactNode;
+  };
+
   /** #/classroom/embed — the embed kit (PRODUCT.md §6.4, §10.1 item 6). */
   embed: {
     docTitle: string;

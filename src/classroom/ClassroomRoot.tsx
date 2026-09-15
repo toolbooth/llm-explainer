@@ -2,6 +2,7 @@ import { useEffect, type ComponentType } from "react";
 import ClassroomIndex from "./ClassroomIndex";
 import EmbedPage from "./EmbedPage";
 import EmbedWidgetPage from "./EmbedWidgetPage";
+import TaughtPage from "./TaughtPage";
 import AboutPage from "./about/AboutPage";
 import { useClassroomRoute } from "./route";
 import type { ModuleId } from "./registry";
@@ -36,8 +37,7 @@ export default function ClassroomRoot() {
   if (page.kind === "about") return <AboutPage slug={page.slug} />;
   if (page.kind === "embed")
     return page.widget === null ? <EmbedPage /> : <EmbedWidgetPage widget={page.widget} />;
-  // The evidence surface lands in the next commit; until then the route falls back safely.
-  if (page.kind === "taught") return <ClassroomIndex />;
+  if (page.kind === "taught") return <TaughtPage />;
   const pages = MODULE_PAGES[page.id];
   if (!pages) return <ClassroomIndex />;
   if (page.kind === "guide") return <pages.Guide />;

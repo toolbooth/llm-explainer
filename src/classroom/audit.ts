@@ -19,7 +19,7 @@
 import type { Lang } from "../content/i18n";
 import { ABOUT_SLUGS } from "./about/slugs";
 import { availableModules } from "./registry";
-import { classroomHref, resolveClassroomHash } from "./route";
+import { EMBED_WIDGET_IDS, classroomHref, resolveClassroomHash } from "./route";
 
 export const AUDIT_LANGS: readonly Lang[] = ["en", "zh"];
 
@@ -54,6 +54,11 @@ export function auditTargets(): AuditTarget[] {
     if (m.slides) out.push({ id: `${m.id}-slides`, route: classroomHref({ kind: "slides", id: m.id }), exercise: false });
   }
   for (const slug of ABOUT_SLUGS) out.push({ id: `about-${slug}`, route: classroomHref({ kind: "about", slug }), exercise: false });
+  // Phase 4 commit C: the embed kit, the three single-widget surfaces
+  // (what an LMS iframe actually shows students), and the evidence page.
+  out.push({ id: "embed-kit", route: classroomHref({ kind: "embed", widget: null }), exercise: false });
+  for (const w of EMBED_WIDGET_IDS) out.push({ id: `embed-${w}`, route: classroomHref({ kind: "embed", widget: w }), exercise: false });
+  out.push({ id: "taught", route: classroomHref({ kind: "taught" }), exercise: false });
   return out;
 }
 
@@ -153,7 +158,20 @@ export function auditRoutesResolve(targets: AuditTarget[] = auditTargets()): str
   const errs: string[] = [];
   for (const t of targets) {
     const page = resolveClassroomHash(t.route);
-    const kind = t.id === "index" ? "index" : t.id.startsWith("about-") ? "about" : t.id.includes("-step-") ? "module" : t.id.split("-")[1] === "lesson" ? "module" : t.id.split("-")[1];
+    const kind =
+      t.id === "index"
+        ? "index"
+        : t.id === "taught"
+          ? "taught"
+          : t.id === "embed-kit" || t.id.startsWith("embed-")
+            ? "embed"
+            : t.id.startsWith("about-")
+              ? "about"
+              : t.id.includes("-step-")
+                ? "module"
+                : t.id.split("-")[1] === "lesson"
+                  ? "module"
+                  : t.id.split("-")[1];
     if (page.kind !== kind) errs.push(`${t.id}: ${t.route} resolves to ${page.kind}, expected ${kind}`);
   }
   return errs;
