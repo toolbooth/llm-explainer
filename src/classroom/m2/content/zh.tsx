@@ -245,7 +245,7 @@ export const zh: M2Strings = {
         { framework: "AP CSP CED", id: "AAP-3 3.15 Random Values", note: "作为程序步骤的加权随机选择；骰子表是它的不插电形式。" },
         { framework: "AP CSP CED", id: "AAP-3 3.16 Simulations", note: "“掷一百次”是一个模拟，其结果分布与模型的分布对照。" },
         { framework: "ISTE 学生标准", id: "1.5 Computational Thinker", note: "从模拟中收集数据，并对波动进行推理。" },
-        { framework: "CSTA 2026 PK-12 CS 标准", id: "HS-SOC-HU-44", note: "“人与 AI”框架；对应大课延伸的辩论。" },
+        { framework: "CSTA 2026 PK-12 CS 标准", id: "HS-SOC-HU-44", note: "“人与 AI”框架；仅限大课延伸的辩论（完整的模块映射在模块 3——对照表 2026-09-15 重核）。" },
         { framework: "DOL TEN 07-25", id: "Understanding AI Principles", note: "面向 CTE / 社区学院的内容领域标签。" },
       ],
       churn: () => (

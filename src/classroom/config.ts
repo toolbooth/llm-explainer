@@ -20,9 +20,12 @@ export const CLASSROOM = {
   model: { name: "TinyStories-1M", params: "1M", weightsMB: 7.5 },
   /**
    * Everything a classroom page may fetch after the page itself, all from
-   * this origin (§6.1 page-weight budget ≤ 10 MB incl. weights; §6.2 "no
-   * third-party endpoints at all"). Byte counts are the files on disk —
-   * test/tokenizer-locality.test.ts fails if they drift.
+   * this origin (§6.2 "no third-party endpoints at all"). Byte counts are
+   * the files on disk — test/tokenizer-locality.test.ts fails if they
+   * drift. budgetMB caps weights + tokenizer at 10 MB, the narrow line
+   * kept by the §6.1 r3 re-baseline (2026-09-15: whole first visit
+   * ≤ 11 MB on disk with the measured 1.38 MB bundle) so the model can
+   * never eat the bundle's headroom.
    */
   assets: {
     tokenizer: {

@@ -333,7 +333,7 @@ export const en: M2Strings = {
         { framework: "AP CSP CED", id: "AAP-3 3.15 Random Values", note: "A weighted random choice as a program step; the dice tables are the unplugged form." },
         { framework: "AP CSP CED", id: "AAP-3 3.16 Simulations", note: "Hundred Rolls is a simulation whose outcome distribution is compared with the model's." },
         { framework: "ISTE Standards for Students", id: "1.5 Computational Thinker", note: "Collecting data from a simulation and reasoning about variation." },
-        { framework: "CSTA 2026 PK-12 CS Standards", id: "HS-SOC-HU-44", note: "Human-vs-AI framing; the block-extension debate." },
+        { framework: "CSTA 2026 PK-12 CS Standards", id: "HS-SOC-HU-44", note: "Human-vs-AI framing; the block-extension debate only (the full-module mapping is Module 3's — crosswalk, re-verified 2026-09-15)." },
         { framework: "DOL TEN 07-25", id: "Understanding AI Principles", note: "Content area tag for CTE / community college." },
       ],
       churn: () => (

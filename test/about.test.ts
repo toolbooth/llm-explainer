@@ -146,12 +146,22 @@ describe("about documents — EN/zh parity and content", () => {
       expect(card).not.toMatch(/planned configuration|规划中的配置/);
       expect(card).toContain("src/classroom/config.ts");
       expect(privacy).toContain("src/classroom/config.ts");
-      // bundle measured (phase 4: 1.29 MB on disk incl. the front-matter text) and the service worker documented
-      expect(tech).toMatch(/1\.29 MB/);
+      // bundle measured and the budget re-baselined (phase 4 commit C, 2026-09-15; PRODUCT.md §6.1 r3)
+      expect(tech).toMatch(/1\.38 MB/);
+      expect(tech).toMatch(/10\.99 MB/);
+      expect(tech).not.toMatch(/1\.29 MB|10\.90 MB/);
+      expect(tech).toMatch(/§6.1 r3|§6\.1 r3/);
       expect(tech).toContain("classroom-sw.js");
       expect(tech).not.toMatch(/service worker.*（planned|规划中）/);
       expect(privacy).not.toMatch(/service worker.*（planned|规划中）/);
       expect(card).toMatch(/Built 2026-08-23|2026-08-23 已实现/);
+      // the HS-SOC-HU-44 inconsistency is reconciled per PRODUCT.md §4.3 item 6 (REVIEW-CLASSROOM-3 open question 2):
+      // the M2 row names it, scoped to the block-extension debate, and the log records the resolution
+      const standards = ABOUT_DOCS.standards.parts[lang][0].md;
+      const m2Row = standards.split("\n").find((l) => l.startsWith("| M2 |"))!;
+      expect(m2Row).toContain("HS-SOC-HU-44");
+      expect(m2Row).toContain("2026-09-15");
+      expect(standards).toMatch(/2026-09-15 \| build phase 4|2026-09-15 \| 构建第四阶段/);
       // the accessibility statement labels unbuilt items as targets, reports the audit and lists the known gaps
       expect(a11y).toMatch(/Target, not yet built|目标、尚未构建/);
       expect(a11y).toContain("axe-core 4.13.0");
