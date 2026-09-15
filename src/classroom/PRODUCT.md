@@ -1,6 +1,6 @@
 # Inside the Machine — Classroom Edition
 
-*Product design document. Drafted 2026-08-22; revised 2026-08-22 (r2) to reconcile it against the shared front-matter drafts and the policy research journal — see the Revision log at the end. Status: proposal, not yet approved for build.*
+*Product design document. Drafted 2026-08-22; revised 2026-08-22 (r2) to reconcile it against the shared front-matter drafts and the policy research journal — see the Revision log at the end. Status (r3, 2026-09-16): all four build phases shipped — shell + M1/M2 lessons, self-hosted assets, shared front matter + PDF set, accessibility audit + service worker + embed kit + evidence surface — live at insidethemachine.org.*
 
 **One line:** a set of 45-minute, no-login, Chromebook-first lessons in which a real language model runs in the browser on each student's own sentence, packaged with a teacher guide and a standards crosswalk — free forever, no accounts, no backend, no data collection, no revenue.
 
