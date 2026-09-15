@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { CiteStrings } from "../../content/types";
 import type { HintStrings } from "../HintPanel";
 import type { AboutSlug } from "../about/slugs";
+import type { EmbedWidgetId } from "../route";
 
 export interface ClassroomA11yStrings {
   /** "Skip to the lesson" — first focusable element on every classroom page. */
@@ -113,6 +114,44 @@ export interface ClassroomStrings {
     intro: string;
     guideLine: string;
     items: { slug: AboutSlug; label: string; blurb: string }[];
+  };
+
+  /** #/classroom/embed — the embed kit (PRODUCT.md §6.4, §10.1 item 6). */
+  embed: {
+    docTitle: string;
+    metaDescription: string;
+    title: string;
+    subtitle: string;
+    /** What every embed carries: same-origin assets only, the classroom limits, the visible attribution backlink. */
+    contract: () => ReactNode;
+    /** Shown only if CLASSROOM_ORIGIN is ever unset: the snippets carry a labelled placeholder domain. */
+    placeholderNote: (placeholder: string) => ReactNode;
+    googleClassroom: { heading: string; intro: () => ReactNode };
+    canvas: { heading: string; intro: () => ReactNode; editModeNote: string };
+    /** The single-widget section: heading, intro, and one blurb per widget (titles come from the module tables). */
+    widgetsHeading: string;
+    widgetsIntro: () => ReactNode;
+    widgets: Record<EmbedWidgetId, { blurb: string }>;
+    /** The whole-page section: every lesson page, step, guide, printable and slides has a URL and a snippet. */
+    pagesHeading: string;
+    pagesIntro: () => ReactNode;
+    /** Column labels of the whole-page table. */
+    table: { what: string; url: string; height: string; snippet: string };
+    kinds: { module: string; step: (n: number) => string; guide: string; unplugged: string; slides: string };
+    /** Labels of one widget card's parts. */
+    preview: string;
+    urlLabel: string;
+    snippetLabel: string;
+    /** The link text inside the snippet's fallback paragraph. */
+    openLabel: (title: string) => string;
+    /** The iframe title attribute (WCAG 4.1.2) for one target. */
+    frameTitle: (title: string) => string;
+    copy: string;
+    copied: string;
+    /** Snippets and URLs on this page follow the page language. */
+    langNote: string;
+    /** The visible attribution footer every embedded widget carries (the backlink to the site). */
+    attribution: { pre: string; site: string; suffix: string };
   };
 
   /** Chrome of an about page: the seven-page sub-nav, the source line, the letter kit's "Cite this". */

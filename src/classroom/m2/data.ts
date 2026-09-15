@@ -476,8 +476,6 @@ export const THOUSAND_ROLLS = { favourite: 198, tvd: 0.052, seed: 7 } as const;
 /** 100 seeded rolls (ROLL_SEED) on the confident prompt "Tom and Lily went to the" at T = 1. */
 export const PARK_RUN = [66, 8, 3, 3, 1, 5, 3, 5, 5, 1] as const;
 
-/** Placeholder origin for the Canvas/Schoology iframe snippet until the canonical domain exists (phase 4). */
-export const EMBED_ORIGIN_PLACEHOLDER = "https://classroom.YOUR-DOMAIN";
 
 /** "22%" — one place for the rounding the prose uses. */
 export function pct(p: number): string {

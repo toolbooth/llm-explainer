@@ -642,8 +642,14 @@ export const en: M2Strings = {
       ),
       canvasIntro:
         "Canvas / Schoology embed — an iframe with a fixed height and a fallback link (iframes do not render in Canvas edit mode; students see them in the published page):",
-      canvasNote:
-        "Replace the placeholder origin with the canonical classroom domain once it is live (phase 4). The per-step deep links in §7 work the same way.",
+      canvasNote: () => (
+        <>
+          More snippets — every step, the printable, the slides, and the single-widget embeds
+          (the Chopper alone, or the Gamble / Hundred Rolls) — are on the{" "}
+          <a href="#/classroom/embed">embed kit page</a>, with live previews. The per-step deep
+          links in §7 work the same way.
+        </>
+      ),
     },
   },
 

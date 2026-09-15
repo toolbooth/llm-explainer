@@ -417,7 +417,9 @@ export const zh: M2Strings = {
         <>配套幻灯片：<a href="#/classroom/m2/slides">#/classroom/m2/slides</a>——十张幻灯片放在一个面向打印的页面上（导入、名单、掷骰子、不插电说明、掷一百次、温度、循环、评判、出门条），由本模块自己的文本和实测数据渲染。打印成 PDF 放进 Google Classroom，或者直接投影这一页往下滚。</>
       ),
       canvasIntro: "Canvas / Schoology 嵌入——固定高度的 iframe，附一个备用链接（iframe 在 Canvas 的编辑模式下不显示；学生在发布后的页面里能看到）：",
-      canvasNote: "正式域名上线后（第四阶段），把占位的域名换掉。第 7 节里的逐步直达链接用法相同。",
+      canvasNote: () => (
+        <>更多嵌入代码——每个步骤、打印版、幻灯片，以及单个交互件（切词机、赌局、掷一百次）——都在<a href="#/classroom/embed">嵌入工具包</a>页上，附实时预览。第 7 节里的逐步直达链接用法相同。</>
+      ),
     },
   },
 

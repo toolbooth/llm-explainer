@@ -133,6 +133,96 @@ export const en: ClassroomStrings = {
     ],
   },
 
+  embed: {
+    docTitle: "Embed kit — Classroom Edition — Inside the Machine",
+    metaDescription:
+      "One-line iframe snippets with a fixed height and a fallback link for Canvas / Schoology, clean per-step URLs for Google Classroom, and live previews of the three embeddable widgets. No accounts, no third-party requests.",
+    title: "Embed kit",
+    subtitle:
+      "Put a live widget — or a whole lesson page — into Canvas, Schoology or Google Classroom. Everything embeds from this site's own domain, with no account and the classroom limits built in.",
+    contract: () => (
+      <>
+        <strong>What every embed carries.</strong> The frames below load this site and nothing
+        else — no third-party fonts, scripts or analytics, and nothing students type leaves their
+        device. The widgets run the classroom configuration (temperature capped at 1.5; the
+        optional large model is never mounted), and every embedded widget shows a visible
+        attribution line linking back to <strong>insidethemachine.org</strong> — which is also the
+        student's way out to the full lesson.
+      </>
+    ),
+    placeholderNote: (placeholder) => (
+      <>
+        This build has no classroom origin configured, so the snippets below carry the placeholder{" "}
+        <code>{placeholder}</code> — replace it with your deployment's domain.
+      </>
+    ),
+    googleClassroom: {
+      heading: "Google Classroom — paste a link",
+      intro: () => (
+        <>
+          Classroom needs no iframe: paste the clean URL. Every lesson page, step, guide and
+          printable has one, and each carries the language parameter <code>?lang=en</code> /{" "}
+          <code>?lang=zh</code>, so your class lands in the right edition whatever the device
+          remembers. A step URL lands mid-page on the right prompt.
+        </>
+      ),
+    },
+    canvas: {
+      heading: "Canvas / Schoology — one line of HTML",
+      intro: () => (
+        <>
+          Copy a snippet into the rich-text editor's HTML view. Each snippet is one fixed-height
+          iframe plus a fallback link under it — if frames are blocked, or the screen is small,
+          the link opens the same thing in a new tab.
+        </>
+      ),
+      editModeNote:
+        "Canvas does not render iframes in edit mode; students see the frame in the published page.",
+    },
+    widgetsHeading: "Embed one widget",
+    widgetsIntro: () => (
+      <>
+        These three surfaces render one widget alone — no lesson text, no hints, just the
+        instrument and the attribution line. Same code, same 7.5 MB model, same limits as the
+        lesson pages; students can type their own sentences.
+      </>
+    ),
+    widgets: {
+      chopper: { blurb: "Module 1's tokenizer playground: a sentence in, the pieces and their ids out." },
+      gamble: { blurb: "Module 2's next-word probability bars with the temperature slider — roll for the next word." },
+      "hundred-rolls": { blurb: "Module 2's sampling histogram: press once and the same position is rolled 100 times against the bars." },
+    },
+    pagesHeading: "Embed or link a whole page",
+    pagesIntro: () => (
+      <>
+        Every lesson page, each of its three steps, the teacher guide, the unplugged printable
+        and (Module 2) the slides. The URL column is what you paste into Google Classroom; the
+        snippet is the Canvas iframe at the height shown.
+      </>
+    ),
+    table: { what: "What", url: "URL", height: "Frame height", snippet: "Snippet" },
+    kinds: {
+      module: "Lesson page",
+      step: (n) => `Step ${n}`,
+      guide: "Teacher guide",
+      unplugged: "Unplugged printable",
+      slides: "Slides",
+    },
+    preview: "Live preview",
+    urlLabel: "URL",
+    snippetLabel: "Iframe snippet",
+    openLabel: (title) => `Open ${title} (Inside the Machine: Classroom Edition)`,
+    frameTitle: (title) => `${title} — Inside the Machine: Classroom Edition`,
+    copy: "Copy",
+    copied: "Copied",
+    langNote: "Snippets and URLs on this page follow the page language — switch to 中文 above for the 中文 links.",
+    attribution: {
+      pre: "From",
+      site: "insidethemachine.org",
+      suffix: "· Inside the Machine: Classroom Edition · free · no accounts · nothing typed here leaves the device",
+    },
+  },
+
   about: {
     navLabel: "Shared front matter",
     sourceNote: (source) => (

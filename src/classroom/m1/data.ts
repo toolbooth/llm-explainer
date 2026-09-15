@@ -77,5 +77,3 @@ export function joinPieces(pieces: readonly string[]): string {
   return pieces.map((p) => p.replace(/␣/g, " ")).join("");
 }
 
-/** Placeholder origin for the Canvas/Schoology iframe snippet until the canonical domain exists (phase 4). */
-export const EMBED_ORIGIN_PLACEHOLDER = "https://classroom.YOUR-DOMAIN";

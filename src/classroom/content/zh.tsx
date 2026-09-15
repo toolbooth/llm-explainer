@@ -115,6 +115,66 @@ export const zh: ClassroomStrings = {
     ],
   },
 
+  embed: {
+    docTitle: "嵌入工具包 — 机器内部·课堂版",
+    metaDescription: "一行 iframe 代码（固定高度、附备用链接）用于 Canvas / Schoology，干净的逐步链接用于 Google Classroom，三个可单独嵌入的交互件带实时预览。无账号，无第三方请求。",
+    title: "嵌入工具包",
+    subtitle: "把一个正在运行的交互件——或整个课页——放进 Canvas、Schoology 或 Google Classroom。所有嵌入都来自本站自己的域名，无需账号，课堂限制内置。",
+    contract: () => (
+      <><strong>每种嵌入都带着什么。</strong>下面的框只加载本站，别的什么都不加载——没有任何第三方字体、脚本或统计，学生输入的内容不离开设备。交互件按课堂配置运行（温度上限 1.5；可选的大模型永不挂载），每个嵌入的交互件底部都有一行可见的署名，链接回 <strong>insidethemachine.org</strong>——那也是学生通往完整课页的出口。</>
+    ),
+    placeholderNote: (placeholder) => (
+      <>此构建尚未配置课堂站点域名，下方代码里的 <code>{placeholder}</code> 是占位符——请换成你的部署域名。</>
+    ),
+    googleClassroom: {
+      heading: "Google Classroom——直接贴链接",
+      intro: () => (
+        <>Classroom 不需要 iframe：把干净链接贴进去就行。每个课页、每个步骤、教师指南和打印版都有自己的链接，并且带语言参数 <code>?lang=en</code> / <code>?lang=zh</code>，学生打开就落在正确的语言版本上，跟设备记住了什么无关。步骤链接会直接落到对应的提示处。</>
+      ),
+    },
+    canvas: {
+      heading: "Canvas / Schoology——一行 HTML",
+      intro: () => (
+        <>把代码复制进富文本编辑器的 HTML 视图。每段代码就是一个固定高度的 iframe，附一个备用链接——如果 iframe 被拦，或者屏幕太窄，框下的链接会在新标签页打开同样的内容。</>
+      ),
+      editModeNote: "Canvas 的编辑模式不渲染 iframe；学生在发布后的页面里能看到。",
+    },
+    widgetsHeading: "嵌入单个交互件",
+    widgetsIntro: () => (
+      <>这三个页面各自只渲染一个交互件——没有课文、没有提示，只有仪器本身加一行署名。代码、7.5 MB 的模型、各项限制都和课页完全相同；学生可以输入自己的句子。</>
+    ),
+    widgets: {
+      chopper: { blurb: "模块 1 的切词器操场：进去一句话，出来碎片和编号。" },
+      gamble: { blurb: "模块 2 的下一个词概率条，带温度滑杆——掷出下一个词。" },
+      "hundred-rolls": { blurb: "模块 2 的采样直方图：按一次，同一个位置掷 100 次，和概率条对着看。" },
+    },
+    pagesHeading: "嵌入或链接整页",
+    pagesIntro: () => (
+      <>每个课页、它的三个步骤、教师指南、不插电打印版，以及（模块 2）幻灯片。URL 列直接贴进 Google Classroom；代码列是按所列高度的 Canvas iframe。</>
+    ),
+    table: { what: "内容", url: "URL", height: "框高", snippet: "代码" },
+    kinds: {
+      module: "课页",
+      step: (n) => `第 ${n} 步`,
+      guide: "教师指南",
+      unplugged: "不插电（打印版）",
+      slides: "幻灯片",
+    },
+    preview: "实时预览",
+    urlLabel: "URL",
+    snippetLabel: "iframe 代码",
+    openLabel: (title) => `打开“${title}”——机器内部·课堂版`,
+    frameTitle: (title) => `${title} — 机器内部·课堂版`,
+    copy: "复制",
+    copied: "已复制",
+    langNote: "本页的链接与代码跟随页面语言——切到 EN 可得英文版链接。",
+    attribution: {
+      pre: "来自",
+      site: "insidethemachine.org",
+      suffix: "· 机器内部·课堂版 · 永久免费 · 无账号 · 在这里输入的内容不离开设备",
+    },
+  },
+
   about: {
     navLabel: "共用前言",
     sourceNote: (source) => (

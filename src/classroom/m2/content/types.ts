@@ -123,7 +123,7 @@ export interface M2GuideStrings {
     advanced: { heading: string; prose: () => ReactNode };
   };
   accessibility: string[];
-  embed: { slides: () => ReactNode; canvasIntro: string; canvasNote: string };
+  embed: { slides: () => ReactNode; canvasIntro: string; canvasNote: () => ReactNode };
 }
 
 export interface M2SheetStrings {

@@ -1,10 +1,12 @@
 import ClassroomFrame from "../ClassroomFrame";
 import TableWrap from "../TableWrap";
 import FrontMatterLinks from "../about/FrontMatterLinks";
+import { useLang } from "../../content/i18n";
 import { useClassroomStrings } from "../content/i18n";
+import { EMBED_HEIGHTS, embedSnippet } from "../embed";
 import { classroomHref } from "../route";
 import { useM1Strings } from "./content/i18n";
-import { EMBED_ORIGIN_PLACEHOLDER, EXTENSION_STRIP, UNPLUGGED_STRIPS } from "./data";
+import { EXTENSION_STRIP, UNPLUGGED_STRIPS } from "./data";
 
 /**
  * Module 1's teacher guide — PRODUCT.md §5 "Per-module guide", items 1–14 in
@@ -16,11 +18,20 @@ import { EMBED_ORIGIN_PLACEHOLDER, EXTENSION_STRIP, UNPLUGGED_STRIPS } from "./d
  * #/classroom/about/, linked from the row under the privacy card.
  */
 export default function M1Guide() {
+  const lang = useLang();
   const c = useClassroomStrings();
   const t = useM1Strings();
   const g = t.guide;
   const s = g.sections;
-  const embed = `<iframe src="${EMBED_ORIGIN_PLACEHOLDER}/#/classroom/m1" width="100%" height="900" style="border:0" title="Module 1 · The Word Chopper" allow="fullscreen"></iframe>\n<p><a href="${EMBED_ORIGIN_PLACEHOLDER}/#/classroom/m1">Open Module 1 in a new tab</a></p>`;
+  // §14's snippet is the shared embed-kit one (embed.ts) at the lesson-page
+  // height, so the guide, the embed page and the tests print the same HTML.
+  const embed = embedSnippet({
+    page: { kind: "module", id: "m1", step: null },
+    lang,
+    title: c.embed.frameTitle(t.title),
+    openLabel: c.embed.openLabel(t.title),
+    height: EMBED_HEIGHTS.module,
+  });
 
   let n = 0;
   const H = (label: string) => (
@@ -327,7 +338,7 @@ export default function M1Guide() {
         <pre className="cl-embed" tabIndex={0} role="group" aria-label={c.a11y.codeRegion}>
           <code>{embed}</code>
         </pre>
-        <p className="dim">{g.embed.canvasNote}</p>
+        <p className="dim">{g.embed.canvasNote()}</p>
       </section>
     </ClassroomFrame>
   );

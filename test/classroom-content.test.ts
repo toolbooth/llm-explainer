@@ -354,3 +354,41 @@ describe("module 2 content tables (page + guide + printable + slides)", () => {
     expect(M2_EXTENSION_PRESETS).toContain("Two plus two is");
   });
 });
+
+// ── Embed kit strings ──────────────────────────────────────────────────────
+import { EMBED_WIDGET_IDS } from "../src/classroom/route";
+
+describe("embed kit strings (page + guides' §14)", () => {
+  it("en and zh embed tables cover the same widgets as the route slugs", () => {
+    for (const lang of ["en", "zh"] as const) {
+      expect(Object.keys(CLASSROOM[lang].embed.widgets).sort()).toEqual([...EMBED_WIDGET_IDS].sort());
+      for (const id of EMBED_WIDGET_IDS) expect(CLASSROOM[lang].embed.widgets[id].blurb.length).toBeGreaterThan(10);
+    }
+  });
+
+  it("keeps the canonical zh copy exact and interpolates in both locales", () => {
+    expect(CLASSROOM.zh.embed.title).toBe("嵌入工具包");
+    expect(CLASSROOM.en.embed.title).toBe("Embed kit");
+    expect(CLASSROOM.zh.embed.kinds.step(2)).toBe("第 2 步");
+    expect(CLASSROOM.en.embed.kinds.step(2)).toBe("Step 2");
+    expect(CLASSROOM.en.embed.frameTitle("Hundred Rolls")).toBe("Hundred Rolls — Inside the Machine: Classroom Edition");
+    expect(CLASSROOM.zh.embed.frameTitle("掷一百次")).toBe("掷一百次 — 机器内部·课堂版");
+    expect(CLASSROOM.en.embed.openLabel("The Word Chopper")).toContain("The Word Chopper");
+    expect(CLASSROOM.zh.embed.openLabel("切词机")).toContain("切词机");
+    // the attribution backlink names the live domain in both languages
+    expect(CLASSROOM.en.embed.attribution.site).toBe("insidethemachine.org");
+    expect(CLASSROOM.zh.embed.attribution.site).toBe("insidethemachine.org");
+  });
+
+  it("the guides' §14 note points at the embed kit — the placeholder-domain instruction is gone everywhere", () => {
+    for (const table of [M1.en, M1.zh, M2.en, M2.zh]) {
+      const note = JSON.stringify(table.guide.embed.canvasNote());
+      expect(note).toContain("#/classroom/embed");
+      expect(note).not.toContain("YOUR-DOMAIN");
+    }
+    // no classroom string in any language still carries the placeholder domain
+    for (const table of [CLASSROOM.en, CLASSROOM.zh, M1.en, M1.zh, M2.en, M2.zh]) {
+      expect(JSON.stringify(table)).not.toContain("YOUR-DOMAIN");
+    }
+  });
+});

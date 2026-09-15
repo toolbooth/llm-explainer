@@ -79,7 +79,7 @@ export interface M1GuideStrings {
     advanced: { heading: string; prose: () => ReactNode };
   };
   accessibility: string[];
-  embed: { slides: string; canvasIntro: string; canvasNote: string };
+  embed: { slides: string; canvasIntro: string; canvasNote: () => ReactNode };
 }
 
 export interface M1SheetStrings {

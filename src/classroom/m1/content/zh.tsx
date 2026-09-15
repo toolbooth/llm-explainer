@@ -391,7 +391,9 @@ export const zh: M1Strings = {
     embed: {
       slides: "幻灯片：MVP 阶段模块 1 没有配套幻灯片（只有模块 2 有）。课页本身可以直接投影；页面顶部每个环节都是跳转链接。",
       canvasIntro: "Canvas / Schoology 嵌入——固定高度的 iframe，附一个备用链接（iframe 在 Canvas 的编辑模式下不显示；学生在发布后的页面里能看到）：",
-      canvasNote: "正式域名上线后（第四阶段），把占位的域名换掉。第 7 节里的逐步直达链接用法相同。",
+      canvasNote: () => (
+        <>更多嵌入代码——每个步骤、打印版、幻灯片，以及单个交互件（切词机、赌局、掷一百次）——都在<a href="#/classroom/embed">嵌入工具包</a>页上，附实时预览。第 7 节里的逐步直达链接用法相同。</>
+      ),
     },
   },
 

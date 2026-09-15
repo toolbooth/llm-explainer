@@ -383,3 +383,32 @@
   .classroom .cl-dice th, .classroom .cl-dice td { border-color: #000; color: #000; }
   .classroom .cl-dice th { background: #eee; }
 }
+
+/* ── Embed kit (#/classroom/embed) and the single-widget surfaces ─────────
+   The docs page: per-widget cards (blurb, URL, snippet, copy, live
+   preview) and the whole-page table. The widget surfaces
+   (#/classroom/embed/<id>) are what the iframes load: the widget plus the
+   attribution footer, tight padding, no hero — sized for the fixed frame
+   heights in embed.ts. */
+.classroom .cl-embed-card { border-top: 1px dashed var(--border); padding-top: 1.2rem; }
+.classroom .cl-embed-k { display: block; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); margin: 0.9rem 0 0.3rem; }
+.classroom .cl-embed-url { margin: 0.2rem 0 0; }
+.classroom .cl-embed-url code { font-size: 0.82rem; word-break: break-all; color: var(--muted); }
+.classroom .cl-copy-row { margin: 0.5rem 0 0; }
+.classroom .cl-copy { font-size: 0.8rem; }
+.classroom .cl-copy.done { color: var(--accent); border-color: var(--accent); }
+.classroom .cl-embed-preview { margin: 0.9rem 0 0.4rem; }
+.classroom .cl-embed-preview iframe { border: 1px solid var(--border); border-radius: 12px; display: block; background: #fff; }
+.classroom table.cl-embed-table { font-size: 0.82rem; }
+.classroom table.cl-embed-table code { font-size: 0.78rem; word-break: break-all; }
+.classroom table.cl-embed-table td:nth-child(3) { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.classroom.cl-embed-page { max-width: none; padding: 0.8rem 0.9rem 0.4rem; }
+.classroom.cl-embed-page .cl-embed-main .widget { margin: 0; }
+.classroom .cl-attrib { font-family: var(--font-sans); font-size: 0.78rem; color: var(--dim); border-top: 1px solid var(--border); margin-top: 0.7rem; padding: 0.5rem 0.2rem 0.2rem; }
+.classroom .cl-attrib p { margin: 0; }
+.classroom .cl-attrib a { color: var(--muted); font-weight: 600; }
+.classroom .cl-attrib a:hover { color: var(--accent); }
+@media print {
+  .classroom .cl-copy { display: none; }
+}
