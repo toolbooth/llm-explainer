@@ -102,6 +102,8 @@ export default function Parrot(props: {
       ...s,
       { text, alts: dist.map((d, i) => ({ label: labels[i], p: d.p, picked: d.id === pick.id })) },
     ]);
+    // <|endoftext|> ends the story — the prose promises the bird preset stops here.
+    if (pick.id === 50256) return false;
     return promptIdsRef.current.length + genIdsRef.current.length < 2048;
   }, [props.engine, prompt, greedy, temperature, isMock]);
 
