@@ -44,6 +44,12 @@ export const ESSAYS: readonly EssayMeta[] = [
     title: { en: "Why It Can't Count", zh: "为什么 AI 数不出 strawberry 有几个 r" },
     status: "draft",
   },
+  {
+    id: "why-it-repeats",
+    slug: "why-it-repeats",
+    title: { en: "Why It Repeats Itself", zh: "为什么它复读" },
+    status: "draft",
+  },
 ];
 
 /** The reader-visible slice of the registry, in publication order. */
