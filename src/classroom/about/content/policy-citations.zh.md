@@ -1,6 +1,6 @@
 # 政策引文页——写申报书、答校董会、申请放行时可直接引用的原文
 
-*《机器内部·课堂版》共享前置文档 · 草稿 2026-08-22。*
+*《机器内部·课堂版》共享前置文档 · 草稿 2026-08-22；2026-09-16 依 PRODUCT.md r2 修订——澄清第 14277 号行政令 Sec. 6 的措辞疑点，补入教育部补充优先事项 (a)(ii), (a)(ix), (a)(x) 三条。*
 
 **用途。** 需要在政策备忘、经费申报或放行申请里说明这套资源合理性的教师或学区协调员，应当能从这一页直接复制一句话并给出出处。下面每一条引文都按所列原始文件的原文给出，并注明核对日期。每个“钩子”后面跟一段“本资源如何对应”——只陈述资源做了什么，不对效果做任何承诺。
 
@@ -18,8 +18,8 @@
 
 - **Sec. 1 首句**——“Artificial intelligence (AI) is rapidly transforming the modern world, driving innovation across industries, enhancing productivity, and reshaping the way we live and work.”（AI 正在迅速改变现代世界……）*（2026-08-22 复核，whitehouse.gov。注意：PRODUCT.md §2 没有引用 Sec. 1；本草稿只核实了这一句首句。引用更多内容前请先取得整节原文。）*
 - **Sec. 2**——“It is the policy of the United States to promote AI literacy and proficiency among Americans by promoting the appropriate integration of AI into education, providing comprehensive AI training for educators, and fostering early exposure to AI concepts and technology to develop an AI-ready workforce and the next generation of American AI innovators.”（美国的政策是通过把 AI 恰当地融入教育、为教育者提供全面的 AI 培训、让学生尽早接触 AI 概念与技术，来促进全民 AI 素养。）*（简报，2026-08;2026-08-22 复核。）*
-- **Sec. 6**——要求提供 “online resources focused on teaching K–12 students foundational AI literacy and critical thinking skills.”（面向 K–12 学生、教授基础 AI 素养与批判性思维的在线资源）*（简报，2026-08。本草稿 2026-08-22 对 whitehouse.gov 文本的复核返回了不同的 Sec. 6 句子；正式使用前请对照 govinfo PDF 确认措辞。）*
-- **Sec. 7**——“professional development for all educators, so they can integrate the fundamentals of AI into all subject areas.”（面向全体教育者的专业发展，使其能把 AI 基础融入所有学科）*（简报，2026-08；与 Sec. 6 同样的提醒。）*
+- **Sec. 6**——指示联邦机构建立 “public-private partnerships with leading AI industry organizations, academic institutions, nonprofit entities, and other organizations with expertise in AI and computer science education to collaboratively develop online resources focused on teaching K–12 students foundational AI literacy and critical thinking skills.”（与产业、学界和非营利组织建立公私合作，共同开发面向 K–12 学生、教授基础 AI 素养与批判性思维的在线资源。）*（简报，2026-08。早先草稿的措辞疑点已由 PRODUCT.md r2 澄清：较短的 “online resources …” 片段确为原文，但它是这条合作指令内部的一个从句，引用时须带上这一语境。Sec. 6 要求联邦机构及其合作方去制作这类资源，并不为第三方资源背书或认证。）*
+- **Sec. 7**——“professional development for all educators, so they can integrate the fundamentals of AI into all subject areas.”（面向全体教育者的专业发展，使其能把 AI 基础融入所有学科）*（简报，2026-08；PRODUCT.md r2 确认为原文，是关于教师培训自由裁量拨款那条指令中的片段。）*
 
 **本资源如何对应。** 它是一套在线资源，主题就是语言模型的基础机制——分词、概率、attention（注意力）、采样、训练数据——以 45 分钟一课的形式教给 9–14 年级学生，每课都以学生评价模型输出收尾，这正是 Sec. 6 那句话里“批判性思维”的那一半。教师指南写到了没有任何 CS 同事的教师也能不经培训直接上课的程度；它本身不提供专业发展，也不声称满足 Sec. 7。
 
@@ -50,9 +50,12 @@
 
 ### 教育部长补充优先事项 “Advancing Artificial Intelligence in Education”（2026 年 4 月 13 日定稿，91 FR 18774;2026 年 5 月 13 日生效）
 
-来源：govinfo.gov/content/pkg/FR-2026-04-13/pdf/2026-07087.pdf。*（全部引文：简报，2026-08。）*
+来源：govinfo.gov/content/pkg/FR-2026-04-13/pdf/2026-07087.pdf。*（全部引文：简报，2026-08；其中 (a)(ii), (a)(ix), (a)(x) 三条由 PRODUCT.md §2.1 r2 依同一份联邦公报文本补入，本页未另行复核。）*
 
 - **Priority (a)(i)**——“Support the integration of AI literacy skills and concepts into teaching and learning practices to improve educational outcomes for students, including how to detect AI-generated disinformation or misinformation online.”（支持把 AI 素养融入教学，包括如何识别网上 AI 生成的虚假与错误信息。）
+- **Priority (a)(ii)**——“Expand offerings of age-appropriate AI and computer science education in K–12 education.”（扩大 K–12 中符合年龄的 AI 与计算机科学教育的供给。）*对应：* 每个模块都是 1–3 个课时、免费、面向 9 年级及以上、按能直接放进现有 CS 课的尺寸设计的 AI 教学内容——正是要在阿拉巴马、佐治亚、密西西比式新规下扩大课程供给的学区第一天就需要的材料。
+- **Priority (a)(ix)**——“Support dissemination of appropriate methods of integrating AI into education.”（支持传播将 AI 融入教育的适当方法。）*对应：* 课程、教师指南、印刷件与嵌入工具包全部开源、免费、可自由转发，以传播为业的受资助方无需征得我们同意即可携带它们。
+- **Priority (a)(x)**——“Build evidence of appropriate methods of integrating AI into education.”（为将 AI 融入教育的适当方法积累证据。）*对应：* “我用它上过课”页面收集教师自愿提交、仅到教师层面的使用报告——正是 ED 所说的那类证据——且从不收集学生数据。
 - **Priority (a)(xi)**——“Provide support and training to educators on age-appropriate AI education methodologies that emphasize foundational concepts in AI literacy and critical thinking skills while considering developmental readiness and students' safety factors in AI tool selections in K–12 education.”（为教育者提供符合年龄的 AI 教育方法支持，强调基础概念与批判性思维，并在选择 AI 工具时考虑学生的发展阶段与安全因素。）
 - **定义**——“Artificial intelligence (AI) literacy means the technical knowledge, durable skills, civic awareness and future ready attitudes, including AI related ethical reasoning, critical social inquiry, interdisciplinary problem-solving, and creativity, required to thrive in a world influenced by AI. It enables learners to engage, create with, manage, and design AI, while critically evaluating its benefits, risks, and implications.”
 - **关于评估**——“AI adoption should not be evaluated solely by efficiency or automation metrics, but by its demonstrated impact on student engagement, learning progress, and readiness for future opportunities.”（AI 的采用不应只用效率或自动化指标评估，而应看它对学生参与度、学习进展的实际影响。）
