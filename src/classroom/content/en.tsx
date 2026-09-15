@@ -308,7 +308,7 @@ export const en: ClassroomStrings = {
       intro: () => (
         <>
           Copy a snippet into the rich-text editor's HTML view. Each snippet is one fixed-height
-          iframe plus a fallback link under it — if frames are blocked, or the screen is small,
+          iframe plus a fallback link under it — the fixed heights are sized for a content column at least ~820 px wide; if frames are blocked, the column is narrower, or the screen is small,
           the link opens the same thing in a new tab.
         </>
       ),

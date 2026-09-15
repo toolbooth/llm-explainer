@@ -7,9 +7,6 @@ authors:
     given-names: Shangyan
     email: shenshangyan2001@gmail.com
 repository-code: "https://github.com/toolbooth/llm-explainer"
-# TODO(launch): set `url` to the essay's canonical domain once it is live
-# (keep it in sync with citation_public_url in index.html and CITE_URL in
-# src/content/citation.ts). Interim: the repository.
 url: "https://insidethemachine.org"
 abstract: >-
   A long-form interactive essay in which the reader types their own sentence

@@ -227,7 +227,7 @@ export const zh: ClassroomStrings = {
     canvas: {
       heading: "Canvas / Schoology——一行 HTML",
       intro: () => (
-        <>把代码复制进富文本编辑器的 HTML 视图。每段代码就是一个固定高度的 iframe，附一个备用链接——如果 iframe 被拦，或者屏幕太窄，框下的链接会在新标签页打开同样的内容。</>
+        <>把代码复制进富文本编辑器的 HTML 视图。每段代码就是一个固定高度的 iframe，附一个备用链接——固定高度按内容栏宽约 820 像素以上标定；如果 iframe 被拦、内容栏更窄，或者屏幕太小，框下的链接会在新标签页打开同样的内容。</>
       ),
       editModeNote: "Canvas 的编辑模式不渲染 iframe；学生在发布后的页面里能看到。",
     },

@@ -247,8 +247,8 @@ Requirements:
   | Component | On disk | Gzipped (wire) | Status |
   |---|---|---|---|
   | Model weights `tinystories-1m.safetensors` + `meta.json` | 7.50 MB (7,502,858 + 249 bytes) | ~7.5 MB (the fp16 weights do not compress) | measured |
-  | GPT-2 tokenizer files `tokenizer.json` + `tokenizer_config.json`, self-hosted under `/tokenizers/gpt2/` (§6.2 — phase 2, built) | 2.11 MB (2,107,887 + 234 bytes) | ~0.60 MB | measured |
-  | App bundle: HTML + app JS + CSS (the front-matter documents, both lesson pages, guides, printables, slides, and the essays all travel inside the app chunk) | 0.82 MB (1,691 + 767,017 + 48,562 bytes) | ~0.28 MB | measured, `npm run build` 2026-09-15 (vite 7.3.6) |
+  | GPT-2 tokenizer files `tokenizer.json` + `tokenizer_config.json`, self-hosted under `/tokenizers/gpt2/` (§6.2 — phase 2, built) | 2.11 MB (2,107,653 + 234 bytes) | ~0.60 MB | measured |
+  | App bundle: HTML + app JS + CSS (the front-matter documents, both lesson pages, guides, printables, slides, and the essays all travel inside the app chunk) | 0.82 MB (1,691 + 768,763 + 48,562 bytes) | ~0.28 MB | measured, `npm run build` 2026-09-15 (vite 7.3.6) |
   | transformers.js chunk (runs the real GPT-2 BPE; loaded by every page that tokenizes) | 0.56 MB (559,200 bytes) | ~0.16 MB | measured, same build |
   | **Total** | **10.99 MB** | **~8.5 MB** | the 23.6 MB ONNX runtime in the same build belongs to the flagship's optional larger model and is never fetched by a classroom page |
 

@@ -323,6 +323,7 @@ export const en: M1Strings = {
         { framework: "CSTA 2026 PK-12 CS Standards", id: "HS-SOC-ET-40", note: "Society / ethics; the block-extension debate." },
         { framework: "AP CSP CED", id: "DAT-2", note: "Data representation: text as numbers." },
         { framework: "ISTE Standards for Students", id: "1.5 Computational Thinker", note: "Decomposition and representation." },
+        { framework: "CSTA 2026 PK-12 CS Standards", id: "HS-SOC-HU-44", note: "Human-vs-AI framing; the block-extension debate only (the full-module mapping is Module 3's — crosswalk, re-verified 2026-09-16)." },
         { framework: "DOL TEN 07-25", id: "Understanding AI Principles", note: "Content area tag for CTE / community college." },
       ],
       churn: () => (

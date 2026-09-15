@@ -227,6 +227,7 @@ export const zh: M1Strings = {
         { framework: "CSTA 2026 PK-12 CS 标准", id: "HS-SOC-ET-40", note: "社会与伦理；对应大课延伸的辩论。" },
         { framework: "AP CSP CED", id: "DAT-2", note: "数据表示：文本如何变成数字。" },
         { framework: "ISTE 学生标准", id: "1.5 Computational Thinker", note: "分解与表示。" },
+        { framework: "CSTA 2026 PK-12 CS 标准", id: "HS-SOC-HU-44", note: "“人与 AI”框架；仅限大课延伸的辩论（完整的模块映射在模块 3——对照表 2026-09-16 重核）。" },
         { framework: "DOL TEN 07-25", id: "Understanding AI Principles", note: "面向 CTE / 社区学院的内容领域标签。" },
       ],
       churn: () => (
