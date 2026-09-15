@@ -32,6 +32,9 @@ export default function ClassroomRoot() {
   }, []);
   if (page.kind === "index") return <ClassroomIndex />;
   if (page.kind === "about") return <AboutPage slug={page.slug} />;
+  // The embed kit and the evidence surface land in the next commits of
+  // this phase; until their pages register, the routes fall back safely.
+  if (page.kind === "embed" || page.kind === "taught") return <ClassroomIndex />;
   const pages = MODULE_PAGES[page.id];
   if (!pages) return <ClassroomIndex />;
   if (page.kind === "guide") return <pages.Guide />;

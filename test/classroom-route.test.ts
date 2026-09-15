@@ -52,6 +52,20 @@ describe("classroom route family", () => {
     expect(resolveClassroomHash("#/classroom/m1/slides")).toEqual({ kind: "module", id: "m1", step: null });
   });
 
+  it("resolves the embed kit, the single-widget embed surfaces and the taught page (phase 4)", () => {
+    expect(resolveClassroomHash("#/classroom/embed")).toEqual({ kind: "embed", widget: null });
+    expect(resolveClassroomHash("#/classroom/embed/")).toEqual({ kind: "embed", widget: null });
+    expect(resolveClassroomHash("#/classroom/embed/chopper")).toEqual({ kind: "embed", widget: "chopper" });
+    expect(resolveClassroomHash("#/classroom/embed/gamble")).toEqual({ kind: "embed", widget: "gamble" });
+    expect(resolveClassroomHash("#/classroom/embed/hundred-rolls")).toEqual({ kind: "embed", widget: "hundred-rolls" });
+    // an unknown widget lands on the embed kit, never a broken page
+    expect(resolveClassroomHash("#/classroom/embed/nope")).toEqual({ kind: "embed", widget: null });
+    expect(resolveClassroomHash("#/classroom/taught")).toEqual({ kind: "taught" });
+    expect(resolveClassroomHash("#/classroom/taught/extra")).toEqual({ kind: "taught" });
+    // "embed" and "taught" are not module ids
+    expect(resolveClassroomHash("#/classroom/m1/embed")).toEqual({ kind: "module", id: "m1", step: null });
+  });
+
   it("unknown modules, planned modules and unknown sub-pages fall back safely", () => {
     expect(resolveClassroomHash("#/classroom/m9")).toEqual({ kind: "index" });
     expect(resolveClassroomHash("#/classroom/nope/guide")).toEqual({ kind: "index" });
@@ -75,10 +89,17 @@ describe("classroom route family", () => {
       { kind: "guide" as const, id: "m2" as const },
       { kind: "unplugged" as const, id: "m2" as const },
       { kind: "slides" as const, id: "m2" as const },
+      { kind: "embed" as const, widget: null },
+      { kind: "embed" as const, widget: "chopper" as const },
+      { kind: "embed" as const, widget: "hundred-rolls" as const },
+      { kind: "taught" as const },
     ];
     for (const p of pages) expect(resolveClassroomHash(classroomHref(p))).toEqual(p);
     expect(classroomHref({ kind: "module", id: "m1", step: 2 })).toBe("#/classroom/m1/step-2");
     expect(classroomHref({ kind: "slides", id: "m2" })).toBe("#/classroom/m2/slides");
+    expect(classroomHref({ kind: "embed", widget: null })).toBe("#/classroom/embed");
+    expect(classroomHref({ kind: "embed", widget: "gamble" })).toBe("#/classroom/embed/gamble");
+    expect(classroomHref({ kind: "taught" })).toBe("#/classroom/taught");
   });
 
   it("never leaks into the essay listings", () => {

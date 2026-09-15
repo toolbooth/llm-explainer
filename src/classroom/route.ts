@@ -11,14 +11,31 @@
  *   #/classroom/<id>/unplugged       → the module's unplugged printable
  *   #/classroom/<id>/slides          → the module's Slides companion (if it has one)
  *   #/classroom/about/<slug>         → a shared front-matter page (src/classroom/about/)
+ *   #/classroom/embed                → the embed kit (snippets + live previews)
+ *   #/classroom/embed/<widget>       → one widget alone, for an LMS iframe
+ *   #/classroom/taught               → "I taught with this" — the adoption-evidence page
  *   anything else under #/classroom  → module index (never a broken page)
  *
  * Deep links per step are PRODUCT.md §4.1 rule 7: a teacher pastes the
  * step URL into Classroom/Canvas and students land on the right prompt.
+ * The embed routes are §6.4/§10.1 item 6; the taught route is §8.
  */
 import { useSyncExternalStore } from "react";
 import { moduleById, type ModuleId } from "./registry";
 import { isAboutSlug, type AboutSlug } from "./about/slugs";
+
+/**
+ * The widget surfaces an educator can iframe on their own (PRODUCT.md §6.4;
+ * the M1 Chopper and the M2 Gamble / Hundred Rolls). The slug list lives
+ * here, next to the other route slugs, so the router stays free of content
+ * imports; heights, labels and snippets are in embed.ts.
+ */
+export const EMBED_WIDGET_IDS = ["chopper", "gamble", "hundred-rolls"] as const;
+export type EmbedWidgetId = (typeof EMBED_WIDGET_IDS)[number];
+
+export function isEmbedWidgetId(s: string): s is EmbedWidgetId {
+  return (EMBED_WIDGET_IDS as readonly string[]).includes(s);
+}
 
 export type ClassroomPage =
   | { kind: "index" }
@@ -26,7 +43,9 @@ export type ClassroomPage =
   | { kind: "guide"; id: ModuleId }
   | { kind: "unplugged"; id: ModuleId }
   | { kind: "slides"; id: ModuleId }
-  | { kind: "about"; slug: AboutSlug };
+  | { kind: "about"; slug: AboutSlug }
+  | { kind: "embed"; widget: EmbedWidgetId | null }
+  | { kind: "taught" };
 
 /** Pure hash → classroom page resolution, exported for tests. */
 export function resolveClassroomHash(hash: string): ClassroomPage {
@@ -37,6 +56,12 @@ export function resolveClassroomHash(hash: string): ClassroomPage {
     const slug = m[2] ? decodeURIComponent(m[2]) : "";
     return isAboutSlug(slug) ? { kind: "about", slug } : { kind: "index" };
   }
+  if (head === "embed") {
+    const widget = m[2] ? decodeURIComponent(m[2]) : "";
+    if (!widget) return { kind: "embed", widget: null };
+    return isEmbedWidgetId(widget) ? { kind: "embed", widget } : { kind: "embed", widget: null };
+  }
+  if (head === "taught") return { kind: "taught" };
   const mod = moduleById(head);
   if (!mod || mod.status !== "available") return { kind: "index" };
   const sub = m[2] ? decodeURIComponent(m[2]) : "";
@@ -61,6 +86,10 @@ export function classroomHref(page: ClassroomPage): string {
       return `#/classroom/${page.id}/slides`;
     case "about":
       return `#/classroom/about/${page.slug}`;
+    case "embed":
+      return page.widget === null ? "#/classroom/embed" : `#/classroom/embed/${page.widget}`;
+    case "taught":
+      return "#/classroom/taught";
   }
 }
 
