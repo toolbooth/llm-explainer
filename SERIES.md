@@ -49,6 +49,7 @@ that format into a cadence.*
 | 3 | The Attention-Head Field Guide | 野生 attention head 图鉴 | blueprint — `essays/03-attention-heads/OUTLINE.md` |
 | 4 | Why It Can't Count | 为什么 AI 数不出 strawberry 有几个 r | blueprint — `essays/04-why-it-cant-count/OUTLINE.md` |
 | 5 | Why It Repeats Itself | 为什么它复读 | blueprint — `essays/05-why-it-repeats/OUTLINE.md` |
+| 7 | Why Chinese Costs More Tokens | 中文为什么更贵 | blueprint — `essays/07-why-chinese-costs-more/OUTLINE.md` · **zh edition is the primary text** (the series' only inversion; EN is the companion rewrite) |
 | 6 | backlog below | | candidate |
 
 ## Candidate backlog (#3, #4 built 2026-08-22; pool deepened 2026-08-23 for a monthly cadence)
@@ -61,16 +62,17 @@ that format into a cadence.*
 
 | 5→5 | **Why It Repeats Itself** (为什么它复读) — *built 2026-09-15* | The degeneration loop: greedy decoding walks into "the door opened the door"; watch the probability mass collapse and see why sampling, repetition penalties and temperature are all cures for the same disease. Built on the nano model's own measured loops (better than the planned distilgpt2 artefact: live, in-browser, reproducible). | The Parrot (TheLoop machinery + greedy toggle + repeat detection) + Gamble in nano mode |
 | 6 | **How It Knows Word Order** (它怎么知道词的顺序) | Attention is a bag — so how does "dog bites man" differ from "man bites dog"? Positional signals, demonstrated by shuffling the reader's sentence and watching which heads flinch. | AttentionRoom + `hiddenStates`; one small "shuffle" widget |
-| 7 | **中文为什么更贵** (Why Chinese Costs More Tokens) | The tokenizer tax: the same meaning costs 2–4× more tokens in 中文, and what that does to context windows, pricing and "fluency". The series' only essay whose zh edition is the primary and the EN the companion. | Chopper + Tokenizer X-ray on bilingual pairs |
+| 7 | **中文为什么更贵** (Why Chinese Costs More Tokens) — *built 2026-09-15* | The tokenizer tax: the same meaning costs 2–4× more tokens in 中文 under the site's GPT-2 scale (measured corpus ×2.33, spread ×1.56–×3.40), and what that does to context windows, pricing and "fluency" — plus the honest resolution: modern vocabularies (cl100k ×1.48, o200k ×1.02, Qwen ×0.80) have refunded most of the tax. The series' only essay whose zh edition is the primary and the EN the companion. | Built as: one new Bilingual Meter (two Chopper-style pans + ratio + window bars over the shared tokenizer) + TokenizerXray in the classroom's tokenizer-only mode; no model ever woken |
 | 8 | **King − Man + Woman** (向量算术) | Embedding arithmetic on the real 7.5 MB table: what works, what only works in the demos, and why "meaning is a place" has an exchange rate. | WordMap + `nearestNeighbors`; vector-arithmetic probe |
 | 9 | **Same Sentence, Two Brains** (同一句话,两个脑子) | The 1M-parameter storybook model and the 135M assistant read the reader's sentence side by side: what scale buys, token by token. The live version of Act 6. | Gamble ×2 (nano + big) on one prompt |
 | 10 | **What a Prompt Actually Does** (提示词到底改变了什么) | "You are a helpful assistant" is not an instruction to anyone — it's a shift of the dice. Show the distribution moving as the reader edits the prompt; prompt engineering as steering, not commanding. | Gamble (big) with prefix presets; a delta view |
 | 11 | **The Context Window Is a Table, Not a Memory** (上下文窗口不是记忆) | Why it "forgets" the start of a long chat: attention over a fixed table, what falls off the edge, and why summaries work. | AttentionRoom with long inputs; a window-edge widget |
 | 12 | **Why It Sounds Like an Assistant** (它为什么说话像客服) | Base model vs instruct-tuned model on the same prompt: where the "assistant voice" comes from, and what it costs. Needs a second big-model download — gate it. | Gamble ×2 (base vs instruct) — engine supports one big model today; extension needed |
 
-Priority for the next build (#5 built 2026-09-15): **#9** (fully evidenced by
-artefacts we already have), then **#7** (the bilingual angle no one else can
-write), then #6/#8/#10. #11/#12 need engine work.
+Priority for the next build (#5 and #7 both built 2026-09-15 — #7 was pulled
+ahead of #9 by author request, the bilingual angle no one else can write):
+**#9** (fully evidenced by artefacts we already have), then #6/#8/#10.
+#11/#12 need engine work.
 
 Backlog rules: an essay is promoted from the backlog only when its blueprint
 answers the same five questions essay #2's does (question, sections+widgets,
