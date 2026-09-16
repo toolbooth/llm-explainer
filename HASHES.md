@@ -33,8 +33,17 @@ hashes).
 | #4 Why It Can't Count | `#/essays/why-it-cant-count` | zh | `fb7c5d8158db499ba44f02027a566d36ef3825c61e410a6305febee70d8391ce` | 7237 |
 | #5 Why It Repeats Itself | `#/essays/why-it-repeats` | en | `2a3815caa5916e59e6aadbe349559b670f42d406ce5cc9d1934c9a1c18d7e31f` | 15294 |
 | #5 Why It Repeats Itself | `#/essays/why-it-repeats` | zh | `b32880ee2b20aa10a6dc4140f346a5cced989cf30f2d57694c446cbb3858c5f0` | 9790 |
-| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | en | `7815201f9b93d82bad7751c955e877c7731ca3a52b370e3dc78f03be3d67a85e` | 18192 |
-| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | zh | `613b52efb7583af9e38dda44abb0f8af49b032e4092f0df373e9a9fd498041f4` | 12668 |
+| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | en | `8eca67356034d27f6b47070d229892cddb7e42f0fc2681fd94b57299aadd0bf4` | 18212 |
+| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | zh | `0f01ab3b030467df200335281e5f79d00c30f8aef5a9736bc6f1ff13b62edf1d` | 12678 |
+
+## Superseded: essay-7 first baselines (pre scope-word fix, same day)
+
+Verify-audit fix 2026-09-16: the Act-3 steps sentence gains an old-ledger scope word in both languages; first-recorded rows below.
+
+| page | lang | sha256 | chars |
+|---|---|---|---|
+| #7 Why Chinese Costs More Tokens | en | `7815201f9b93d82bad7751c955e877c7731ca3a52b370e3dc78f03be3d67a85e` | 18192 |
+| #7 Why Chinese Costs More Tokens | zh | `613b52efb7583af9e38dda44abb0f8af49b032e4092f0df373e9a9fd498041f4` | 12668 |
 
 ## Superseded: pre-DOI flagship (before the Zenodo DOI joined the Cite-this BibTeX, 2026-08-24)
 

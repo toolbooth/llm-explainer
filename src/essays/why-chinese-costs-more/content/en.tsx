@@ -192,7 +192,7 @@ export const en: Essay7Strings = {
       <>
         It is not the only bill. In the pay-per-token era the same meaning simply invoiced two
         to three times longer in Chinese — nobody scheming, just a unit of account with a thumb
-        on the scale. Generation walks in tokens too: the same reply takes two to three times
+        on the scale. Generation walks in tokens too: the same reply, on that old ledger, took two to three times
         the steps in 中文, each step another roll of the dice (
         <a href="#/essays/why-it-lies">essay #2</a> priced those dice). One subtler line: early
         models were clumsy in Chinese partly for this reason — they were reading byte crumbs,
