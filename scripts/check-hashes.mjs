@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * npm run check:hashes — recompute the ten DOM baselines in HASHES.md
+ * npm run check:hashes — recompute the twelve DOM baselines in HASHES.md
  * (sha256 of `#root`'s innerHTML for every essay page, EN and 中文, under
  * ?mockModel=1 at 1280×800, hashed 2.5 s after load) and compare them with
  * the table in HASHES.md. Exit code 1 on any mismatch. Same machinery as
@@ -47,8 +47,8 @@ const rows = [...current.matchAll(/^\|\s*(.+?)\s*\|\s*`([^`]*)`\s*\|\s*(en|zh)\s
   sha: m[4],
   chars: Number(m[5]),
 }));
-if (rows.length !== 10) {
-  console.error(`expected 10 baseline rows in ${HASHES}, found ${rows.length}`);
+if (rows.length !== 12) {
+  console.error(`expected 12 baseline rows in ${HASHES}, found ${rows.length}`);
   process.exit(1);
 }
 

@@ -16,7 +16,10 @@ this file (`git log --diff-filter=A --format=%h -- HASHES.md`); parent commit
 block was added after the `MoreInSeries` slot, before the footer); the three
 draft essays are byte-identical to before. The two #5 rows were recorded
 2026-09-15 in the commit that adds essay #5 (all eight prior rows reproduced
-unchanged in the same run).
+unchanged in the same run). The two #7 rows were recorded 2026-09-15 in the
+commit that adds essay #7 (all ten prior rows reproduced unchanged in the
+same run; determinism double-checked — two consecutive runs, identical
+hashes).
 
 | page | route | lang | sha256 of `#root` innerHTML | chars |
 |---|---|---|---|---|
@@ -30,6 +33,8 @@ unchanged in the same run).
 | #4 Why It Can't Count | `#/essays/why-it-cant-count` | zh | `fb7c5d8158db499ba44f02027a566d36ef3825c61e410a6305febee70d8391ce` | 7237 |
 | #5 Why It Repeats Itself | `#/essays/why-it-repeats` | en | `2a3815caa5916e59e6aadbe349559b670f42d406ce5cc9d1934c9a1c18d7e31f` | 15294 |
 | #5 Why It Repeats Itself | `#/essays/why-it-repeats` | zh | `b32880ee2b20aa10a6dc4140f346a5cced989cf30f2d57694c446cbb3858c5f0` | 9790 |
+| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | en | `7815201f9b93d82bad7751c955e877c7731ca3a52b370e3dc78f03be3d67a85e` | 18192 |
+| #7 Why Chinese Costs More Tokens | `#/essays/why-chinese-costs-more` | zh | `613b52efb7583af9e38dda44abb0f8af49b032e4092f0df373e9a9fd498041f4` | 12668 |
 
 ## Superseded: pre-DOI flagship (before the Zenodo DOI joined the Cite-this BibTeX, 2026-08-24)
 
@@ -108,7 +113,7 @@ It reproduces every hash above, including the superseded ones at `6279a98`.
 (async () => {
   const pages = [["flagship", ""], ["why-it-lies", "#/essays/why-it-lies"],
     ["attention-heads", "#/essays/attention-heads"], ["why-it-cant-count", "#/essays/why-it-cant-count"],
-    ["why-it-repeats", "#/essays/why-it-repeats"]];
+    ["why-it-repeats", "#/essays/why-it-repeats"], ["why-chinese-costs-more", "#/essays/why-chinese-costs-more"]];
   const sha = async (s) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
     .map((x) => x.toString(16).padStart(2, "0")).join("");
   const out = [];
