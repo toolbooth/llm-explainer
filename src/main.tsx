@@ -7,6 +7,7 @@ import WhyItLies from "./essays/why-it-lies/WhyItLies";
 import AttentionHeads from "./essays/attention-heads/AttentionHeads";
 import WhyItCantCount from "./essays/why-it-cant-count/WhyItCantCount";
 import WhyItRepeats from "./essays/why-it-repeats/WhyItRepeats";
+import WhyChineseCostsMore from "./essays/why-chinese-costs-more/WhyChineseCostsMore";
 import ClassroomRoot from "./classroom/ClassroomRoot";
 import "./classroom/m1"; // registers M1's lesson page, guide and printable
 import "./classroom/m2"; // registers M2's lesson page, guide, printable and slides
@@ -22,6 +23,7 @@ const ESSAY_PAGES: Record<string, ComponentType> = {
   "attention-heads": AttentionHeads,
   "why-it-cant-count": WhyItCantCount,
   "why-it-repeats": WhyItRepeats,
+  "why-chinese-costs-more": WhyChineseCostsMore,
 };
 
 /** `#/essays/<slug>` → that essay; `#/essays…` → series index; `#/classroom…` → Classroom Edition; else essay #1. */

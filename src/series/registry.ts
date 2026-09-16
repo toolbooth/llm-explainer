@@ -50,6 +50,15 @@ export const ESSAYS: readonly EssayMeta[] = [
     title: { en: "Why It Repeats Itself", zh: "为什么它复读" },
     status: "draft",
   },
+  {
+    // #7 — the series' only zh-primary essay (its zh edition is the primary
+    // text; the EN title is the companion). Built ahead of #6/#9 per the
+    // 2026-09-15 task; publication order is decided at publish time.
+    id: "why-chinese-costs-more",
+    slug: "why-chinese-costs-more",
+    title: { en: "Why Chinese Costs More Tokens", zh: "中文为什么更贵" },
+    status: "draft",
+  },
 ];
 
 /** The reader-visible slice of the registry, in publication order. */

@@ -394,3 +394,19 @@ body {
 @media (prefers-reduced-motion: reduce) { .bars.pulse .bar-fill { animation: none; } }
 
 .head-label { color: var(--muted); font-size: 0.85rem; }
+
+/* ── Essay #7: the bilingual meter ── */
+
+.meter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px) { .meter-grid { grid-template-columns: 1fr; } }
+.meter-pan { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+.meter-pan-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); }
+.meter-tokens { margin-top: 0; max-height: 220px; overflow-y: auto; align-content: flex-start; }
+.meter-readout { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
+.meter-readout strong { color: #fff; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.meter-share { font-variant-numeric: tabular-nums; }
+.meter-window { height: 10px; }
+.meter-window .bar-fill { min-width: 2px; }
+.meter-ratio { display: flex; align-items: baseline; gap: 0.8rem; justify-content: center; margin: 1.2rem 0 0.2rem; }
+.meter-ratio-x { font-family: var(--font-mono); font-size: 1.7rem; font-weight: 800; color: var(--warm); font-variant-numeric: tabular-nums; }
+.meter-ratio-cap { font-variant-numeric: tabular-nums; }
